@@ -1,0 +1,18 @@
+[{
+    "username": "HeavenDuke",
+    "telephone": "18811409948",
+    "password": "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a",
+    "head_id": "head_3",
+    "introduction": "Test user 1."
+}, {
+    "username": "BigBird",
+    "telephone": "13141474298",
+    "password": "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a",
+    "head_id": "head_2"
+}, {
+    "username": "AsherWang",
+    "telephone": "13146021274",
+    "password": "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a",
+    "head_id": "head_1",
+    "introduction": "Test user 2."
+}]
