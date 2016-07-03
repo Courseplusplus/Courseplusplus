@@ -2,27 +2,19 @@
  * Created by wangzhaoyi on 16/7/3.
  */
 module.exports = function (sequelize, DataTypes) {
-    return sequelize.define('team', {
-        team_id: {
+    return sequelize.define('student_belongsto_team', {
+        student_team_relation:{
             type: DataTypes.INTEGER,
             autoIncrement: true,
             allowNull: false,
             primaryKey: true
         },
-        team_name: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-                len: [1, 3000]
-            }
+        team_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         },
-        leader:{
+        student_id:{
             type:DataTypes.STRING,
-            allowNull:false
-        },
-        course_id:{
-            type:DataTypes.INTEGER,
             allowNull:false
         }
     }, {

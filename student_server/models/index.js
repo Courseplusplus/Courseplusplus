@@ -8,29 +8,31 @@ var path = require('path');
 module.exports = function (database, username, password, config) {
     var sequelize = new Sequelize(database, username, password, config);
 
-    var User = sequelize.import(path.join(__dirname, 'objects/user'));
-    var Friend = sequelize.import(path.join(__dirname, 'objects/friend'));
-    var FriendApplication = sequelize.import(path.join(__dirname, 'objects/friend_application'));
-    var Group = sequelize.import(path.join(__dirname, 'objects/group'));
-    var Membership = sequelize.import(path.join(__dirname, 'objects/membership'));
+    var Assignment = sequelize.import(path.join(__dirname,'objects/assignment'));
+    var Submit = sequelize.import(path.join(__dirname,'objects/assignment'));
+    var Course = sequelize.import(path.join(__dirname,'objects/course'));
+    var Resource = sequelize.import(path.join(__dirname,'objects/resource'));
+    var Student = sequelize.import(path.join(__dirname,'objects/student'));
+    var Teacher = sequelize.import(path.join(__dirname,'objects/teacher'));
+    var Team = sequelize.import(path.join(__dirname,'objects/team'));
     var Chat = sequelize.import(path.join(__dirname, 'objects/chat'));
 
-    Group.belongsToMany(User, {through: Membership, foreignKey: "group_id"});
-    User.belongsToMany(Group, {through: Membership, foreignKey: "user_id"});
+    var Student_Team = sequelize.import(path.join(__dirname,'objects/student_belongsto_team'));
+    var Student_Course= sequelize.import(path.join(__dirname,'objects/student_belongsto_course'));
 
-    User.belongsToMany(User, {as: "senders", through: FriendApplication, foreignKey: "launcher_id"});
-    User.belongsToMany(User, {as: "receivers", through: FriendApplication, foreignKey: "receiver_id"});
+    Assignment.hasMany(Submit,{as:"assignment_id",foreignKey:"assignment_id"});
+    Course.hasMany(Assignment,{as:"course_id",foreignKey:"course_id"});
+    Course.hasMany(Resource,{as:"course_id",foreignKey:"course_id"});
+    Course.hasMany(Team,{as:"course_id",foreignKey:"course_id"});
+    Course.hasMany(Chat,{as:"course_id",foreignKey:"course_id"});
+    Team.hasMany(Submit,{as:"team_id",foreignKey:"team_id"});
+    Student.hasMany(Team,{as:"leader",foreignKey:"student_id"});
+    //Student.hasMany(Chat,{as:"sender"})
 
-    User.belongsToMany(User, {as: "selves", through: Friend, foreignKey: "user_id"});
-    User.belongsToMany(User, {as: "friends", through: Friend, foreignKey: "friend_user_id"});
-
-    User.hasMany(Chat, {as: "sender", foreignKey: "sender_id"});
-    User.hasOne(Chat, {as: "receiver", foreignKey: "receiver_id"});
-
-    Chat.belongsTo(User, {as: "sent_chats", foreignKey: "sender_id"});
-    Chat.belongsTo(User, {as: "received_chats", foreignKey: "receiver_id"});
-    Chat.belongsTo(Group, {foreignKey: "group_id"});
-    Group.hasMany(Chat, {foreignKey: "group_id"});
+    Student.belongsToMany(Team,{as:"student_id",through:Student_Team, foreignKey:"student_id"});
+    Team.belongsToMany(Student,{as:"team_id",through:Student_Team,foreignKey:"team_id"});
+    Student.belongsToMany(Course,{as:"student_id",through:Student_Course,foreignKey:"student_id"});
+    Course.belongsToMany(Course,{as:"course_id",through:Student_Course,foreighKey:"course_id"});
 
     return sequelize;
 };

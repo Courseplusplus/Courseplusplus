@@ -21,6 +21,14 @@ module.exports = function (sequelize, DataTypes) {
             allowNull:false,
             defaultValue:default_assignment_type()
         },
+        course_id:{
+            type:DataTypes.INTEGER,
+            allowNull:false
+        },
+        lesson_id:{
+            type:DataTypes.INTEGER,
+            allowNull:true
+        },
         upload_time:{
             type:DataTypes.NOW,
             allowNull:false
