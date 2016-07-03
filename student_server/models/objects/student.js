@@ -1,7 +1,6 @@
 /**
- * Created by heavenduke on 16-4-13.
+ * Created by wangzhaoyi on 16/7/3.
  */
-
 module.exports = function (sequelize, DataTypes) {
     function head_values() {
         return ["head_1", "head_2", "head_3"];
@@ -11,14 +10,14 @@ module.exports = function (sequelize, DataTypes) {
         return head_values()[0];
     }
 
-    return sequelize.define('users', {
-        user_id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
+    return sequelize.define('student', {
+        student_id: {
+            type: DataTypes.STRING,
+            autoIncrement: false,
             allowNull: false,
             primaryKey: true
         },
-        username: {
+        name: {
             type: DataTypes.STRING(30),
             allowNull: false,
             validate: {
@@ -44,14 +43,6 @@ module.exports = function (sequelize, DataTypes) {
             unique: true,
             validate: {
                 is: /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i
-            }
-        },
-        introduction: {
-            type: DataTypes.TEXT,
-            allowNull: true,
-            default: "",
-            validate: {
-                len: [0, 200]
             }
         },
         password: {
