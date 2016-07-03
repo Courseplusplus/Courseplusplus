@@ -25,11 +25,11 @@ module.exports = function (sequelize, DataTypes) {
             }
         },
         sender_teacher: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: true
         },
         sender_student:{
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: true
         },
         time_stamp: {
