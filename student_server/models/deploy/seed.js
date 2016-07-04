@@ -15,9 +15,9 @@
     database.sync();
 
     var models = database.models;
-    var Course = models.course;
-    var Teacher = models.teacher;
-    var Resource = models.resource;
+    var Course = models.courses;
+    var Teacher = models.teachers;
+    var Resource = models.resources;
 
     var init_teachers = function (teacher_datas, callback) {
         var teacher_num = teacher_datas.length;
