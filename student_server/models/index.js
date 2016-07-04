@@ -9,7 +9,7 @@ module.exports = function (database, username, password, config) {
     var sequelize = new Sequelize(database, username, password, config);
 
     var Assignment = sequelize.import(path.join(__dirname,'objects/assignment'));
-    var Submit = sequelize.import(path.join(__dirname,'objects/assignment'));
+    var Submit = sequelize.import(path.join(__dirname,'objects/submit'));
     var Course = sequelize.import(path.join(__dirname,'objects/course'));
     var Resource = sequelize.import(path.join(__dirname,'objects/resource'));
     var Student = sequelize.import(path.join(__dirname,'objects/student'));
