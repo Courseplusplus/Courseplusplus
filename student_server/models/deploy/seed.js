@@ -15,21 +15,22 @@
     database.sync();
 
     var models = database.models;
-    var User = models.users;
-    var Group = models.groups;
-    var chats = models.chats;
+    console.log(database);
+    console.log(models);
+    var Student = models.student;
+    console.log(Student.create);
 
-    var init_users = function (user_datas, callback) {
-        var user_num = user_datas.length;
-        var user_cnt = 0;
-        for(var index in user_datas) {
-            User.create(user_datas[index]).then(function (user) {
-                if(user) {
-                    user_cnt++;
+    var init_users = function (datas, callback) {
+        var num = datas.length;
+        var cnt = 0;
+        for(var index in datas) {
+            Student.create(datas[index]).then(function (item) {
+                if(item) {
+                    cnt++;
                 }
-                if (user_cnt >= user_num) {
-                    User.findAll({}).then(function (users) {
-                        callback(users);
+                if (cnt >= num) {
+                    Student.findAll({}).then(function (items) {
+                        callback(items);
                     });
                 }
             });
@@ -39,9 +40,9 @@
 
     // 用户数据在./fixtures/users.json中，包含三个测试用的用户
     // 三个用户的密码都是123456
-    init_users(require('./fixtures/users'), function (users) {
-        users.forEach(function (user) {
-            console.log(user.dataValues);
+    init_users(require('./fixtures/students'), function (students) {
+        students.forEach(function (student) {
+            console.log(student.dataValues);
         });
     });
 
