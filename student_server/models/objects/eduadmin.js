@@ -1,7 +1,7 @@
 /**
  * Created by jiyang on 16/7/3.
  */
-module.export = function(sequelize, DateTypes) {
+module.export = function(sequelize, DataTypes) {
     return sequelize.define('eduadmin', {
         eduadmin_id: {
             type: DataTypes.INTEGER,
