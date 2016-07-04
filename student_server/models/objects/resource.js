@@ -16,7 +16,7 @@ module.exports = function (sequelize, DataTypes) {
             primaryKey: true
         },
         resource_type:{
-            type:DataTypes.ENUM,
+            type:DataTypes.ENUM("PPT", "VIDEO", "OTHER"),
             value:resource_type(),
             allowNull:false,
             defaultValue:default_resource_type()

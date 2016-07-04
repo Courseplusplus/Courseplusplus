@@ -16,7 +16,7 @@ module.exports = function (sequelize, DataTypes) {
             primaryKey: true
         },
         assignment_type:{
-            type:DataTypes.ENUM,
+            type:DataTypes.ENUM("SINGLE","TEAM"),
             value:assignment_type(),
             allowNull:false,
             defaultValue:default_assignment_type()
