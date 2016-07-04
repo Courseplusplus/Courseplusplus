@@ -25,7 +25,7 @@ module.exports = function (sequelize, DataTypes) {
             }
         },
         term:{
-            type:DataTypes.DATE,
+            type:DataTypes.DATEONLY,
             allowNull:false
         }
     }, {
