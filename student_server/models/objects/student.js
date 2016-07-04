@@ -24,19 +24,6 @@ module.exports = function (sequelize, DataTypes) {
                 len: [6, 30]
             }
         },
-        head_id: {
-            type: DataTypes.ENUM,
-            values: head_values(),
-            allowNull: false,
-            defaultValue: default_head_values(),
-            validate: {
-                withinEnum: function (value) {
-                    if (head_values().indexOf(value) == -1) {
-                        throw new Error('头像编号不合法');
-                    }
-                }
-            }
-        },
         telephone: {
             type: DataTypes.STRING(100),
             allowNull: false,
