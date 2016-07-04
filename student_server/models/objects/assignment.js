@@ -30,7 +30,8 @@ module.exports = function (sequelize, DataTypes) {
             allowNull:true
         },
         upload_time:{
-            type:DataTypes.NOW,
+            type:DataTypes.DATE,
+            defaultValue:DataTypes.Now,
             allowNull:false
         },
         deadline:{

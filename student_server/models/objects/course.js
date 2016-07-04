@@ -19,7 +19,6 @@ module.exports = function (sequelize, DataTypes) {
         introduction: {
             type: DataTypes.TEXT,
             allowNull: false,
-            defaultValue:"未添加",
             validate: {
                 notEmpty: true,
                 len: [1, 3000]

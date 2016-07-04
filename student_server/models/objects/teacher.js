@@ -2,16 +2,8 @@
  * Created by wangzhaoyi on 16/7/3.
  */
 module.exports = function (sequelize, DataTypes) {
-    function head_values() {
-        return ["head_1", "head_2", "head_3"];
-    }
-
-    function default_head_values() {
-        return head_values()[0];
-    }
-
     return sequelize.define('teacher', {
-        student_id: {
+        teacher_id: {
             type: DataTypes.STRING,
             autoIncrement: false,
             allowNull: false,
