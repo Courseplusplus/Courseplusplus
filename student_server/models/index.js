@@ -21,22 +21,22 @@ module.exports = function (database, username, password, config) {
     var Student_Course= sequelize.import(path.join(__dirname,'objects/student_belongsto_course'));
     var Teacher_Course = sequelize.import(path.join(__dirname,'objects/teacher_belongsto_course'));
 
-    Assignment.hasMany(Submit,{as:"assignment_id",foreignKey:"assignment_id"});
-    Course.hasMany(Assignment,{as:"course_id",foreignKey:"course_id"});
-    Course.hasMany(Resource,{as:"course_id",foreignKey:"course_id"});
-    Course.hasMany(Team,{as:"course_id",foreignKey:"course_id"});
-    Course.hasMany(Chat,{as:"course_id",foreignKey:"course_id"});
-    Team.hasMany(Submit,{as:"team_id",foreignKey:"team_id"});
+    Assignment.hasMany(Submit,{foreignKey:"assignment_id"});
+    Course.hasMany(Assignment,{foreignKey:"course_id"});
+    Course.hasMany(Resource,{foreignKey:"course_id"});
+    Course.hasMany(Team,{foreignKey:"course_id"});
+    Course.hasMany(Chat,{foreignKey:"course_id"});
+    Team.hasMany(Submit,{foreignKey:"team_id"});
     Student.hasMany(Team,{as:"leader",foreignKey:"student_id"});
     Student.hasMany(Chat,{as:"sender_student",foreignKey:"student_id"});
     Teacher.hasMany(Chat,{as:"sender_teacher",foreignKey:"teacher_id"});
 
-    Student.belongsToMany(Team,{as:"student_id",through:Student_Team, foreignKey:"student_id"});
-    Team.belongsToMany(Student,{as:"team_id",through:Student_Team,foreignKey:"team_id"});
-    Student.belongsToMany(Course,{as:"student_id",through:Student_Course,foreignKey:"student_id"});
-    Course.belongsToMany(Student,{as:"course_id",through:Student_Course,foreignKey:"course_id"});
-    Teacher.belongsToMany(Course,{as:"teacher_id",through:Teacher_Course,foreignKey:"teacher_id"});
-    Course.belongsToMany(Teacher,{as:"course_id",through:Teacher_Course,foreignKey:"course_id"});
+    Student.belongsToMany(Team,{through:Student_Team, foreignKey:"student_id"});
+    Team.belongsToMany(Student,{through:Student_Team,foreignKey:"team_id"});
+    Student.belongsToMany(Course,{through:Student_Course,foreignKey:"student_id"});
+    Course.belongsToMany(Student,{through:Student_Course,foreignKey:"course_id"});
+    Teacher.belongsToMany(Course,{through:Teacher_Course,foreignKey:"teacher_id"});
+    Course.belongsToMany(Teacher,{through:Teacher_Course,foreignKey:"course_id"});
 
     return sequelize;
 };

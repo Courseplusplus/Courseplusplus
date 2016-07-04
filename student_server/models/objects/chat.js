@@ -45,7 +45,7 @@ module.exports = function (sequelize, DataTypes) {
         },
         identity_type:{
             type:DataTypes.ENUM("student","teacher"),
-            value:identity_type(),
+            value:identity_id(),
             defaultValue:default_identity()
         }
     }, {

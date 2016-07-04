@@ -1,6 +1,6 @@
 {
     "mysql": {
-        "database": "bacebook",
+        "database": "Coursepp",
         "username": "root",
         "password": "",
         "config": {
@@ -24,5 +24,5 @@
             "auth_pass": null
         }
     },
-    "session_secret": "bacebook_session_secret"
+    "session_secret": "coursepp_session_secret"
 }
