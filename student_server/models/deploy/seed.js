@@ -15,26 +15,53 @@
     database.sync();
 
     var models = database.models;
-    var Assignment = models.assignment;
-    var Submit = models.submit;
     var Course = models.course;
-    var Resource = models.resource;
-    var Student = models.student;
     var Teacher = models.teacher;
-    var Team = models.team;
-    var Chat = models.chat;
+    var Resource = models.resource;
 
-    var init_users = function (user_datas, callback) {
-        var user_num = user_datas.length;
-        var user_cnt = 0;
-        for(var index in user_datas) {
-            User.create(user_datas[index]).then(function (user) {
-                if(user) {
-                    user_cnt++;
+    var init_teachers = function (teacher_datas, callback) {
+        var teacher_num = teacher_datas.length;
+        var teacher_cnt = 0;
+        for(var index in teacher_datas) {
+            Teacher.create(teacher_datas[index]).then(function (teacher) {
+                if(teacher) {
+                    teacher_cnt++;
                 }
-                if (user_cnt >= user_num) {
-                    User.findAll({}).then(function (users) {
-                        callback(users);
+                if (teacher_cnt >= teacher_num) {
+                    teacher.findAll({}).then(function (teachers) {
+                        callback(teachers);
+                    });
+                }
+            });
+        }
+    };
+    var init_course = function (course_datas, callback){
+        var course_num = course_datas.length;
+        var course_cnt = 0;
+        for(var index in course_datas){
+            Course.create(course_datas[index]).then(function(course){
+                if(course){
+                    course_cnt++;
+                }
+                if(course_cnt >= course_num){
+                    Course.findAll({}).then(function(courses){
+                        callback(courses);
+                    });
+                }
+            });
+        }
+    };
+    var init_resource = function (resource_datas, callback){
+        var resource_num = resource_datas.length;
+        var resource_cnt = 0;
+        for(var index in resource_datas){
+            Resource.create(resource_datas[index]).then(function(resource){
+                if(resource){
+                    resource_cnt++;
+                }
+                if(resource_cnt >= resource_num){
+                    resource.findAll({}).then(function(resources){
+                        callback(resources);
                     });
                 }
             });
@@ -42,12 +69,13 @@
     };
 
 
-    // 用户数据在./fixtures/users.json中，包含三个测试用的用户
+    // 用户数据在./fixtures/teachers.json中，包含三个测试用的用户
     // 三个用户的密码都是123456
-    init_users(require('./fixtures/users'), function (users) {
-        users.forEach(function (user) {
-            console.log(user.dataValues);
+    init_teachers(require('./fixtures/teachers'), function (teachers) {
+        teachers.forEach(function (teacher) {
+            console.log(teacher.dataValues);
         });
     });
+    init_course(require('./fixtures/courses'))
 
 }());

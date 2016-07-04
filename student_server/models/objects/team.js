@@ -24,6 +24,11 @@ module.exports = function (sequelize, DataTypes) {
         course_id:{
             type:DataTypes.INTEGER,
             allowNull:false
+        },
+        permission:{
+            type:DataTypes.ENUM("Permited","Not Decided","Denied"),
+            allowNull:false,
+            defaultValue:"Not Decided"
         }
     }, {
         underscored: true
