@@ -20,9 +20,9 @@
     var Course = models.course;
     var Resource = models.resource;
     var Student = models.student;
-    var Teacher =
-    var Team =
-    var Chat =
+    var Teacher = models.teacher;
+    var Team = models.team;
+    var Chat = models.chat;
 
     var init_users = function (user_datas, callback) {
         var user_num = user_datas.length;
