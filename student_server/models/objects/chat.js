@@ -1,5 +1,5 @@
 /**
- * Created by heavenduke on 16-5-13.
+ * Created by wangzhaoyi on 16/7/3.
  */
 
 module.exports = function (sequelize, DataTypes) {
@@ -26,11 +26,13 @@ module.exports = function (sequelize, DataTypes) {
         },
         sender_teacher: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: true,
+            defaultValue:null
         },
         sender_student:{
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: true,
+            defaultValue:null
         },
         time_stamp: {
             type: DataTypes.DATE,
