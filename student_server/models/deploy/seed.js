@@ -15,9 +15,14 @@
     database.sync();
 
     var models = database.models;
-    var User = models.users;
-    var Group = models.groups;
-    var chats = models.chats;
+    var Assignment = models.assignment;
+    var Submit = models.submit;
+    var Course = models.course;
+    var Resource = models.resource;
+    var Student = models.student;
+    var Teacher =
+    var Team =
+    var Chat =
 
     var init_users = function (user_datas, callback) {
         var user_num = user_datas.length;
