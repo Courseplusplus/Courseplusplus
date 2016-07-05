@@ -6,6 +6,7 @@
 module.exports = {
     user: require('./users/index'),
     groups: require('./groups/index'),
+    submit: require('./submit'),
     test: function (req, res) {
         res.json({"message": "hello world"});
     }

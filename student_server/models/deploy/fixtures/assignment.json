@@ -1,0 +1,16 @@
+[{
+  "assignment_type": "SINGLE",
+  "course_id": 1,
+  "lesson_id":1,
+  "file_path": "/"
+}, {
+  "assignment_type": "SINGLE",
+  "course_id": 2,
+  "lesson_id":2,
+  "file_path": "/"
+}, {
+  "assignment_type": "TEAM",
+  "course_id": 1,
+  "lesson_id":2,
+  "file_path": "/"
+}]

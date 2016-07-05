@@ -9,14 +9,6 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false,
             primaryKey: true
         },
-        assignment_id:{
-            type:DataTypes.INTEGER,
-            allowNull:false
-        },
-        team_id:{
-            type:DataTypes.INTEGER,
-            allowNull:false
-        },
         submitter_id:{
             type:DataTypes.STRING,
             allowNull:false,
