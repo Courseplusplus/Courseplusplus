@@ -12,8 +12,8 @@ exports.upload = function (req,res,next) {
     form.type = true;
     var file_name;
     form.parse(req, function(err, fields, files) {
-        res.writeHead(200, {'content-type': 'text/plain'});
-        res.write('Upload received :\n');
+        //res.writeHead(200, {'content-type': 'text/plain'});
+        //res.write('Upload received :\n');
         res.end(util.inspect({fields: fields, files: files}));
     });
     form.on('end',function(){
