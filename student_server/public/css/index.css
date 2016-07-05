@@ -31,3 +31,11 @@ html,body { height: 100%;}
 #container::after{
     background-color: #ddd;
 }
+
+.enter-btn{
+    text-align: center;
+}
+
+.list-group-item:hover{
+    background-color: #f5f5f5;
+}

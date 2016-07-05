@@ -7,7 +7,6 @@ var controller = require('../controllers');
 var user_router = require('./users');
 var group_router = require('./groups');
 var resource_router = require('./resource');
-var submit_router = require('./submit');
 var request_data_logger = require('../middlewares').request_data_logger;
 var course_router = require('./course');
 
@@ -24,9 +23,8 @@ router.get('/', controller.index);
 router.use('/users', user_router);
 
 router.use('/groups', group_router);
-router.use('/resource', resource_router);
 
-router.use('/submit', submit_router);
+router.use('/resource', resource_router);
 
 router.use('/course',course_router);
 module.exports = router;

@@ -1,0 +1,24 @@
+extends layout
+block content
+
+   //div(class="card")
+   //   div(class="card-header")
+   //      #{assignment.assignment_introduction}
+   //   div(class="card-block")
+   //      ul(class="list-group")
+   //         each item in submits
+   //            li(class="list-group-item" style="cursor: pointer" onclick="location.href='/course/#{course['course_id']}/assignment/#{item.assignment_id}';")
+   //               span(class="label label-default label-pill pull-xs-right") 14
+   //               #{item.file_name}
+
+   form(enctype="multipart/form-data" action="/course/#{course.course_id}/assignment/#{assignment.assignment_id}/submit" method="post")
+      "Select file to upload:"
+      input(type="file" name="fileUpload" id="fileToUpload")
+      input(type="submit" value="Upload Image" name="submit")
+
+
+
+   script(type='text/javascript').
+      $('#side-resource').attr({href: "/course/#{course['course_id']}/resource"});
+      $('#side-assignment').attr({href: "/course/#{course['course_id']}/assignment"});
+      $('#side-team').attr({href: "/course/#{course['course_id']}/team"});

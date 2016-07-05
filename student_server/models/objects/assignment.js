@@ -40,6 +40,14 @@ module.exports = function (sequelize, DataTypes) {
                 notEmpty:true,
                 len:[1,100]
             }
+        },
+        assignment_introduction: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+            validate: {
+                notEmpty: true,
+                len: [1, 3000]
+            }
         }
     }, {
         underscored: true

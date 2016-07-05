@@ -1,0 +1,15 @@
+extends layout
+block content
+
+   ul(class="list-group")
+      each item in assignments
+            li(class="list-group-item" style="cursor: pointer" onclick="location.href='/course/#{course['course_id']}/assignment/#{item.assignment_id}';")
+               span(class="label label-default label-pill pull-xs-right") 14
+               #{item.assignment_introduction}
+
+
+   script(type='text/javascript').
+      $('#side-resource').attr({href: "/course/#{course['course_id']}/resource"});
+      $('#side-assignment').attr({href: "/course/#{course['course_id']}/assignment"});
+      $('#side-team').attr({href: "/course/#{course['course_id']}/team"});
+

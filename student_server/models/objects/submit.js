@@ -26,6 +26,13 @@ module.exports = function (sequelize, DataTypes) {
                 notEmpty:true,
                 len:[1,100]
             }
+        },
+        file_name: {
+            type:DataTypes.STRING(100),
+            validate:{
+                notEmpty:true,
+                len:[1,100]
+            }
         }
     }, {
         underscored: true
