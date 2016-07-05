@@ -33,6 +33,10 @@ app.use(session({
 
 app.use(routes);
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
 app.use(errors_handler);
 
 app.use(function (req, res, next) {
@@ -40,6 +44,8 @@ app.use(function (req, res, next) {
     err.status = 404;
     next(err);
 });
+
+app.use(express.static(path.join(__dirname,'public')));
 
 // development error handler
 // will print stacktrace

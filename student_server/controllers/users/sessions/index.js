@@ -13,12 +13,13 @@ var Errors = require('../../../libs').Errors; // 封装了各种各样的错误
 // res对应http response
 // next为中间件链条上的下一节点
 exports.create = function (req, res, next) {
+
     // global.db.models封装了各种数据表，这里使用users表
-    var User = global.db.models.users;
+    var User = global.db.models.student;
     // 把上传的数据存放在一个变量里面
     // 上传的数据位于req.body里面，依照API获取，这里获取的字段为telephone
     var userParams = {
-        telephone: req.body.telephone
+        student_id: req.body.student_id
     };
     // 依照sequelize这一npm包从数据库中查询数据，查询结果在向then函数传递的回调函数中
     User.find({where: userParams}).then(function (user) {
@@ -30,7 +31,7 @@ exports.create = function (req, res, next) {
             if (PasswordValidator.is_password_valid(user.password, req.body.password)) {
                 // 把一部分数据写入session中，方便其他接口调用
                 req.session.user = {
-                    user_id: user.user_id,  // 用于识别当前用户
+                    student_id: user.student_id,  // 用于识别当前用户
                     access_token: TokenValidator.construct_access_token(), // 调用TokenValidator中的方法去生成access_token
                     created_at: Date.now(),  // 用于后面的接口校验
                     expires_at: 7200   // 用于后面的接口校验
