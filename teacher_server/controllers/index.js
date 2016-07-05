@@ -4,7 +4,10 @@
 module.exports = {
     user: require('./users/index'),
     groups: require('./groups/index'),
-    test: function (req, res) {
-        res.render('index',{title:'hello',path:'/js/index.js'});
+    index: function (req, res) {
+        res.render('index',{title:'软件工程过程',path:'/js/index.js'});
+    },
+    test:function(req,res){
+        res.json({msg:"hello"})
     }
 };

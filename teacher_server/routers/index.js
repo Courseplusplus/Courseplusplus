@@ -16,9 +16,8 @@ var router = express.Router({
 
 router.use(request_data_logger);
 
-router.get('/test', controller.test);
-
-//router.get('/assignment','../views/test.html');
+router.get('/', controller.index);
+router.get('/test',controller.test);
 
 router.use('/download',download);
 
