@@ -2,12 +2,14 @@
  * Created by Obscurity on 2016/4/5.
  */
 var express = require('express');
-var download = require('./download');
-var test = require('../controllers/download');
 var controller = require('../controllers');
 var resource_router = require('./resource');
+var download   = require('./download');
+var views      = require('./views');
+var test       = require('../controllers/download');
 var user_router = require('./users');
 var group_router = require('./groups');
+var data        = require('../controllers/data');
 var request_data_logger = require('../middlewares').request_data_logger;
 
 var router = express.Router({
@@ -16,8 +18,11 @@ var router = express.Router({
 
 router.use(request_data_logger);
 
-router.get('/', controller.index);
 router.get('/test',controller.test);
+
+router.get('/allcourses',data.allCourses);
+
+router.use('/',views);
 
 router.use('/download',download);
 

@@ -1,7 +1,3 @@
-/**
- * Created by heavenduke on 16-6-12.
- */
-
 (function () {
     var config = require('../../config.json');
     var libs = require('../../libs');
@@ -13,11 +9,10 @@
     );
 
     database.sync();
-
     var models = database.models;
-    var Course = models.courses;
-    var Teacher = models.teachers;
-    var Resource = models.resources;
+    var Course = models.course;
+    var Teacher = models.teacher;
+    var Resource = models.resource;
     var Student = models.student;
     var Assign = models.assignment;
     var Team = models.team;
@@ -46,7 +41,7 @@
                     student_cnt++;
                 }
                 if (student_cnt >= student_num) {
-                    student.findAll({}).then(function (students) {
+                    Student.findAll({}).then(function (students) {
                         callback(students);
                     });
                 }
@@ -100,7 +95,7 @@
                     resource_cnt++;
                 }
                 if(resource_cnt >= resource_num){
-                    resource.findAll({}).then(function(resources){
+                    Resource.findAll({}).then(function(resources){
                         callback(resources);
                     });
                 }
@@ -157,6 +152,9 @@
             //console.log(assignment.dataValues);
         });
     });
+    init_resource(require('./fixtures/resources'),function(){
 
+    });
+    init_teams();
 
 }());

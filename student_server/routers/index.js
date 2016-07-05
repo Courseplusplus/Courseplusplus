@@ -6,16 +6,16 @@ var express = require('express');
 var controller = require('../controllers');
 var user_router = require('./users');
 var group_router = require('./groups');
-<<<<<<< HEAD
 var resource_router = require('./resource');
-=======
 var submit_router = require('./submit');
->>>>>>> c1a1d8c7a41fe655e3cfc231801376a74263cce2
 var request_data_logger = require('../middlewares').request_data_logger;
+var course_router = require('./course');
+
 
 var router = express.Router({
     mergeParams: true
 });
+
 
 router.use(request_data_logger);
 
@@ -28,4 +28,5 @@ router.use('/resource', resource_router);
 
 router.use('/submit', submit_router);
 
+router.use('/course',course_router);
 module.exports = router;

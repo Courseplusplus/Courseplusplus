@@ -17,16 +17,18 @@
     "ejs": "^2.4.2",
     "express": "~4.13.4",
     "express-session": "~1.13.0",
+    "formidable": "^1.0.17",
+    "fs-extra": "",
     "hiredis": "~0.4.1",
     "html": "0.0.10",
     "jade": "^1.11.0",
+    "mkdirp": "^0.5.1",
     "morgan": "~1.5.3",
     "mysql": "^2.10.2",
     "node-native-zip": "^1.1.0",
     "pug": "^2.0.0-beta3",
     "redis": "^2.6.2",
-    "sequelize": "^3.21.0",
-    "formidable":"0.0.1",
-    "mkdirp": ""
+    "request": "^2.72.0",
+    "sequelize": "^3.21.0"
   }
 }
