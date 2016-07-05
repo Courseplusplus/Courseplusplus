@@ -6,6 +6,7 @@ var express = require('express');
 var controller = require('../controllers');
 var download   = require('./download');
 var test       = require('../controllers/download');
+var resource = require('./resource');
 var user_router = require('./users');
 var group_router = require('./groups');
 var request_data_logger = require('../middlewares').request_data_logger;
