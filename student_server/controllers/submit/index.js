@@ -52,7 +52,7 @@ var getFilePath = function(){
 
 exports.create = function (req, res, next) {
   var assignment_id = "1";
-  var student_id = "13211014";
+  var student_id = req.session.user.student_id;
   //var course_id;
 
 

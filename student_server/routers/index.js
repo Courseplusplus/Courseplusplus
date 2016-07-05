@@ -9,10 +9,13 @@ var group_router = require('./groups');
 var resource_router = require('./resource');
 var submit_router = require('./submit');
 var request_data_logger = require('../middlewares').request_data_logger;
+var course_router = require('./course');
+
 
 var router = express.Router({
     mergeParams: true
 });
+
 
 router.use(request_data_logger);
 
@@ -25,4 +28,5 @@ router.use('/resource', resource_router);
 
 router.use('/submit', submit_router);
 
+router.use('/course',course_router);
 module.exports = router;
