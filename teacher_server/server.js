@@ -15,6 +15,10 @@ var errors_handler = require('./middlewares').errors_handler;
 var ResultConstructor = require('./libs').ResultConstructor;
 global.config = require('./config.json');
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

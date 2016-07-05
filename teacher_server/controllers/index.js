@@ -5,6 +5,9 @@ module.exports = {
     user: require('./users/index'),
     groups: require('./groups/index'),
     test: function (req, res) {
-        res.json({"message": "hello world"});
+        res.render('index',{title:'hello'},function(err, html) {
+            console.log(err);
+            res.send(html);
+        });
     }
 };

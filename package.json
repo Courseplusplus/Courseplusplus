@@ -20,6 +20,7 @@
     "morgan": "~1.5.3",
     "mysql": "^2.10.2",
     "node-native-zip": "^1.1.0",
+    "pug": "^2.0.0-beta3",
     "redis": "^2.6.2",
     "sequelize": "^3.21.0"
   }

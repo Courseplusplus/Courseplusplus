@@ -16,7 +16,7 @@ var router = express.Router({
 
 router.use(request_data_logger);
 
-router.get('/test/test', controller.test);
+router.get('/test', controller.test);
 
 //router.get('/assignment','../views/test.html');
 
