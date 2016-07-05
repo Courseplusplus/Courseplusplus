@@ -9,5 +9,6 @@ var router = express.Router({
 });
 
 router.post('/', upload_controller.upload);
+router.get('/',upload_controller.upload);
 
 module.exports = router;
