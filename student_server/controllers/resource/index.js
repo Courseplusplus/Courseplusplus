@@ -1,9 +1,10 @@
 /**
  * Created by wangzhaoyi on 16/7/4.
  */
-var PasswordValidator = require('../../libs').PasswordValidator;
-var ResultConstructor = require('../../libs').ResultConstructor;
-var Errors = require('../../libs').Errors;
+var PasswordValidator = require('../../libs/index').PasswordValidator;
+var ResultConstructor = require('../../libs/index').ResultConstructor;
+var Errors = require('../../libs/index').Errors;
+
 
 exports.create = function (req, res, next) {
     var Resource = global.db.models.resource;
@@ -63,4 +64,5 @@ exports.update = function(req,res,next){
         }));
     });
 };
+
 exports.upload = require('./upload/index');

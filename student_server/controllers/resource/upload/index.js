@@ -1,50 +1,43 @@
 /**
- * Created by wangzhaoyi on 16/7/4.
+ * Created by wangzhaoyi on 16/7/5.
  */
-var http = require('http'),
-    util = require('util'),
-    formidable = require('formidable'),
-    server;
-
-server = http.createServer(function(req, res) {
-    if (req.url == '/') {
-        res.writeHead(200, {'content-type': 'text/html'});
-        res.end(
-            '<form action="/upload" enctype="multipart/form-data" method="post">'+
-            '<input type="text" name="title"><br>'+
-            '<input type="file" name="upload" multiple="multiple"><br>'+
-            '<input type="submit" value="Upload">'+
-            '</form>'
-        );
-    } else if (req.url == '/upload') {
-        var form = new formidable.IncomingForm(),
-            files = [],
-            fields = [];
-
-        form.uploadDir = './';
-
-        form
-            .on('field', function(field, value) {
-                console.log(field, value);
-                fields.push([field, value]);
+var formidable = require('formidable');
+var util = require('util');
+var fs   = require('fs-extra');
+exports.upload = function (req,res,next) {
+    var Resource = global.db.models.resource;
+    if (req.url == '/upload' && req.method.toLowerCase() == 'post') {
+        var form = new formidable.IncomingForm();
+        form.uploadDir = __dirname + '/Resource_File';
+        form.keepExtensions = true;
+        form.type = true;
+        var file_name;
+        form.parse(req, function(err, fields, files) {
+            res.writeHead(200, {'content-type': 'text/plain'});
+            res.write('Upload received :\n');
+            res.end(util.inspect({fields: fields, files: files}));
+        });
+        form.on('end',function(){
+                Resource.create({
+                    resource_type:"PPT",
+                    course_id:"1",
+                    lesson:"1",
+                    resource_name:file_name,
+                    file_path:form.uploadDir + "/" + file_name})
             })
             .on('file', function(field, file) {
-                console.log(field, file);
-                files.push([field, file]);
-            })
-            .on('end', function() {
-                console.log('-> upload done');
-                res.writeHead(200, {'content-type': 'text/plain'});
-                res.write('received fields:\n\n '+util.inspect(fields));
-                res.write('\n\n');
-                res.end('received files:\n\n '+util.inspect(files));
+                //rename the incoming file to the file's name
+                fs.rename(file.path, form.uploadDir + "/" + file.name);
+                file_name = file.name;
             });
-        form.parse(req);
-    } else {
-        res.writeHead(404, {'content-type': 'text/plain'});
-        res.end('404');
+        return;
     }
-});
-server.listen(8080);
+    res.writeHead(200, {'content-type': 'text/html'});
+    res.end(
+        '<form action="/upload" method="post" enctype="multipart/form-data">'+
+        '<input type="file" name="upload" multiple="multiple"><br>'+
+        '<input type="submit" value="Upload">'+
+        '</form>'
+    );
+};
 
-console.log('listening on http://localhost:'+8080+'/');

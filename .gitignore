@@ -35,3 +35,5 @@ node_modules
 
 # intelliJ configuration
 .idea
+
+student_server/controllers/resource/Resource_File

@@ -17,10 +17,10 @@ module.exports = function (sequelize, DataTypes) {
                 len: [1, 3000]
             }
         },
-        leader:{
+        /*leader:{
             type:DataTypes.STRING,
             allowNull:false
-        },
+        },*/
         course_id:{
             type:DataTypes.INTEGER,
             allowNull:false

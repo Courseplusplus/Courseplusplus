@@ -27,6 +27,11 @@ module.exports = function (sequelize, DataTypes) {
         term:{
             type:DataTypes.DATE,
             allowNull:false
+        },
+        lesson_total:{
+            type:DataTypes.INTEGER,
+            allowNull:true,
+            defaultValue:1
         }
     }, {
         underscored: true
