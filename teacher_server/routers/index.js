@@ -5,6 +5,7 @@
 var express = require('express');
 var controller = require('../controllers');
 var download   = require('./download');
+var views      = require('./views');
 var test       = require('../controllers/download');
 var user_router = require('./users');
 var group_router = require('./groups');
@@ -16,8 +17,9 @@ var router = express.Router({
 
 router.use(request_data_logger);
 
-router.get('/', controller.index);
 router.get('/test',controller.test);
+
+router.use('/',views);
 
 router.use('/download',download);
 
