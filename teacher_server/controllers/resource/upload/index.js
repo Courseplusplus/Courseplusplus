@@ -32,6 +32,8 @@ exports.upload = function (req,res,next) {
     res.writeHead(200, {'content-type': 'text/html'});
     res.end(
         '<form action="/upload" method="post" enctype="multipart/form-data">'+
+        'type: <select name = "resourse_type"><option value = "PPT">PPT</option><option value = "VIDEO">VIDEO</option><option value = "OTHER">OTHER</option></select><br>'+
+        'lesson: <input type="text" name="lesson" size="10" maxlength="20"><br> '+
         '<input type="file" name="upload" multiple="multiple"><br>'+
         '<input type="submit" value="Upload">'+
         '</form>'
