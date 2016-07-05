@@ -3,6 +3,7 @@ SubmitFolder/
 # Logs
 logs
 *.log
+resources/
 npm-debug.log*
 
 # Runtime data
