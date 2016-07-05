@@ -1,0 +1,13 @@
+//
+   Created by zhangxinru on 16/7/5.
+
+block content
+    table(class="table table-striped")
+        thead
+            td 课程列表
+            tr
+                td
+                    each item in list
+                        li
+                            a(href="#{item['course_id']}") #{item['course_name']}
+

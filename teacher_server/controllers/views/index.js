@@ -15,4 +15,4 @@ var index = {
     }
 };
 
-module.exports=  index;
+module.exports =  index;

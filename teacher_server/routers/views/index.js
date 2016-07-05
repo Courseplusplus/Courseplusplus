@@ -4,6 +4,7 @@
 
 var express = require('express');
 var controller = require('../../controllers/views');
+var course  = require('../../controllers/views/courses')
 var router = express.Router({
     mergeParams: true
 });
@@ -13,5 +14,6 @@ router.use(request_data_logger);
 
 
 router.get('/assignments/:assignment_id',controller.assignments);
+router.get('/courses',course.allcourses);
 
 module.exports = router;
