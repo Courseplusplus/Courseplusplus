@@ -56,7 +56,11 @@ exports.create = function (req, res, next) {
             created_at: req.session.user.created_at,
             expires_at: req.session.user.expires_at
         };
-        res.json(ResultConstructor.success(resultParams));  // 调用res.json方法返回JSON数据，此时因为正常返回了数据，因此调用ResultConstructor中封装的success方法，将上面的返回数据传入以进行封装
+        // 302 jump
+        res.writeHead(302, {
+            'Location': '/'
+        });
+        res.end();
     }).catch(function (err) {
         // 若出现任何其他错误，则抛出错误给下一层中间件，这里的catch函数用来接收在数据库操作中出现的错误
         // err变量为异常对象，传递给下一层中间件去做错误处理
