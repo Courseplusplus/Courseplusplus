@@ -21,8 +21,7 @@ var getList = function(res,assignment_id){
         for(var index in submits){
             pathlist.push(submits[index].file_path);
         }
-        res.sendfile(path.join(__dirname, '../../../views/test.html'));
-        //res.json({msg:'success',data:pathlist});
+        res.json({msg:'success',data:pathlist});
     });
 };
 
