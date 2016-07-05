@@ -11,6 +11,7 @@ var request_data_logger = require('../../middlewares').request_data_logger;
 
 router.use(request_data_logger);
 
+
 router.get('/assignments/:assignment_id',controller.assignments);
 
 module.exports = router;
