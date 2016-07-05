@@ -17,14 +17,6 @@ module.exports = function (sequelize, DataTypes) {
                 len: [1, 3000]
             }
         },
-        /*leader:{
-            type:DataTypes.STRING,
-            allowNull:false
-        },*/
-        course_id:{
-            type:DataTypes.INTEGER,
-            allowNull:false
-        },
         permission:{
             type:DataTypes.ENUM("Permited","Not Decided","Denied"),
             allowNull:false,

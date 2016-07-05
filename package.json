@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "adm-zip": "^0.4.7",
+    "fs-extra": "",
     "better-require": "0.0.3",
     "body-parser": "~1.12.4",
     "connect-redis": "~3.0.2",
@@ -26,7 +27,7 @@
     "pug": "^2.0.0-beta3",
     "redis": "^2.6.2",
     "sequelize": "^3.21.0",
-    "formidable":"0.0.1",
+    "formidable":"",
     "mkdirp": ""
   }
 }

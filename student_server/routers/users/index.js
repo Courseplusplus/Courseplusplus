@@ -16,6 +16,11 @@ router.get('/', authenticator, users_controller.index);
 
 router.post('/', users_controller.create);
 
+router.get('/login', function(req,res){
+    console.log(2333);
+    res.render('login');
+});
+
 router.put('/', authenticator, users_controller.update);
 
 router.use('/sessions', session_router);

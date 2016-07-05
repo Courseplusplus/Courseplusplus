@@ -39,10 +39,6 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false,
             defaultValue:DataTypes.NOW
         },
-        course_id:{
-            type:DataTypes.INTEGER,
-            allowNull:false
-        },
         identity_type:{
             type:DataTypes.ENUM("student","teacher"),
             value:identity_id(),
