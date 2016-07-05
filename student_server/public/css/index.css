@@ -1,0 +1,26 @@
+.he{
+    color:red;
+}
+#nav_menu:hover,#nav_menu:focus{
+    color:#777;
+    text-decoration: none;
+}
+#nav_menu{
+    color:#777;
+}
+.side_item{
+    padding: 20px 15px;
+}
+#side-bar{
+    font-size: 16px;
+}
+.side_icon{
+    margin-right: 10px;
+}
+
+.list-group-item:first-child{
+    border-radius: 0;
+}
+.list-group-item:last-child{
+    border-radius: 0;
+}

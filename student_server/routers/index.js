@@ -14,7 +14,7 @@ var router = express.Router({
 
 router.use(request_data_logger);
 
-router.get('/', controller.test);
+router.get('/', controller.index);
 
 router.use('/users', user_router);
 
