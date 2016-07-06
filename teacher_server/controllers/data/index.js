@@ -105,7 +105,6 @@ var data = {
                 };
                 submitlist.push(data);
             }
-<<<<<<< HEAD
             res.json({msg:'success', data: submitlist});
         });
     },
@@ -123,20 +122,6 @@ var data = {
             }
             res.json({msg:'success', data: resourcelist});
         });
-    },
-    allResources: function(req,res){
-        var data = [{
-            resource_id:1,
-            resource_name:"A00-00-01-00-2012-story.xls",
-            file_path:"/Users/zhangxinru/Project/Courseplusplus/resources/test.txt",
-            team_id:"1"
-        },{
-            resource_id:1,
-            resource_name:"A00-00-02-00-2013.release_plan.doc",
-            file_path:"/Users/zhangxinru/Project/Courseplusplus/resources/test.txt",
-            team_id:"1"
-        }];
-        res.json({msg:"success",data:data});
     }
 
 };
