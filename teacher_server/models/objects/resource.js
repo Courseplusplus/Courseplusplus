@@ -25,10 +25,6 @@ module.exports = function (sequelize, DataTypes) {
             type:DataTypes.INTEGER,
             allowNull:false
         },
-        lession:{
-            type:DataTypes.INTEGER,
-            allowNull:true
-        },
         resource_name:{
             type:DataTypes.STRING(50),
             validate:{

@@ -5,7 +5,7 @@ var path = require('path');
 var adm_zip = require('adm-zip');
 var fs = require('fs');
 var zip = new adm_zip();
-
+var data = require('../../data');
 var config = require('../../../config.json');
 var db = require('../../../models')(
     config.mysql.database,
@@ -19,24 +19,60 @@ var getList = function(res,assignment_id){
         //console.log(submits);
         var pathlist = [];
         for(var index in submits){
-            var data = {name:submits[index].team_id,url:'http://localhost:3001/download/' + submits[index].submit_id};
+            var data = {team_id:submits[index].team_id,download_url:'http://localhost:3001/download/' + submits[index].submit_id};
             pathlist.push(data);
         }
+        console.log(pathlist);
         res.json({msg:'success',data:pathlist});
     });
 };
 
 
 var download = function(res, submit_id){
-    Submit.findOne({submit_id: submit_id}).then(function(submit){
-        var filepath = submit.file_path;
+    Submit.findOne({where:{submit_id: submit_id}}).then(function(submit){
+        var filepath = submit['file_path'];
         console.log(filepath);
-        res.download(filepath);
+        try{
+            zip.addLocalFolder(filepath);
+        }catch(err){
+            console.log(err);
+        }
+        var zip_path = path.join(__dirname, '../../../../resources/download.zip');
+        fs.exists(zip_path,function(exist){
+            if(exist){
+                fs.unlink(zip_path);
+                //zip_path = path.join(__dirname, '../../../../resources/download_new.zip');
+            }
+            console.log(zip_path);
+            zip.writeZip(zip_path);
+            res.download(zip_path);
+        });
     });
 };
 
 var getRootPath = function(){
 
+};
+var single_download = function(req, res){
+    var resource_id = req.params.resource_id;
+    data.resource(resource_id).then(function(resource){
+        var filepath = resource['file_path'];
+        try{
+            zip.addLocalFolder(filepath);
+        }catch(err){
+            console.log(err);
+        }
+        var zip_path = path.join(__dirname, '../../../../resources/download.zip');
+        fs.exists(zip_path,function(exist){
+            if(exist){
+                fs.unlink(zip_path);
+                //zip_path = path.join(__dirname, '../../../../resources/download_new.zip');
+            }
+            console.log(zip_path);
+            zip.writeZip(zip_path);
+            res.download(zip_path);
+        });
+    });
 };
 var batch_download = function(req,res){
     var filepaths = req.body.data;
@@ -61,5 +97,6 @@ var batch_download = function(req,res){
 module.exports = {
     getList:getList,
     download:download,
+    single_download:single_download,
     batch_download:batch_download
 };
