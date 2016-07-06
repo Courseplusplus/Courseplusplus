@@ -32,7 +32,8 @@
                 }
             });
         }
-    };var init_students = function (student_datas, callback) {
+    };
+    var init_students = function (student_datas, callback) {
         var student_num = student_datas.length;
         var student_cnt = 0;
         for(var index in student_datas) {
@@ -152,9 +153,15 @@
             //console.log(assignment.dataValues);
         });
     });
-    init_resource(require('./fixtures/resources'),function(){
-
+    init_resource(require('./fixtures/resources'),function(resources){
+        resources.forEach(function (resource) {
+            //console.log(resource.dataValues);
+        });
     });
-    init_teams();
+    init_team(require('./fixtures/teams'),function(teams){
+        teams.forEach(function (team) {
+            //console.log(team.dataValues);
+        });
+    });
 
 }());
