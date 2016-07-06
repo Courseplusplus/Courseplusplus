@@ -10,8 +10,10 @@ block content
             option(value="VIDEO") 视频
             option(value="OTHER") 其他
         input(type="text" name = "lesson" size = "10" maxlength="20")
-        input(type="file" name="upload" multiple="multiple")
-        input(type="submit" value="Upload")
+        input(type="file" name="upload" multiple="multiple" class="form-control")
+        button(type="submit" value="Upload" class="form-control")
+            span(class="glyphicon glyphicon-upload")
+            span 上传
 
     h3 所有资源
     table(class="table table-hover" style="margin-top:30px;")
