@@ -20,7 +20,6 @@ var assignments = db.models.assignment;
 var resources = db.models.resource;
 
 var getAllCourses = function(){
-
     return courses.findAll();
 };
 
@@ -49,7 +48,7 @@ var data = {
                             course_id:"http://127.0.0.1:3001/course/" + courses[index]['course_id']};
                 courselist.push(data);
             }
-            res.json({msg:'success',data:courselist});
+                res.json({msg:'success',data:courselist});
         });
         //res.json({msg: "hellos"});
     },
@@ -106,6 +105,7 @@ var data = {
                 };
                 submitlist.push(data);
             }
+<<<<<<< HEAD
             res.json({msg:'success', data: submitlist});
         });
     },
@@ -123,6 +123,17 @@ var data = {
             }
             res.json({msg:'success', data: resourcelist});
         });
+    },
+    allResources: function(req,res){
+        var data = [{
+            resource_name:"第一章 软件工程发展历史概述",
+            file_path:"/Users/zhangxinru/Project/Courseplusplus/resources",
+            team_id:"1"
+        },{
+            resource_name:"第二章 人月神话",
+            file_path:"/Users/zhangxinru/Project/Courseplusplus/resources",
+            team_id:"1"
+        }]
     }
 
 };
