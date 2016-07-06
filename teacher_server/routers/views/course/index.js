@@ -4,6 +4,7 @@
 
 var express = require('express');
 var controller = require('../../../controllers/views');
+var resource_controller = require('../../../controllers/resource/upload');
 var router = express.Router({
     mergeParams: true
 });
@@ -16,5 +17,6 @@ router.get('/assignment/:assignment_id',controller.submits);
 router.get('/assignments',controller.assignments);
 router.get('/resources',controller.resources);
 
+router.post('/resource/upload',resource_controller.upload);
 
 module.exports = router;
