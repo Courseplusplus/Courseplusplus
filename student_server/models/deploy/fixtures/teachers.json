@@ -1,0 +1,27 @@
+[
+  {
+    "name" : "张三",
+    "telephone" : "1234567891234",
+    "password" : "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
+  },
+  {
+    "name" : "李四",
+    "telephone" : "13070118899",
+    "password" : "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
+  },
+  {
+    "name" : "王五",
+    "telephone" : "15699887654",
+    "password" : "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
+  },
+  {
+    "name" : "赵六",
+    "telephone" : "18952652233",
+    "password" : "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
+  },
+  {
+    "name" : "孙七",
+    "telephone" : "13920774455",
+    "password" : "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
+  }
+]
