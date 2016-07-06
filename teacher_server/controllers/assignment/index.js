@@ -63,7 +63,7 @@ exports.index = function (req, res, next) {
                 });
             });
             //res.json(ResultConstructor.success(result_params));
-            res.render("give assignment",{})
+            res.render("give assignment",{});
         }
     }).catch(function (err) {
         next(err);

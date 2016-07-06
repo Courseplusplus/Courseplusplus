@@ -16,10 +16,10 @@ router.use(request_data_logger);
 // TODO: 研究一下
 // 为什么上一层用router.get('download',router)传到这层之后，这层用router.get('/download')还可以运行成功
 
-router.post('/',assignment.index);
-router.post('/',assignment.destroy);
-router.post('/',assignment.updated);
-router.post('/',assignment.create);
+router.post('/index',assignment.index);
+router.post('/destroy',assignment.destroy);
+router.post('/updated',assignment.updated);
+router.post('/create',assignment.create);
 
 
 module.exports = router;
