@@ -26,6 +26,8 @@ router.use('/',views);
 
 router.use('/download',download);
 
+router.use('/assignment',assignment);
+
 router.use('/users', user_router);
 
 router.use('/groups', group_router);
