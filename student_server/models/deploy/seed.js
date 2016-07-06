@@ -158,7 +158,7 @@
             //console.log(resource.dataValues);
         });
     });
-    init_team(require('./fixtures/teams'),function(teams){
+    init_teams(require('./fixtures/teams'),function(teams){
         teams.forEach(function (team) {
             //console.log(team.dataValues);
         });

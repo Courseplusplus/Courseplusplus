@@ -3,6 +3,16 @@
 extends ../layout
 
 block content
+    h3 上传资源
+    form(action="/course/#{params['course_id']}/resource/upload", method="post",enctype="multipart/form-data")
+        select(name = "resource_type")
+            option(value= "PPT") PPT
+            option(value="VIDEO") 视频
+            option(value="OTHER") 其他
+        input(type="text" name = "lesson" size = "10" maxlength="20")
+        input(type="file" name="upload" multiple="multiple")
+        input(type="submit" value="Upload")
+
     h3 所有资源
     table(class="table table-hover" style="margin-top:30px;")
         each item in list

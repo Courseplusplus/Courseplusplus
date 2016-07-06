@@ -23,20 +23,36 @@ var getFilePath = function(originPath){
 
   var _path = "./SubmitFolder/";
   _path = _path + courId + '/';
-  stats = fs.lstatSync(_path);
-  if (!stats.isDirectory()) {
+  try{
+    stats = fs.lstatSync(_path);
+
+  }catch (e){
     fs.mkdirSync(_path);
   }
   _path = _path + assignId + '/';
-  stats = fs.lstatSync(_path);
-  if (!stats.isDirectory()) {
+  try{
+    stats = fs.lstatSync(_path);
+
+  }catch (e){
     fs.mkdirSync(_path);
   }
   _path = _path + teamId + '/';
-  stats = fs.lstatSync(_path);
-  if (!stats.isDirectory()) {
+  try{
+    stats = fs.lstatSync(_path);
+
+  }catch (e){
     fs.mkdirSync(_path);
   }
+  //_path = _path + assignId + '/';
+  //stats = fs.lstatSync(_path);
+  //if (!stats.isDirectory()) {
+  //  fs.mkdirSync(_path);
+  //}
+  //_path = _path + teamId + '/';
+  //stats = fs.lstatSync(_path);
+  //if (!stats.isDirectory()) {
+  //  fs.mkdirSync(_path);
+  //}
   splited = originPath.split('/');
   _path+=splited[splited.length-1];
   console.log(_path);
@@ -44,10 +60,15 @@ var getFilePath = function(originPath){
 };
 
 exports.create = function (req, res, next) {
-  var assignment_id = "1";
-  var student_id = 13211014;
-  //var student_id = req.session.user.student_id;
-  //var course_id;
+  ids = req.originalUrl.split("/");
+  var course_id = ids[2];
+  var assignment_id = ids[4];
+  var student_id = req.session.user.student_id;
+  console.log("create");
+  console.log(course_id);
+  console.log(assignment_id);
+  console.log(student_id);
+
 
   var Assign = global.db.models.assignment;
   var Student = global.db.models.student;
@@ -95,18 +116,20 @@ exports.create = function (req, res, next) {
           console.log("teamId "+teamId);
           var team = teams[0];
           console.log(file.path);
+          new_file_path = getFilePath(file.path);
           Submit.create({
             submitter_id: student_id,
             submit_time: new Date(),
-            file_path: getFilePath(file.path),
-            file_name: file.name
+            file_path: new_file_path,
+            file_name: file.name,
+            assignment_id: assignment_id,
+            team_id: teamId
           }).then(function(submit){
             console.log(submit);
             team.setSubmits(submit);
             _assignment.setSubmits(submit);
-            _ = getFilePath(file.path);
-            console.log("new path "+_);
-            fs.rename(file.path,_);
+            console.log("new path "+new_file_path);
+            fs.rename(file.path,new_file_path);
           });
         });
       });
