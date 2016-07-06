@@ -19,7 +19,6 @@ var courses     = db.models.course;
 var assignments = db.models.assignment;
 
 var getAllCourses = function(){
-
     return courses.findAll();
 };
 
@@ -37,19 +36,45 @@ var data = {
                             course_id:"http://127.0.0.1:3001/course/" + courses[index]['course_id']};
                 courselist.push(data);
             }
-            res.json({msg:'success',data:courselist});
+                res.json({msg:'success',data:courselist});
         });
         //res.json({msg: "hellos"});
     },
     allAssignments: function(req, res){
-        var course_id = req.params.course;
-        getAllAssigments(course_id).then(function(assignments){
+        var course_id = req.params.course_id;
+        getAllAssignments(course_id).then(function(assignments){
             var assignmentlist = [];
             for (var index in assignments){
                 assignmentlist.push(assignments[index]);
             }
-            res.json({msg:'success',data:assignmentlist});
+            var data = [{
+                name:"第一次作业",
+                id  : 1,
+                path:"/Users/zhangxinru/Project/Courseplusplus/resources/",
+                date:"2016-07-05 10:00:00"
+            },{
+                name:"第二次作业",
+                id  : 2,
+                path:"/Users/zhangxinru/Project/Courseplusplus/resources/",
+                date:"2016-07-05 10:00:00"
+            }];
+            //res.json({msg:'success',data:assignmentlist});
+            res.json({msg:'success',data:data});
         });
+    },
+    allResources: function(req,res){
+        var data = [{
+            resource_id:1,
+            resource_name:"A00-00-01-00-2012-story.xls",
+            file_path:"/Users/zhangxinru/Project/Courseplusplus/resources/test.txt",
+            team_id:"1"
+        },{
+            resource_id:1,
+            resource_name:"A00-00-02-00-2013.release_plan.doc",
+            file_path:"/Users/zhangxinru/Project/Courseplusplus/resources/test.txt",
+            team_id:"1"
+        }];
+        res.json({msg:"success",data:data});
     }
 };
 module.exports = data;

@@ -43,7 +43,7 @@ exports.destroy = function (req, res, next) {
     }).catch(function (err) {
         next(err);
     })
-}
+};
 
 exports.index = function (req, res, next) {
     var Assignment = global.db.models.assignments;
@@ -63,11 +63,12 @@ exports.index = function (req, res, next) {
                 });
             });
             res.json(ResultConstructor.success(result_params));
+            //res.render("give assignment",{})
         }
     }).catch(function (err) {
         next(err);
     })
-}
+};
 
 exports.updated = function (req, res, next) {
     var Assignment = global.db.models.assignments;
@@ -102,4 +103,4 @@ exports.updated = function (req, res, next) {
     })
 }
 
-module.exports = assignment;
+module.exports = exports;
