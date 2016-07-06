@@ -62,8 +62,8 @@ exports.index = function (req, res, next) {
                     file_path: assignmenta.file_path
                 });
             });
-            res.json(ResultConstructor.success(result_params));
-            //res.render("give assignment",{})
+            //res.json(ResultConstructor.success(result_params));
+            res.render("give assignment",{})
         }
     }).catch(function (err) {
         next(err);
