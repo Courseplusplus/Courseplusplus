@@ -9,14 +9,6 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false,
             primaryKey: true
         },
-        assignment_id:{
-            type:DataTypes.INTEGER,
-            allowNull:false
-        },
-        team_id:{
-            type:DataTypes.INTEGER,
-            allowNull:false
-        },
         submitter_id:{
             type:DataTypes.STRING,
             allowNull:false,
@@ -29,6 +21,13 @@ module.exports = function (sequelize, DataTypes) {
             allowNull:false
         },
         file_path:{
+            type:DataTypes.STRING(100),
+            validate:{
+                notEmpty:true,
+                len:[1,100]
+            }
+        },
+        file_name: {
             type:DataTypes.STRING(100),
             validate:{
                 notEmpty:true,

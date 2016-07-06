@@ -125,9 +125,6 @@ exports.create = function (req, res, next) {
             assignment_id: assignment_id,
             team_id: teamId
           }).then(function(submit){
-            console.log(submit);
-            team.setSubmits(submit);
-            _assignment.setSubmits(submit);
             console.log("new path "+new_file_path);
             fs.rename(file.path,new_file_path);
           });

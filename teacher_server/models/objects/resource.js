@@ -21,9 +21,9 @@ module.exports = function (sequelize, DataTypes) {
             allowNull:false,
             defaultValue:default_resource_type()
         },
-        course_id:{
+        lesson:{
             type:DataTypes.INTEGER,
-            allowNull:false
+            allowNull:true
         },
         resource_name:{
             type:DataTypes.STRING(50),

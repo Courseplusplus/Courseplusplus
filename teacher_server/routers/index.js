@@ -20,6 +20,14 @@ router.use(request_data_logger);
 
 router.get('/test',controller.test);
 
+router.get('/',function(req,res) {
+    var Course = global.db.models.course;
+    Course.findAll().then(function (courses) {
+        console.log('here');
+        res.render('index', {list: courses, params:req.params});
+    });
+});
+
 router.use('/',views);
 
 router.use('/data',data);

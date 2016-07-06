@@ -60,7 +60,7 @@ var index = {
                 res.render("course/resources",{msg:"failed, data api response faild"});
             }
         });
-    },
+    }
 };
 
 module.exports =  index;
