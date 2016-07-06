@@ -20,7 +20,7 @@ router.use(request_data_logger);
 
 router.get('/test',controller.test);
 
-router.get('/allsubmits/:assignment_id',data.allSubmits);
+router.get('/allresources/:course_id',data.allResources);
 
 router.use('/',views);
 

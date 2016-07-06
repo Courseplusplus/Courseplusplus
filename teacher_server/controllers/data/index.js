@@ -30,12 +30,16 @@ var getAllAssignments = function(course_id){
 
 var getAllSubmits = function(assignment_id){
     return submits.findAll({where:{assignment_id: assignment_id}});
-}
+};
 var getAllResources = function(course_id){
+    //console.log('here');
     return resources.findAll({where:{course_id : course_id}});
-}
-
+};
+var getResource = function(resource_id){
+    return resources.findOne({where: {resource_id : resource_id}});
+};
 var data = {
+    resource:getResource,
     allCourses:function(req, res){
         getAllCourses().then(function(courses){
             console.log('here');
