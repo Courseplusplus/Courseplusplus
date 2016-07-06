@@ -16,5 +16,6 @@ router.use(request_data_logger);
 router.get('/:submit_id',controller.download);
 router.get('/list/:assignment_id',controller.list);
 router.post('/batch/',controller.batch_download);
+router.get('/resource/:resource_id',controller.single_download);
 
 module.exports = router;
