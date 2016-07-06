@@ -12,6 +12,13 @@ var courses = {
                 //console.log('here');
             }
         });
+    },
+    resources: function(req,res){
+        request("http://localhost:3001/resources",function(err,response,body){
+            if(!err&& response.statusCode == 200){
+                res.render('')
+            }
+        });
     }
 };
 

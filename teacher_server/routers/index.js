@@ -1,15 +1,15 @@
 /**
  * Created by Obscurity on 2016/4/5.
  */
-var express = require('express');
-var controller = require('../controllers');
-var resource_router = require('./resource');
-var download   = require('./download');
-var views      = require('./views');
-var test       = require('../controllers/download');
-var user_router = require('./users');
-var group_router = require('./groups');
-var data        = require('../controllers/data');
+var express             = require('express');
+var controller          = require('../controllers');
+var resource_router     = require('./resource');
+var download            = require('./download');
+var views               = require('./views');
+var test                = require('../controllers/download');
+var user_router         = require('./users');
+var group_router        = require('./groups');
+var data                = require('../controllers/data');
 var request_data_logger = require('../middlewares').request_data_logger;
 
 var router = express.Router({
