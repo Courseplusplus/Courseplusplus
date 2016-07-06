@@ -59,6 +59,7 @@ var single_download = function(req, res){
     var resource_id = req.params.resource_id;
     data.resource(resource_id).then(function(resource){
         var filepath = resource['file_path'];
+        filepath = path.dirname(filepath);
         try{
             zip.addLocalFolder(filepath);
         }catch(err){

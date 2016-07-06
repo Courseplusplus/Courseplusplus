@@ -132,11 +132,11 @@ exports.create = function (req, res, next) {
       });
     })
     .on('end', function() {
-      console.log('-> upload done');
-      res.writeHead(200, {'content-type': 'text/plain'});
-      res.write('received fields:\n\n '+util.inspect(fields));
-      res.write('\n\n');
-      res.end('received files:\n\n '+util.inspect(files));
+      // 302 jump
+      res.writeHead(302, {
+        'Location': '/course/'+course_id+'/assignment/'+assignment_id
+      });
+      res.end();
     });
   form.parse(req);
 };

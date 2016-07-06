@@ -25,7 +25,7 @@ router.use('/users', user_router);
 router.use('/data',data);
 
 router.get('/download/resource/:resource_id', download.single_download);
-//router.get('/download/:assignment_id', download.download);
+router.get('/download/submit/:submit_id', download.download);
 
 router.use('/groups', group_router);
 
