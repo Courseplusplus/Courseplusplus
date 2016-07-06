@@ -43,7 +43,11 @@ var index = {
         var assignment_id = req.params.assignment_id;
         request("http://127.0.0.1:3001/download/list/"+assignment_id,function(err,response,body){
             if (!err && response.statusCode == 200) {
-                res.render('course/submits',{list:JSON.parse(body)["data"],assignment_id:assignment_id,params:req.params});
+                Assignments.findOne({where:{assignment_id: assignment_id}}).then(function(assignment){
+                    var lesson_id = assignment['lesson_id'];
+                    res.render('course/submits',{list:JSON.parse(body)["data"],lesson_id:lesson_id,params:req.params});
+                });
+                //res.render('course/submits',{list:JSON.parse(body)["data"],assignment_id:assignment_id,params:req.params});
             }
         });
     },

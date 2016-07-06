@@ -80,6 +80,7 @@ var data = {
                     courses.findOne({where:{course_id: assignments[index]['course_id']}}).then(function(course){
                         //console.log(course);
                         var data = {
+                            'id' : assignments[index]['assignment_id'],
                             'name': course['course_name'] + " 第" + assignments[index]['lesson_id'] + "次作业",
                             'upload_time': assignments[index]['upload_time'],
                             'file_path': assignments[index]['file_path']
@@ -114,9 +115,10 @@ var data = {
             var resourcelist = [];
             for (var index in resources){
                 var data = {
-                    'resource_name': resources[index]['resource_name'],
-                    'resource_type': resources[index]['resource_type'],
-                    'file_path': resources[index]['file_path']
+                    'resource_id'   : resources[index]['resource_id'],
+                    'resource_name' : resources[index]['resource_name'],
+                    'resource_type' : resources[index]['resource_type'],
+                    'file_path'     : resources[index]['file_path']
                 };
                 resourcelist.push(data);
             }

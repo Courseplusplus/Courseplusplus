@@ -29,10 +29,24 @@ var getList = function(res,assignment_id){
 
 
 var download = function(res, submit_id){
-    Submit.findOne({submit_id: submit_id}).then(function(submit){
-        var filepath = submit.file_path;
+    Submit.findOne({where:{submit_id: submit_id}}).then(function(submit){
+        var filepath = submit['file_path'];
         console.log(filepath);
-        res.download(filepath);
+        try{
+            zip.addLocalFolder(filepath);
+        }catch(err){
+            console.log(err);
+        }
+        var zip_path = path.join(__dirname, '../../../../resources/download.zip');
+        fs.exists(zip_path,function(exist){
+            if(exist){
+                fs.unlink(zip_path);
+                //zip_path = path.join(__dirname, '../../../../resources/download_new.zip');
+            }
+            console.log(zip_path);
+            zip.writeZip(zip_path);
+            res.download(zip_path);
+        });
     });
 };
 

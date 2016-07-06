@@ -22,10 +22,14 @@ var download = {
     },
     download: function(req, res){
         var submit_id = req.params.submit_id;
+        //console.log('here');
         tool.download(res, submit_id);
     },
     batch_download: function(req,res){
         tool.batch_download(req,res);
+    },
+    single_download: function(req,res){
+        tool.single_download(req,res);
     }
 };
 
