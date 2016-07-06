@@ -25,11 +25,11 @@ exports.upload = function (req,res,next) {
                 course_id:"1",
                 lesson:"1",
                 resource_name:file_name,
-                file_path:form.uploadDir + "/" + file_name});
+                file_path:form.uploadDir + file_name});
         })
         .on('file', function(field, file) {
             //rename the incoming file to the file's name
-            fs.rename(file.path, form.uploadDir + "/" + file.name);
+            fs.rename(file.path, form.uploadDir + file.name);
             file_name = file.name;
         });
     //res.json({msg:"sucess"});
