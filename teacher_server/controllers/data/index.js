@@ -64,14 +64,17 @@ var data = {
     },
     allResources: function(req,res){
         var data = [{
-            resource_name:"第一章 软件工程发展历史概述",
-            file_path:"/Users/zhangxinru/Project/Courseplusplus/resources",
+            resource_id:1,
+            resource_name:"A00-00-01-00-2012-story.xls",
+            file_path:"/Users/zhangxinru/Project/Courseplusplus/resources/test.txt",
             team_id:"1"
         },{
-            resource_name:"第二章 人月神话",
-            file_path:"/Users/zhangxinru/Project/Courseplusplus/resources",
+            resource_id:1,
+            resource_name:"A00-00-02-00-2013.release_plan.doc",
+            file_path:"/Users/zhangxinru/Project/Courseplusplus/resources/test.txt",
             team_id:"1"
-        }]
+        }];
+        res.json({msg:"success",data:data});
     }
 };
 module.exports = data;
