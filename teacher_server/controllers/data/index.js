@@ -14,10 +14,10 @@ var db = require('../../models')(
     config.mysql.password,
     config.mysql.config
 );
-var submits      = db.models.submit;
+var submits     = db.models.submit;
 var courses     = db.models.course;
 var assignments = db.models.assignment;
-var resources = db.models.resource;
+var resources   = db.models.resource;
 
 var getAllCourses = function(){
     return courses.findAll();
@@ -36,6 +36,9 @@ var getAllResources = function(course_id){
 };
 var getResource = function(resource_id){
     return resources.findOne({where: {resource_id : resource_id}});
+};
+var setAssignment = function(assignment){
+    assignments.create(assignment);
 };
 var data = {
     resource:getResource,
