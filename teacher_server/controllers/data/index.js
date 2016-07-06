@@ -61,6 +61,17 @@ var data = {
             //res.json({msg:'success',data:assignmentlist});
             res.json({msg:'success',data:data});
         });
+    },
+    allResources: function(req,res){
+        var data = [{
+            resource_name:"第一章 软件工程发展历史概述",
+            file_path:"/Users/zhangxinru/Project/Courseplusplus/resources",
+            team_id:"1"
+        },{
+            resource_name:"第二章 人月神话",
+            file_path:"/Users/zhangxinru/Project/Courseplusplus/resources",
+            team_id:"1"
+        }]
     }
 };
 module.exports = data;

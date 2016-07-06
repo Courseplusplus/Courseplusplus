@@ -13,5 +13,6 @@ router.use(request_data_logger);
 
 router.get('/allcourses',controller.allCourses);
 router.get('/allassignments/:course_id',controller.allAssignments);
+router.get('/allresources/:course_id',controller.allResources);
 
 module.exports = router;

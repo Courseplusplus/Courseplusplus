@@ -14,5 +14,6 @@ router.use(request_data_logger);
 router.get('/',controller.index);
 router.get('/assignment/:assignment_id',controller.submits);
 router.get('/assignments',controller.assignments);
+router.get('/resources',controller.resources);
 
 module.exports = router;
