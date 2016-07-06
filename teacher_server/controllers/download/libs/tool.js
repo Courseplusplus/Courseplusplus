@@ -19,9 +19,10 @@ var getList = function(res,assignment_id){
         //console.log(submits);
         var pathlist = [];
         for(var index in submits){
-            var data = {name:submits[index].team_id,url:'http://localhost:3001/download/' + submits[index].submit_id};
+            var data = {team_id:submits[index].team_id,download_url:'http://localhost:3001/download/' + submits[index].submit_id};
             pathlist.push(data);
         }
+        console.log(pathlist);
         res.json({msg:'success',data:pathlist});
     });
 };
