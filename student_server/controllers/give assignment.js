@@ -100,3 +100,5 @@ exports.updated = function (req, res, next) {
         next(err);
     })
 }
+
+module.exports = exports;

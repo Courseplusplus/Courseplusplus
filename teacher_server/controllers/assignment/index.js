@@ -33,6 +33,7 @@ exports.create = function (req, res, next) {
 
 exports.destroy = function (req, res, next) {
     var Assignment = global.db.models.assignments;
+    var assignment_id = req.body.assignment_id;
 
     Assignment.find({where: {assignment_id: assignment_id}}).then(function (assignment) {
         if(!assignment){
@@ -47,6 +48,7 @@ exports.destroy = function (req, res, next) {
 
 exports.index = function (req, res, next) {
     var Assignment = global.db.models.assignments;
+    var assignment_id = req.body.assignment_id;
 
     Assignment.find({where: {assignment_id: assignment_id}}).then(function (assignment) {
         if(!assignment) {
@@ -62,9 +64,11 @@ exports.index = function (req, res, next) {
                     file_path: assignmenta.file_path
                 });
             });
-            //res.json(ResultConstructor.success(result_params));
-            res.render("give assignment",{});
+            res.json("hahaha");
+            res.json(ResultConstructor.success(result_params));
+            //res.render("give assignment",{});
         }
+        
     }).catch(function (err) {
         next(err);
     })
@@ -72,6 +76,7 @@ exports.index = function (req, res, next) {
 
 exports.updated = function (req, res, next) {
     var Assignment = global.db.models.assignments;
+    var assignment_id = req.body.assignment_id;
 
     Assignment.find({where: {assignment_id: assignment_id}}).then(function (assignment) {
         if(!assignment) {
