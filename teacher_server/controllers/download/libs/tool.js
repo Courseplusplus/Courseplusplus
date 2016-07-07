@@ -33,6 +33,7 @@ var getList = function(res,assignment_id){
 var download = function(res, submit_id){
     Submit.findOne({where:{submit_id: submit_id}}).then(function(submit){
         var filepath = submit['file_path'];
+        filepath = path.dirname(filepath);
         console.log(filepath);
         try{
             zip.addLocalFolder(filepath);
@@ -42,7 +43,7 @@ var download = function(res, submit_id){
         var zip_path = path.join(__dirname, '../../../../resources/download.zip');
         fs.exists(zip_path,function(exist){
             if(exist) {
-                fs.unlinkSync(zip_path);
+                fs.unlink(zip_path);
             }
         });
         zip.writeZip(zip_path);
@@ -57,6 +58,7 @@ var single_download = function(req, res){
     var resource_id = req.params.resource_id;
     data.resource(resource_id).then(function(resource){
         var filepath = resource['file_path'];
+        filepath = path.dirname(filepath);
         var zip_path = 'download.zip';
         //zip.addLocalFolder(filepath);
         fs.exists(zip_path,function(exist){
