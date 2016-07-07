@@ -153,11 +153,13 @@
             //console.log(assignment.dataValues);
         });
     });
-    init_resource(require('./fixtures/resources'),function(resources){
-        resources.forEach(function (resource) {
-            //console.log(resource.dataValues);
-        });
-    });
+
+    //暂时不要 init resource, 自己上传
+    //init_resource(require('./fixtures/resources'),function(resources){
+    //    resources.forEach(function (resource) {
+    //        //console.log(resource.dataValues);
+    //    });
+    //});
     init_teams(require('./fixtures/teams'),function(teams){
         teams.forEach(function (team) {
             //console.log(team.dataValues);

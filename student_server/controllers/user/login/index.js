@@ -7,6 +7,10 @@ var ResultConstructor = require('../../../libs').ResultConstructor; // 用于封
 var TokenValidator = require('../../../libs').TokenValidator;  // 用于校验访问授权码
 var Errors = require('../../../libs').Errors; // 封装了各种各样的错误
 
+exports.index = function(req,res){
+    res.render('login');
+};
+
 // 用户登录接口：
 //TODO: 完成
 // req对应http request

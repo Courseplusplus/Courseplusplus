@@ -4,7 +4,7 @@
 
 var express = require('express');
 var users_controller = require('../../controllers/index').user;
-var session_router = require('./sessions/index');
+var login_router = require('./login/index');
 var password_router = require('./password/index');
 var authenticator = require('../../middlewares/authentication');
 
@@ -16,13 +16,9 @@ router.get('/', authenticator, users_controller.index);
 
 router.post('/', users_controller.create);
 
-router.get('/login', function(req,res){
-    res.render('login');
-});
-
 router.put('/', authenticator, users_controller.update);
 
-router.use('/sessions', session_router);
+router.use('/login', login_router);
 
 router.use('/password', password_router);
 
