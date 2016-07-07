@@ -2,9 +2,7 @@
  * Created by wangzhaoyi on 16/7/7.
  */
 var express = require('express');
-var view_controller = require('../../controllers/views');
-var controller = require('../../controlers');
-var course_controller = require('../../controllers/courses');
+var controller = require('../../controllers');
 var router = express.Router({
     mergeParams: true
 });
@@ -15,3 +13,6 @@ router.post('/',controller.courses.import);
 
 router.get('/:course_id',controller.courses.show);
 router.post('/:course_id',controller.courses.update);
+
+
+module.exports = router;
