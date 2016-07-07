@@ -19,5 +19,4 @@ router.get('/courses',course.allcourses);
 
 router.use('/course/:course_id',course_router);
 
-
 module.exports = router;

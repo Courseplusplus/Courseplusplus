@@ -125,9 +125,6 @@ exports.create = function (req, res, next) {
             assignment_id: assignment_id,
             team_id: teamId
           }).then(function(submit){
-            console.log(submit);
-            team.setSubmits(submit);
-            _assignment.setSubmits(submit);
             console.log("new path "+new_file_path);
             fs.rename(file.path,new_file_path);
           });
@@ -135,11 +132,11 @@ exports.create = function (req, res, next) {
       });
     })
     .on('end', function() {
-      console.log('-> upload done');
-      res.writeHead(200, {'content-type': 'text/plain'});
-      res.write('received fields:\n\n '+util.inspect(fields));
-      res.write('\n\n');
-      res.end('received files:\n\n '+util.inspect(files));
+      // 302 jump
+      res.writeHead(302, {
+        'Location': '/course/'+course_id+'/assignment/'+assignment_id
+      });
+      res.end();
     });
   form.parse(req);
 };

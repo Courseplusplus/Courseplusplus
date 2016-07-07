@@ -9,8 +9,8 @@ var group_router = require('./groups');
 var resource_router = require('./resource');
 var request_data_logger = require('../middlewares').request_data_logger;
 var course_router = require('./course');
-
-
+var data        = require('./data');
+var download = require('../controllers/download');
 var router = express.Router({
     mergeParams: true
 });
@@ -22,9 +22,12 @@ router.get('/', controller.index);
 
 router.use('/users', user_router);
 
-router.use('/groups', group_router);
+router.use('/data',data);
 
-router.use('/resource', resource_router);
+router.get('/download/resource/:resource_id', download.single_download);
+router.get('/download/submit/:submit_id', download.download);
+
+router.use('/groups', group_router);
 
 router.use('/course',course_router);
 module.exports = router;

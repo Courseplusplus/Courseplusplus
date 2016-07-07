@@ -27,6 +27,16 @@ module.exports = function (sequelize, DataTypes) {
         term:{
             type:DataTypes.DATEONLY,
             allowNull:false
+        },
+        lesson_total:{
+            type:DataTypes.INTEGER,
+            allowNull:true,
+            defaultValue:1
+        },
+        img_src:{
+            type:DataTypes.STRING,
+            allowNull:true,
+            defaultValue:1
         }
     }, {
         underscored: true

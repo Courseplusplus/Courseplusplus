@@ -4,7 +4,7 @@
 var PasswordValidator = require('../../libs/index').PasswordValidator;
 var ResultConstructor = require('../../libs/index').ResultConstructor;
 var Errors = require('../../libs/index').Errors;
-
+var request = require('request');
 
 exports.create = function (req, res, next) {
     var Resource = global.db.models.resource;
@@ -31,7 +31,19 @@ exports.create = function (req, res, next) {
         }
     });
 };
-
+exports.resources = function(req,res){
+    var course_id = req.params.course_id;
+    console.log("http://127.0.0.1:3000/data/allresources/"+course_id);
+    console.log(request);
+    request("http://127.0.0.1:3000/data/allresources/"+course_id,function(err,response,body){
+        if (!err && response.statusCode == 200) {
+            res.render("resources",{msg:"success",list:JSON.parse(body)["data"],params:req.params});
+            //console.log('here');
+        }else{
+            res.render("resources",{msg:"failed, data api response faild"});
+        }
+    });
+};
 exports.update = function(req,res,next){
     var Resource = global.db.models.resource;
     Resource.find({where:{resource_id:req.body.resource_id}}).then(function (resource) {

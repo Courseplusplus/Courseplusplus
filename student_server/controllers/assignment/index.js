@@ -57,7 +57,8 @@ exports.show = function (req, res, next) {
         assert(teams.length==1,"teams.length!=1");
         Submit.findAll({
           where: {
-            team_id: teams[0].team_id
+            team_id: teams[0].team_id,
+            assignment_id: assignment.assignment_id
           }
         }).then(function (submits) {
           res.render('submit', {course: course, assignment: assignment, team: teams[0], submits: submits});
