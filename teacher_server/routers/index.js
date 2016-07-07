@@ -1,15 +1,12 @@
 /**
  * Created by Obscurity on 2016/4/5.
  */
-var express = require('express');
-var controller = require('../controllers');
-var resource_router = require('./resource');
-var download   = require('./download');
-var views      = require('./views');
-var test       = require('../controllers/download');
-var user_router = require('./users');
-var group_router = require('./groups');
-var data        = require('./data');
+
+var express        = require('express');
+var index_router   = require('../controllers');
+var profile_router = require('./profile');
+var course_router  = require('./course');
+
 var request_data_logger = require('../middlewares').request_data_logger;
 
 var router = express.Router({
@@ -18,25 +15,9 @@ var router = express.Router({
 
 router.use(request_data_logger);
 
-router.get('/test',controller.test);
-
-router.get('/',function(req,res) {
-    var Course = global.db.models.course;
-    Course.findAll().then(function (courses) {
-        console.log('here');
-        res.render('index', {list: courses, params:req.params});
-    });
-});
-
-router.use('/',views);
-
-router.use('/data',data);
-
-router.use('/download',download);
-
-router.use('/users', user_router);
-
-router.use('/groups', group_router);
-router.use('/resource', resource_router);
+router.use('/profile',profile_router);
+router.use('/course',course_router);
+router.get('/',index_router.index);
+router.get('/test',index_router.test);
 
 module.exports = router;
