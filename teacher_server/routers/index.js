@@ -12,10 +12,12 @@ var user_router = require('./users');
 var group_router = require('./groups');
 var data        = require('./data');
 var request_data_logger = require('../middlewares').request_data_logger;
-
+var api         = require('../../lib/lib_router');
 var router = express.Router({
     mergeParams: true
 });
+
+router.use('/api', api);
 
 router.use(request_data_logger);
 

@@ -1,0 +1,11 @@
+var test = function(){
+    console.log(__filename);
+};
+
+var getAllCourses = test;
+var getCourse = test;
+
+module.exports = {
+    allCourses: getAllCourses,
+    course: getCourse
+};
