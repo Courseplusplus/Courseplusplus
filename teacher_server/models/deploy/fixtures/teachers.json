@@ -1,0 +1,32 @@
+[
+  {
+    "teacher_id": 123456,
+    "name" : "张三",
+    "telephone" : "1234567891234",
+    "password" : "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
+  },
+  {
+    "teacher_id": 123457,
+    "name" : "李四",
+    "telephone" : "13070118899",
+    "password" : "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
+  },
+  {
+    "teacher_id": 123458,
+    "name" : "王五",
+    "telephone" : "15699887654",
+    "password" : "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
+  },
+  {
+    "teacher_id": 123459,
+    "name" : "赵六",
+    "telephone" : "18952652233",
+    "password" : "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
+  },
+  {
+    "teacher_id": 1234510,
+    "name" : "孙七",
+    "telephone" : "13920774455",
+    "password" : "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
+  }
+]

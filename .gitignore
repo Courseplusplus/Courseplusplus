@@ -1,3 +1,5 @@
+download.zip
+SubmitFolder/
 .DS_Store
 # Logs
 logs
@@ -36,3 +38,5 @@ node_modules
 
 # intelliJ configuration
 .idea
+
+student_server/controllers/course/resource/Resource_File

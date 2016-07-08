@@ -24,5 +24,6 @@
             "auth_pass": null
         }
     },
-    "session_secret": "coursepp_session_secret"
+    "session_secret": "coursepp_session_secret",
+    "resource_upload_dir":"Resources"
 }

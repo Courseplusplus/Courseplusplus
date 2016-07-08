@@ -21,10 +21,6 @@ module.exports = function (sequelize, DataTypes) {
             allowNull:false,
             defaultValue:default_assignment_type()
         },
-        course_id:{
-            type:DataTypes.INTEGER,
-            allowNull:false
-        },
         lesson_id:{
             type:DataTypes.INTEGER,
             allowNull:true
@@ -43,6 +39,14 @@ module.exports = function (sequelize, DataTypes) {
             validate:{
                 notEmpty:true,
                 len:[1,100]
+            }
+        },
+        assignment_introduction: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+            validate: {
+                notEmpty: true,
+                len: [1, 3000]
             }
         }
     }, {
