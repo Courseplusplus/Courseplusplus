@@ -3,13 +3,12 @@
  */
 
 module.exports = {
-    user: require('./users/index'),
-    groups: require('./groups/index'),
-    resource:require('./resource/index'),
-    test: function (req, res) {
-        res.json({msg:"hello world"});
-    },
-    index: function(req,res){
-        res.render('index');
-    }
+	user: require('./user/'),
+	course: require('./course'),
+	index: function (req, res) {
+		var Course = global.db.models.course;
+		Course.findAll().then(function (courses) {
+			res.render('index', {list: courses});
+		});
+	}
 };
