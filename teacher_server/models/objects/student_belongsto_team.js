@@ -16,6 +16,11 @@ module.exports = function (sequelize, DataTypes) {
         student_id:{
             type:DataTypes.STRING,
             allowNull:false
+        },
+        accepted:{
+            type:DataTypes.ENUM("Accepted","Denied","Not Decided"),
+            allowNull:false,
+            defaultValue:"Not Decided"
         }
     }, {
         underscored: true
