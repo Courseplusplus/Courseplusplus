@@ -136,6 +136,6 @@ exports.update = function (req, res, next) {
     });
 };
 
-exports.session = require('./sessions/index');
+exports.session = require('./login');
 
-exports.password = require('./password/index');
+exports.password = require('./password');
