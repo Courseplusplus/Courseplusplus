@@ -1,7 +1,13 @@
 /**
- * Created by zhangxinru on 16/7/5.
+ * Created by wangzhaoyi on 16/7/8.
  */
 var request = require('request');
+var formidable = require('formidable');
+var fs = require('fs');
+var csv_parse = require('csv-parse');
+var transform = require('stream-transform');
+
+
 var host = "http://127.0.0.1:3002";
 
 exports.list = function(req,res,next){
@@ -45,6 +51,30 @@ exports.show = function(req,res,next){
 
 exports.import = function(req,res){
     //TODO: import courses.
+    var form = new formidable.IncomingForm();
+    var file_name = "upload";
+    form.uploadDir = path.join(__dirname , '../../../tmp');
+    form.keepExtensions = true;
+    form.type = true;
+    form.parse(req, function(err, fields, files) {
+    });
+    form.on('end',function(){
+            
+        })
+        .on('file', function(field, file) {
+            fs.rename(file.path, form.uploadDir + "/" + file.name);
+            file_name = file.name;
+        });
+    var output = [];
+    var parser = csv_parse({delimiter: ':'})
+    var input = fs.createReadStream(form.uploadDir+"/"+file_name);
+    var transformer = transform(function(record, callback){
+        setTimeout(function(){
+            callback(null, record.join(' ')+'\n');
+        }, 500);
+    }, {parallel: 10});
+    input.pipe(parser).pipe(transformer).pipe(process.stdout);
+
     res.json({msg:"import courses.", params:req.params, post_body:req.body});
 };
 
