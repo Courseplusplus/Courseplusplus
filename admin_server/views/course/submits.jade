@@ -1,0 +1,14 @@
+//
+   Created by zhangxinru on 16/7/5.
+
+extends ../layout
+block content
+   h3 第 #{lesson_id} 次作业
+   table(class="table table-hover" style="margin-top:30px;")
+      each item in list
+         tr
+            td
+               div(class="col-lg-12")
+                  a(href="#",class="link col-lg-9",style="color:#222;font-size:14px")
+                     span 第 #{item["team_id"]} 组
+                  a(class="link col-lg-3",href="#{item['download_url']}") 点击下载

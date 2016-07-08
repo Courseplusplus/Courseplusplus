@@ -2,11 +2,11 @@
  * Created by Obscurity on 2016/4/5.
  */
 module.exports = {
-    user: require('./users/index'),
-    groups: require('./groups/index'),
-    resource:require('./resource/index'),
     index: function (req, res) {
-        res.render('index',{title:'软件工程过程',path:'/js/index.js'});
+        var Course = global.db.models.course;
+        Course.findAll().then(function (courses) {
+            res.render('index', {list: courses, params:req.params});
+        });
     },
     test:function(req,res){
         res.json({msg:"hello"})

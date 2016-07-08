@@ -4,14 +4,16 @@ extends ../layout
 
 block content
     h3 上传资源
-    form(action="/course/#{params['course_id']}/resource/upload", method="post",enctype="multipart/form-data")
-        select(name = "resource_type")
-            option(value= "PPT") PPT
-            option(value="VIDEO") 视频
-            option(value="OTHER") 其他
-        input(type="text" name = "lesson" size = "10" maxlength="20")
-        input(type="file" name="upload" multiple="multiple" class="form-control")
-        button(type="submit" value="Upload" class="form-control")
+    form(action="/course/#{params['course_id']}/resource/", method="post",enctype="multipart/form-data")
+        div(class="form-group")
+            select(name = "resource_type")
+                option(value= "PPT") PPT
+                option(value="VIDEO") 视频
+                option(value="OTHER") 其他
+            input(type="text" name = "lesson" size = "10" maxlength="20")
+        div(class="form-group")
+            input(type="file" name="upload" multiple="multiple")
+        button(type="submit" value="Upload" class="btn btn-default")
             span(class="glyphicon glyphicon-upload")
             span 上传
 
