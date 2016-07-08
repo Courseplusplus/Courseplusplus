@@ -7,21 +7,16 @@ var host = "http://127.0.0.1:3002";
 exports.list = function(req,res,next){
     //TODO: show list of imported courses.
     var Course = global.db.models.course;
-    Course.findAll({}).then(function(course){
-        if(course){
-            res.json(ResultConstructor.success({
-                course_id: course.course_id,
-                course_name: course.course_name
-            }));
+    var course_list = []
+    Course.findAll({}).then(function(courses){
+        for(index in courses){
+            course_list.push({course_id:courses[index].course_id,course_name:courses[index].course_name});
         }
-        else {
-            next(new Errors.errors_404.GroupNotFoundError("未找到课程"));
-        }
+        res.render('course/index',{list:course_list});
     }).catch(function (err) {
         next(err);
     });
-}
-    res.json({msg:"show list of imported courses.", params:req.params});
+    //res.json({msg:"show list of imported courses.", params:req.params});
 };
 
 exports.show = function(req,res,next){
@@ -45,7 +40,7 @@ exports.show = function(req,res,next){
     }).catch(function (err) {
         next(err);
     });
-    res.json({msg:"show info of one course.", params:req.params});
+    //res.json({msg:"show info of one course.", params:req.params});
 };
 
 exports.import = function(req,res){
