@@ -21,7 +21,7 @@ module.exports = function (sequelize, DataTypes) {
             allowNull:false,
             defaultValue:default_assignment_type()
         },
-        lesson_id:{
+        lesson:{
             type:DataTypes.INTEGER,
             allowNull:true
         },

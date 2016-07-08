@@ -3,3 +3,11 @@
 
 extends ../layout
 block content
+    h1 第#{lesson}次作业提交情况
+    table(class="table table-hover" style="margin-top:30px;")
+        each item,index in list
+            tr
+                td
+                    a(href="./#{params['assignment_id']}/team/#{item['team_id']}",class="link",style="color:#222;font-size:16px")
+                        span(class="glyphicon glyphicon-folder-close")
+                        span(style="margin-left:10px;")   Team #{index+1}
