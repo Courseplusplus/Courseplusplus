@@ -4,20 +4,27 @@ extends ../layout
 
 block content
     h3 上传资源
-    form(action="/course/#{params['course_id']}/resource/", method="post",enctype="multipart/form-data")
-        div(class="form-group")
-            select(name = "resource_type")
+    hr
+    form(class="form-inline" action="/course/#{params['course_id']}/resource/", method="post",enctype="multipart/form-data")
+        div(class="form-group form-line")
+            label 类型
+            select(class="form-control",name="resource_type" style="margin-left:5px")
                 option(value= "PPT") PPT
                 option(value="VIDEO") 视频
                 option(value="OTHER") 其他
-            input(type="text" name = "lesson" size = "10" maxlength="20")
-        div(class="form-group")
-            input(type="file" name="upload" multiple="multiple")
-        button(type="submit" value="Upload" class="btn btn-default")
-            span(class="glyphicon glyphicon-upload")
+        div(class="form-group form-line")
+            label 第几节课
+            input( class="form-control",type="text",name = "lesson",size = "10" maxlength="20" style="margin-left:5px")
+        div(class="form-group form-line")
+            input( type="file",name="upload",multiple="multiple")
+        br
+        br
+        button(type="submit",value="Upload",class="btn btn-default form-control form-line")
+            span(class="glyphicon glyphicon-upload" style="margin-right:5px")
             span 上传
 
     h3 所有资源
+    hr
     table(class="table table-hover" style="margin-top:30px;")
         each item in list
             tr
