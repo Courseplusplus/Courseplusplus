@@ -55,7 +55,7 @@ module.exports = {
         var assignmentparam = {
             assignment_type: req.body.assignment_type,
             course_id: req.params.course_id,
-            lesson_id: req.body.lesson_id,
+            lesson: req.body.lesson,
             deadline: req.body.deadline,
             file_path: req.body.file_path,
             upload_time: new Date().getTime(),
@@ -63,7 +63,7 @@ module.exports = {
         };
         console.log(assignmentparam);
         Assignment.create(assignmentparam).then(function (assignment) {
-            console.log(req.params.course_id);
+            assignment.save();
             res.json({msg:"success"});
         });
 

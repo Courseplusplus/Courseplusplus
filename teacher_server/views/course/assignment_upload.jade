@@ -1,24 +1,23 @@
 //
    Created by xuhanzhi on 16-7-8.
-
-extends ../layout
-block content
+extends assignment
+block assignment_upload
     h3 发布作业
     form
         assignment_type
             select(name="assignment_type")
-                option(value="SINGLE")SINGLE
-                option(value="TEAM")TEAM
-            input(type="submit" value="Submit" /)
-        lesson_id
-            input(type="int" name="lesson_id" /)
-            input(type="submit" value="Submit" /)
+                option(value="SINGLE") SINGLE
+                option(value="TEAM") TEAM
+            input(type="submit" value="Submit" )
+        lesson
+            input(type="number" name="lesson" )
+            input(type="submit" value="Submit" )
         deadline
-            input(type="datetime" name="deadline" /)
-            input(type="submit" value="Submit" /)
+            input(type="datetime" name="deadline" )
+            input(type="submit" value="Submit" )
         file_path
-            input(type="varchar" name="file_path" /)
-            input(type="submit" value="Submit" /)
+            input(type="varchar" name="file_path" )
+            input(type="submit" value="Submit" )
         assignment_introduction
-            input(type="text" name="assignment_introduction" /)
-            input(type="submit" value="Submit" /)
+            input(type="text" name="assignment_introduction" )
+            input(type="submit" value="Submit" )

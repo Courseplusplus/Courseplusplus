@@ -3,6 +3,28 @@
 
 extends ../layout
 block content
+
+    h5 发布作业
+        form(action="/course/#{params['course_id']}/assignment/" method="post")
+            label assignment_type
+            select( name="assignment_type")
+                option(value="SINGLE") SINGLE
+                option(value="TEAM") TEAM
+            p
+            label lesson
+            input(type="int" name="lesson" )
+            p
+            label deadline
+            input(type="datetime" name="deadline" )
+            p
+            label file_path
+            input(type="varchar" name="file_path" )
+            p
+            label assignment_introduction
+            input(type="text" name="assignment_introduction" )
+            input(type="submit" value="Submit" )
+
+
     h1 第#{lesson}次作业提交情况
     table(class="table table-hover" style="margin-top:30px;")
         each item,index in list
