@@ -87,22 +87,6 @@
             });
         }
     };
-    var init_resource = function (resource_datas, callback){
-        var resource_num = resource_datas.length;
-        var resource_cnt = 0;
-        for(var index in resource_datas){
-            Resource.create(resource_datas[index]).then(function(resource){
-                if(resource){
-                    resource_cnt++;
-                }
-                if(resource_cnt >= resource_num){
-                    Resource.findAll({}).then(function(resources){
-                        callback(resources);
-                    });
-                }
-            });
-        }
-    };
     var init_teams = function() {
         Team.create({
             "team_name": "team1",
@@ -153,13 +137,6 @@
             //console.log(assignment.dataValues);
         });
     });
-
-    //暂时不要 init resource, 自己上传
-    //init_resource(require('./fixtures/resources'),function(resources){
-    //    resources.forEach(function (resource) {
-    //        //console.log(resource.dataValues);
-    //    });
-    //});
     init_teams(require('./fixtures/teams'),function(teams){
         teams.forEach(function (team) {
             //console.log(team.dataValues);
