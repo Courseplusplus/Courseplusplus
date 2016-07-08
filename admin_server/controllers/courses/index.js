@@ -23,16 +23,18 @@ exports.show = function(req,res,next){
     //TODO: show info of one course.
     var Course = global.db.models.course;
     var course_id = req.params.course_id;
-    Course.find({where:{course_id:course_id}}).then(function (course) {
+    Course.findOne({where:{course_id:course_id}}).then(function (course) {
         if(course){
-            res.json(ResultConstructor.success({
+            var course_json =
+            {
                 course_id: course.course_id,
                 course_name: course.course_name,
                 introduction: course.introduction,
                 term:course.term,
                 lesson_total:course.lesson_total,
                 img_src: course.img_src
-            }));
+            };
+            res.render('course/profile',{course:course_json});
         }
         else {
             next(new Errors.errors_404.GroupNotFoundError("未找到课程信息"));

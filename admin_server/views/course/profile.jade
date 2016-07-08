@@ -1,0 +1,18 @@
+//
+   Created by wangzhaoyi on 16/7/8.
+
+extends ../layout
+block content
+    div(class="col-sm-12 col-md-8" style="margin:auto")
+        div(class="thumbnail")
+            div(style="background: url(#{course['img_src']}) no-repeat center center;background-size:cover;;height:200px")
+            div(class="caption" style="padding-left:30px")
+                h3 #{course['course_name']}
+                p 总课时: #{course['lesson_total']}
+                p 介绍: #{course['introduction']}
+
+    script(type='text/javascript').
+        $('#side-class').attr({href: "/course/#{course['course_id']}"});
+        $('#side-resource').attr({href: "/course/#{course['course_id']}/resource"});
+        $('#side-assignment').attr({href: "/course/#{course['course_id']}/assignment"});
+        $('#side-team').attr({href: "/course/#{course['course_id']}/team"});
