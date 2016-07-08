@@ -4,7 +4,7 @@ extends ../layout
 
 block content
     h3 上传资源
-    form(action="/course/#{params['course_id']}/resource/upload", method="post",enctype="multipart/form-data")
+    form(action="/course/#{params['course_id']}/resource/", method="post",enctype="multipart/form-data")
         div(class="form-group")
             select(name = "resource_type")
                 option(value= "PPT") PPT

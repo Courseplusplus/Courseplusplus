@@ -17,7 +17,7 @@ router.use(request_data_logger);
 
 router.use('/profile',profile_router);
 router.use('/course',course_router);
-router.get('/',index_router.index);
 router.get('/test',index_router.test);
+router.get('/',index_router.index);
 
 module.exports = router;

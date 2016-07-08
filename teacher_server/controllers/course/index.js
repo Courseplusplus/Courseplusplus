@@ -12,7 +12,7 @@ module.exports = {
         var course_id = req.params.course_id;
         var Course = global.db.models.course;
         Course.findOne({where:{course_id:course_id}}).then(function(course){
-            res.render('course/index',{course_name:"数学",introduction:"呵呵"});
+            res.render('course/index',{data:course,params:req.params});
         });
         //res.json({msg:msg,router:"course.info",params:req.params});
     }
