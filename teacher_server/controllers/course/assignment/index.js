@@ -23,8 +23,19 @@ module.exports = {
         //res.json({msg:msg,router:"course/assignment.all",params:req.params});
     },
     update:function(req,res){
-        var msg = '修改课程作业的相关信息';
-        res.json({msg:msg,router:"course/assignment.all",params:req.params,post_body:req.body});
+        //var msg = '修改课程作业的相关信息';
+        var Assignment = global.db.models.assignments;
+        var assignment_id = req.params.assignment_id;
+        Assignment.find({where: {assignment_id: assignment_id}}).then(function (assignment) {
+            assignment_type= req.body.assignment_type;
+            deadline= req.body.deadline;
+            file_path= req.body.file_path;
+            assignment_introduction= req.body.assignment_introduction;
+            assignment.save().then(function (resultparam) {
+                res.render('course/assignment.update',{list:resultparam,params:req.params});
+            });
+        });
+        //res.json({msg:msg,router:"course/assignment.update",params:req.params,post_body:req.body});
     },
     info:function(req,res){
         var msg = '查看单个学生作业的情况';
@@ -32,14 +43,30 @@ module.exports = {
     },
     mark:function(req,res){
         var msg = '给学生作业评分';
-        res.json({msg:msg,router:"course/assignment.makr",params:req.params,post_body:req.body});
+        res.json({msg:msg,router:"course/assignment.mark",params:req.params,post_body:req.body});
     },
     download:function(req,res){
         var msg = '下载学生作业';
         res.json({msg:msg,router:"course/assignment.download",params:req.params});
     },
     upload:function(req,res){
-        var msg = '上传学生作业';
-        res.json({msg:msg,router:"course/assignment.upload",params:req.params});
+        //var msg = '上传学生作业';
+        var Assignment = global.db.models.assignment;
+        var assignmentparam = {
+            assignment_type: req.body.assignment_type,
+            course_id: req.params.course_id,
+            lesson_id: req.body.lesson_id,
+            deadline: req.body.deadline,
+            file_path: req.body.file_path,
+            upload_time: new Date().getTime(),
+            assignment_introduction: req.body.assignment_introduction
+        };
+        console.log(assignmentparam);
+        Assignment.create(assignmentparam).then(function (assignment) {
+            console.log(req.params.course_id);
+            res.json({msg:"success"});
+        });
+
+        //res.json({msg:msg,router:"course/assignment.upload",params:req.params});
     }
 };
