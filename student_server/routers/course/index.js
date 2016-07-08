@@ -8,7 +8,8 @@ var router = express.Router({
     mergeParams: true
 });
 
-router.get('/:id/',course_controller.index);
+router.get('/',course_controller.index);
+router.get('/:id/',course_controller.single);
 router.use('/:id/assignment', assignment_router);
 router.use('/:course_id/resource', resource_router);
 
