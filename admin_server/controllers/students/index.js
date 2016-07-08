@@ -5,7 +5,6 @@ var request = require('request');
 var host = "http://127.0.0.1:3002";
 
 exports.list = function(req,res,next){
-    //TODO: show list of imported students.
     var Student = global.db.models.student;
     var student_list = []
     Student.findAll({}).then(function(students){
@@ -20,8 +19,26 @@ exports.list = function(req,res,next){
 };
 
 exports.show = function(req,res,next){
-    //TODO: show info of one student.
-    res.json({msg:"show info of one student.", params:req.params});
+    var Student = global.db.models.student;
+    var student_id = req.params.student_id;
+    Student.findOne({where:{student_id:student_id}}).then(function (student) {
+        if(student){
+            var student_json =
+            {
+                student_id:student.student_id,
+                student_name: student.student_name,
+                introduction: student.introduction,
+                telephone:student.telephone,
+            };
+            res.render('student/profile',{student:student_json});
+        }
+        else {
+            next(new Errors.errors_404.GroupNotFoundError("未找到学生信息"));
+        }
+    }).catch(function (err) {
+        next(err);
+    });
+    //res.json({msg:"show info of one student.", params:req.params});
 };
 
 exports.import = function(req,res){

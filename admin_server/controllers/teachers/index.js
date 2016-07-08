@@ -5,7 +5,6 @@ var request = require('request');
 var host = "http://127.0.0.1:3002";
 
 exports.list = function(req,res){
-    //TODO: show list of imported teachers.
     var Teacher = global.db.models.teacher;
     var teacher_list = []
     Teacher.findAll({}).then(function(teachers){
