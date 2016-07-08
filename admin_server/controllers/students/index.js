@@ -7,40 +7,20 @@ var host = "http://127.0.0.1:3002";
 exports.list = function(req,res,next){
     //TODO: show list of imported students.
     var Student = global.db.models.student;
-    Student.findAll({}).then(function(student){
-        if(student){
-            res.json(ResultConstructor.success({
-                student_id: student.student_id,
-                name: student.name
-            }));
+    var student_list = []
+    Student.findAll({}).then(function(students){
+        for(index in students){
+            student_list.push({student_id:students[index].student_id,name:students[index].name});
         }
-        else {
-            next(new Errors.errors_404.GroupNotFoundError("未找到学生"));
-        }
+        res.render('student/index',{list:student_list});
     }).catch(function (err) {
         next(err);
     });
-    res.json({msg:"show list of imported students.", params:req.params});
+    //res.json({msg:"show list of imported students.", params:req.params});
 };
 
 exports.show = function(req,res,next){
     //TODO: show info of one student.
-    var Student = global.db.models.student;
-    var student_id = req.params.student_id;
-    Student.find({where:{student_id:student_id}}).then(function (student) {
-        if(student){
-            res.json(ResultConstructor.success({
-                student_id: student.student_id,
-                name: student.name,
-                telephone:student.telephone,
-            }));
-        }
-        else {
-            next(new Errors.errors_404.GroupNotFoundError("未找到课程信息"));
-        }
-    }).catch(function (err) {
-        next(err);
-    });
     res.json({msg:"show info of one student.", params:req.params});
 };
 
