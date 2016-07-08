@@ -27,8 +27,7 @@ exports.show = function(req,res,next){
             {
                 student_id:student.student_id,
                 student_name: student.student_name,
-                introduction: student.introduction,
-                telephone:student.telephone,
+                telephone:student.telephone
             };
             res.render('student/profile',{student:student_json});
         }

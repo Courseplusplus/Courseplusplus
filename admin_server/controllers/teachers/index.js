@@ -28,12 +28,12 @@ exports.show = function(req,res){
             {
                 teacher_id: teacher.teahcer_id,
                 name: teacher.name,
-                telephone: teacher.telephone,
+                telephone: teacher.telephone
             };
             res.render('teacher/profile',{teacher:teacher_json});
         }
         else {
-            next(new Errors.errors_404.GroupNotFoundError("未找到信息"));
+            next(new Errors.errors_404.GroupNotFoundError("未找到教师信息"));
         }
     }).catch(function (err) {
         next(err);
