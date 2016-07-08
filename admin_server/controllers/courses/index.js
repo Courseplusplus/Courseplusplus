@@ -5,7 +5,6 @@ var request = require('request');
 var host = "http://127.0.0.1:3002";
 
 exports.list = function(req,res,next){
-    //TODO: show list of imported courses.
     var Course = global.db.models.course;
     var course_list = []
     Course.findAll({}).then(function(courses){
@@ -20,7 +19,6 @@ exports.list = function(req,res,next){
 };
 
 exports.show = function(req,res,next){
-    //TODO: show info of one course.
     var Course = global.db.models.course;
     var course_id = req.params.course_id;
     Course.findOne({where:{course_id:course_id}}).then(function (course) {

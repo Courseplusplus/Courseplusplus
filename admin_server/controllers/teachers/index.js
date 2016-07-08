@@ -5,8 +5,17 @@ var request = require('request');
 var host = "http://127.0.0.1:3002";
 
 exports.list = function(req,res){
-    //TODO: show list of imported teachers.
-    res.json({msg:"show list of imported teachers.", params:req.params});
+    var Teacher = global.db.models.teacher;
+    var teacher_list = []
+    Teacher.findAll({}).then(function(teachers){
+        for(index in teachers){
+            teacher_list.push({teacher_id:teachers[index].teacher_id,name:teachers[index].name});
+        }
+        res.render('teacher/index',{list:teacher_list});
+    }).catch(function (err) {
+        next(err);
+    });
+    //res.json({msg:"show list of imported teachers.", params:req.params});
 };
 
 exports.show = function(req,res){
