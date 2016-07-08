@@ -5,6 +5,7 @@
 module.exports = {
     user: require('./users/index'),
     groups: require('./groups/index'),
+    resource:require('./resource/index'),
     test: function (req, res) {
         res.json({msg:"hello world"});
     },

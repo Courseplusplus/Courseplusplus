@@ -7,6 +7,7 @@ var controller = require('../controllers');
 var download   = require('./download');
 var views      = require('./views');
 var test       = require('../controllers/download');
+var resource = require('./resource');
 var user_router = require('./users');
 var group_router = require('./groups');
 var data        = require('./data');

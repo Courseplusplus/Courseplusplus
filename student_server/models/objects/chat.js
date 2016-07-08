@@ -24,7 +24,7 @@ module.exports = function (sequelize, DataTypes) {
                 len: [1, 3000]
             }
         },
-        sender_teacher: {
+        /*sender_teacher: {
             type: DataTypes.STRING,
             allowNull: true,
             defaultValue:null
@@ -33,7 +33,7 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: true,
             defaultValue:null
-        },
+        },*/
         time_stamp: {
             type: DataTypes.DATE,
             allowNull: false,
