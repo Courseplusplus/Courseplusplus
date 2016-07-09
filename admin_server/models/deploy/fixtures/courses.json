@@ -2,48 +2,48 @@
   {
     "course_name":"水课",
     "introduction":"hahahahahahah",
-    "term":"2016-07-04",
+    "term":"1",
     "img_src": "/image/1.png"
   },
   {
     "course_name":"English",
     "introduction":"lakjfioasjdf",
-    "term":"2016-07-03",
+    "term":"2",
     "img_src": "/image/2.png"
   },
   {
     "course_name":"Math",
     "introduction":"jaofnodis",
-    "term":"2016-06-22",
+    "term":"3",
     "img_src": "/image/3.png"
   },
   {
     "course_name":"Chinese",
     "introduction":"lalalalala",
-    "term":"2016-06-25",
+    "term":"3",
     "img_src": "/image/4.png"
   },
   {
     "course_name":"Art",
     "introduction":"lalalalala",
-    "term":"2016-06-25",
+    "term":"1",
     "img_src": "/image/5.png"
   },
   {
     "course_name": "coursera",
     "introduction": "intro",
-    "term":"2016-06-25",
+    "term":"2",
     "img_src": "/image/2.png"
   },
   {
     "course_name": "courserb",
     "introduction": "intro",
-    "term":"2016-06-25",
+    "term":"3",
     "img_src": "/image/6.png"
   },
   {
     "course_name": "courserc",
     "introduction": "intro",
-    "term":"2016-06-25",
+    "term":"2",
     "img_src": "/image/1.png"
   }]

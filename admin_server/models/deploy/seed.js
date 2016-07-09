@@ -128,6 +128,22 @@
             });
         });
     };
+    var init_term = function (term_datas, callback){
+        var term_num = term_datas.length;
+        var term_cnt = 0;
+        for(var index in term_datas){
+            Term.create(term_datas[index]).then(function(term){
+                if(term){
+                    term_cnt++;
+                }
+                if(term_cnt >= term_num){
+                    Term.findAll({}).then(function(terms){
+                        callback(terms);
+                    });
+                }
+            });
+        }
+    };
 
     // 用户数据在./fixtures/teachers.json中，包含三个测试用的用户
     // 三个用户的密码都是123456
@@ -160,6 +176,11 @@
     });
     init_teams(require('./fixtures/teams'),function(teams){
         teams.forEach(function (team) {
+            //console.log(team.dataValues);
+        });
+    });
+    init_terms(require('./fixtures/terms'),function(terms){
+        terms.forEach(function (term) {
             //console.log(team.dataValues);
         });
     });
