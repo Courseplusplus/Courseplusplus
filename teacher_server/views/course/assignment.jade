@@ -29,7 +29,8 @@ block content
             td 选择
             td 名称
             td 提交时间
-            td 提交状态
+            td 分数
+            td 状态
             td 操作
         each item,index in list
             tr
@@ -42,18 +43,48 @@ block content
                 td
                     span 2016-07-11 14:34:40
                 td
-                    span 已提交
+                    span #{item['grade']?item['grade']:0}
+                td
+                    span #{item['grade']?'已评分':'未评分'}
                 td
                     button(class="btn btn-default" style="border-radius:2px;padding:1px 5px;font-size:12px;") 下载
                     span &nbsp;&nbsp;
-                    button(class="btn btn-default" data-toggle="modal" data-target="#mark" style="border-radius:2px;padding:1px 5px;font-size:12px;") 写评语
-            div(class="modal fade",id="mark",tabindex="-1",role="dialog",aria-labelledby="markLabel" style="margin-top:100px")
+                    button(class="btn btn-default" data-toggle="modal" data-target="#mark#{item['submit_id']}" style="border-radius:2px;padding:1px 5px;font-size:12px;") 写评语
+            div(class="modal fade",id="mark#{item['submit_id']}",tabindex="-1",role="dialog",aria-labelledby="markLabel" style="margin-top:100px")
                 div( class="modal-dialog" role="document" )
                     div(class="modal-content" style="padding:20px")
                         div(class="modal-title")
-                            h3 Team#{item['team_id']} 作业评分
-                        div(class="modal-body")
-                            form(class="form-inline")
+                            h3 Team #{item['team_id']} 作业评分
+                            hr
+                        div(class="modal-body" style="min-height:300px")
+                            form(method="post" action="" class="form-horizontal" id="form#{item['submit_id']}")
+                                div(class="form-group")
+                                    label(for="score",class="col-sm-2 control-label" style="padding-left:0") 评分
+                                    div(class="col-sm-10")
+                                        input(type="number",name="score",class="form-control",style="width:20%;height:30px;" )
+                                br
+                                input(class="sr-only",name="submit_id",value="#{item['submit_id']}")
+                                div(class="form-group" style="margin-top:10px;")
+                                    label(for="comment",class="col-sm-2 control-label" style="padding-left:0") 评语
+                                    div(class="col-sm-10")
+                                        textarea(type="text",name="comment",class="form-control",rows=6)
+                                div(class="form-group")
+                                    a(class="btn btn-default col-sm-4" style="margin-top:20px;" onclick="mark(#{item['submit_id']})") 评分
+                                script(type='text/javascript').
+                                    var name = mark+item['submit_id'];
+                                    function mark(submit_id) {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/course/#{params['course_id']}/assignment/#{params['assignment_id']}/team/#{item['team_id']}/mark",
+                                            data: $("#form"+submit_id).serialize(),
+                                            success: function (msg) {
+                                                alert(msg["msg"]);
+                                                window.location.reload();
+                                            }
+                                        });
+                                    }
+
+                        div(class="modal-footer")
 
     button(class="btn btn-default") 下载选中作业
 

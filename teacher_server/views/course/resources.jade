@@ -5,7 +5,7 @@ extends ../layout
 block content
     h3 上传资源
     hr
-    form(class="form-inline" action="/course/#{params['course_id']}/resource/", method="post",enctype="multipart/form-data")
+    form(class="form-inline" action="",enctype="multipart/form-data" id="resource_upload")
         div(class="form-group form-line")
             label 类型
             select(class="form-control",name="resource_type" style="margin-left:5px")
@@ -17,19 +17,38 @@ block content
             input( class="form-control",type="text",name = "lesson",size = "10" maxlength="20" style="margin-left:5px")
         div(class="form-group form-line")
             input( type="file",name="upload",multiple="multiple")
-        br
-        br
-        button(type="submit",value="Upload",class="btn btn-default form-control form-line")
+        a(class="btn btn-default form-control form-line" onclick='resource_upload()')
             span(class="glyphicon glyphicon-upload" style="margin-right:5px")
             span 上传
 
+        script(type="text/javascript").
+            function resource_upload(){
+                $.ajax({
+                    type: "POST",
+                    url: "/course/#{params['course_id']}/resource/",
+                    data: $("#resource_upload").serialize(),
+                    success: function (msg) {
+                        alert(msg["msg"]);
+                        window.location.reload();
+                    }
+                });
+            }
     h3 所有资源
     hr
-    table(class="table table-hover" style="margin-top:30px;")
+    table(class="table table-hover table-bordered" style="margin-top:30px;")
+        thead
+            td 文件名
+            td 上传时间
+            td 资源类型
+            td 操作
         each item in list
             tr
                 td
+                    a(href="#",class="link col-lg-9",style="color:#222;font-size:14px")
+                        span #{item["resource_name"]}
+                td
+                    span #{new Date(item['created_at']).toISOString().replace(/T/, ' ').replace(/\..+/, '')}
+                td #{item['resource_type']}
+                td
                     div(class="col-lg-12")
-                        a(href="#",class="link col-lg-9",style="color:#222;font-size:14px")
-                            span #{item["resource_name"]}
-                        a(class="link col-lg-3",href="/download/resource/#{item['resource_id']}") 点击下载
+                        a(class="link",href="/course/#{params['course_id']}/resource/#{item['resource_id']}/download") 点击下载
