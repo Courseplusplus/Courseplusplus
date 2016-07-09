@@ -23,13 +23,13 @@ html
                   ul(class="dropdown-menu" style="margin-right:12px;")
                      li
                         a(href="#") 用户
-                        a(href="/users/login") 登录
+                        a(href="/user/login") 登录
 
 
    div(id="full" class="container" style="margin:0px;padding:0px;width:100%;background-color:#ddd")
       div(class="card card-container" style="width: 350px;padding: 40px 40px;margin: 100px auto;border-radius: 2px;box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);background-color:#fff")
          img(id="profile-img" class="profile-img-card" src="/image/avatar_2x.png" style="width: 96px;height: 96px;margin: auto;display:block;border-radius: 50%;margin-bottom:15px")
-         form(class="form-signin" action="/users/sessions" method="post")
+         form(class="form-signin" action="/user/login" method="post")
             span(id="reauth-email" class="reauth-email")
             input(type="" name="student_id" id="inputEmail" class="form-control" placeholder="User Name" style="margin-bottom: 10px;" required autofocus)
             input(type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" style="margin-bottom: 10px;" required)
