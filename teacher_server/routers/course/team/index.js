@@ -14,6 +14,6 @@ router.use(request_data_logger);
 router.get('/:team_id',team_controller.info);
 router.get('/',team_controller.index);
 
-router.post('/:team_id',team_controller.reject);
+router.post('/:team_id',team_controller.operate);
 
 module.exports = router;

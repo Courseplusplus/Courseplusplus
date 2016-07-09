@@ -23,16 +23,28 @@ module.exports = {
         });
     },
     upload:function(req,res){
-        //var fs        = require('fs');
-        //var path      = require('path');
-        //
-        //var filename  = req.files.files.name;
-        //var course_id = req.params.course_id;
-        //
-        //var targetPath = path.join(__dirname , '../../../../resources/resources/'+course_id+'/', filename);
-        targetPath = 'hello';
-        console.log(targetPath);
-        var msg='上传课程资源';
-        //res.json({msg:msg,router:"course/resource.upload",params:req.params,post_body:req.body});
+        var fs        = require('fs');
+        var path      = require('path');
+        var filename  = req.files.upload.name;
+        var oldPath   = req.files.upload.path;
+        var course_id = req.params.course_id;
+        var targetPath = path.join(__dirname, '../../../../resources/resources/' + course_id , filename);
+        var dir        = path.join(__dirname, '../../../../resources/resources/' + course_id);
+        if(!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+        }
+        fs.createReadStream(oldPath).pipe(fs.createWriteStream(targetPath));
+        var Resource=  global.db.models.resource;
+        Resource.build({
+            resource_type:req.body.resource_type,
+            lesson:req.body.lesson,
+            resource_name:filename,
+            file_path:targetPath,
+            created_at:new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
+            updated_at:new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
+            course_id:req.params.course_id
+        }).save().then(function(){
+            res.json({msg:'添加成功'});
+        });
     }
 };

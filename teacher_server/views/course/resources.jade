@@ -8,19 +8,20 @@ block content
     form(class="form-inline",enctype="multipart/form-data" id="resource_upload")
         div(class="form-group form-line")
             label 类型
-            select(class="form-control",name="resource_type" style="margin-left:5px")
+            select(class="form-control",name="resource_type" style="margin-left:5px" required)
                 option(value= "PPT") PPT
                 option(value="VIDEO") 视频
                 option(value="OTHER") 其他
         div(class="form-group form-line")
             label 第几节课
-            input( class="form-control",type="text",name = "lesson",size = "10" maxlength="20" style="margin-left:5px")
+            input( class="form-control",type="text",name = "lesson",size = "10" maxlength="20" style="margin-left:5px" required)
         div(class="form-group form-line")
-            input( type="file",name="upload",multiple="multiple")
+            input( type="file",name="upload",multiple="multiple" required)
         a(class="btn btn-default form-control form-line" onclick='resource_upload()')
             span(class="glyphicon glyphicon-upload" style="margin-right:5px")
             span 上传
 
+        //TODO 验证非空
         script(type="text/javascript").
             function resource_upload(){
                 $.ajax({
