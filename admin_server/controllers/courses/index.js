@@ -49,7 +49,6 @@ exports.show = function(req,res,next){
 };
 
 exports.import = function(req,res){
-    //TODO: import courses.
     var form = new formidable.IncomingForm();
     var file_name = 'upload';
     var courses_list = [];
@@ -67,17 +66,20 @@ exports.import = function(req,res){
                 }
                 csvParser(csvData, {delimiter: ','},
                     function(err, data) {
-                        Course = global.db.models.course;
+                        var Course = global.db.models.course;
                         //console.log(data);
                         for(row in data){
-                            Course.create({
-                                course_name:data[row][0]
-                            });
+                            console.log(row);
                         }
                     });
             });
             //fs.unlinkSync(form.uploadDir + file_name);
-            res.render('/course/index');
+            request(host+'/course/index',function(err,response){
+                console.log(response);
+                if (err){
+                    console.log(err);
+                }
+            });
         })
         .on('file', function(field, file) {
             //rename the incoming file to the file's name
