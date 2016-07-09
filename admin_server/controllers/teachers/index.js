@@ -20,7 +20,25 @@ exports.list = function(req,res){
 
 exports.show = function(req,res){
     //TODO: show info of one teacher.
-    res.json({msg:"show info of one teacher.", params:req.params});
+    var Teacher = global.db.models.teacher;
+    var teacher_id = req.params.teahcer_id;
+    Teacher.findOne({where:{teacher_id:teacher_id}}).then(function (teacher) {
+        if(teacher){
+            var teacher_json =
+            {
+                teacher_id: teacher.teahcer_id,
+                name: teacher.name,
+                telephone: teacher.telephone
+            };
+            res.render('teacher/profile',{teacher:teacher_json});
+        }
+        else {
+            next(new Errors.errors_404.GroupNotFoundError("未找到教师信息"));
+        }
+    }).catch(function (err) {
+        next(err);
+    });
+    //res.json({msg:"show info of one teacher.", params:req.params});
 };
 
 exports.import = function(req,res){
