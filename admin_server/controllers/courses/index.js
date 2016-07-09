@@ -25,6 +25,8 @@ exports.list = function(req,res,next){
 
 exports.show = function(req,res,next){
     var Course = global.db.models.course;
+    var Student = global.db.models.student;
+    var Teacher = global.db.models.teacher;
     var course_id = req.params.course_id;
     Course.findOne({where:{course_id:course_id}}).then(function (course) {
         if(course){
@@ -37,7 +39,9 @@ exports.show = function(req,res,next){
                 lesson_total:course.lesson_total,
                 img_src: course.img_src
             };
-            res.render('course/profile',{course:course_json});
+            var teacher_json=
+            var student_json=
+            res.render('course/profile',{course:course_json,teacher:teacher_json,student:student_json});
         }
         else {
             next(new Errors.errors_404.GroupNotFoundError("未找到课程信息"));
@@ -92,41 +96,4 @@ exports.import = function(req,res){
             fs.rename(file.path, form.uploadDir + "/" + file.name);
             file_name = file.name;
         });
-};
-
-exports.update = function(req,res,next){
-    //TODO: update info for one course
-    var Course = global.db.models.course;
-    var course_id = req.params.course_id;
-    Course.find({where: {course_id: course_id}}).then(function (course) {
-        if(course) {
-            var updateParams = {
-                course_id: req.body.course_id,
-                course_name: req.body.course_name,
-                introduction: req.body.introduction,
-                term: req.body.term,
-                lesson_total: req.body.lesson_total,
-                img_src: req.body.lesson_total
-            };
-            for (var key in updatedParams) {
-                if (updateParams[key]) {
-                    Course[key] = updateParams[key];
-                }
-            }
-            return Course.save();
-        }
-        else {
-            next(new Errors.errors_404.UserNotFoundError("未找到课程"));
-        }
-    }).then(function(refreshed_cource){
-        res.json(ResultConstructor.success({
-            cource_id:Cource.cource_id,
-            cource_name:Cource.cource_name,
-            introduction:Cource.introduction,
-            term:Cource.term,
-            lesson_total:Cource.lesson_total,
-            img_src:Cource.img_src
-        }));
-    });
-    res.json({msg:"update info for one course", params:req.params, post_body:req.body});
 };

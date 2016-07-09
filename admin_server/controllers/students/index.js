@@ -46,8 +46,3 @@ exports.import = function(req,res){
     //TODO: import students.
     res.json({msg:"import students.", params:req.params, post_body:req.body});
 };
-
-exports.update = function(req,res){
-    //TODO: update info for one student.
-    res.json({msg:"update info for one student.", params:req.params, post_body:req.body});
-};
