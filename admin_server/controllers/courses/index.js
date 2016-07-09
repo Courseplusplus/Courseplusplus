@@ -39,8 +39,19 @@ exports.show = function(req,res,next){
                 lesson_total:course.lesson_total,
                 img_src: course.img_src
             };
-            var teacher_json=
-            var student_json=
+            var teacher_json =
+            {
+                teacher_id: teacher.teahcer_id,
+                name: teacher.name,
+                telephone: teacher.telephone
+            };
+            var student_json =
+            {
+                student_id:student.student_id,
+                student_name: student.student_name,
+                telephone:student.telephone
+            };
+            
             res.render('course/profile',{course:course_json,teacher:teacher_json,student:student_json});
         }
         else {
