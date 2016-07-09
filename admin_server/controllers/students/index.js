@@ -6,7 +6,7 @@ var host = "http://127.0.0.1:3002";
 
 exports.list = function(req,res,next){
     var Student = global.db.models.student;
-    var student_list = []
+    var student_list = [];
     Student.findAll({}).then(function(students){
         for(index in students){
             student_list.push({student_id:students[index].student_id,name:students[index].name});
@@ -39,6 +39,8 @@ exports.show = function(req,res,next){
     });
     //res.json({msg:"show info of one student.", params:req.params});
 };
+
+
 
 exports.import = function(req,res){
     //TODO: import students.
