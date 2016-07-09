@@ -33,9 +33,40 @@ var getStudentACTeam = function(course_id, student_id, res){
         if (len == 0) res.json({data: null});
     });
 };
-
+var getCourseNotDecideTeams = function(course_id, res){
+    team.findAll({where:{course_id : course_id}}).then(function(teams){
+        var len = teams.length;
+        var teamlist = [];
+        for (var team in teams){
+            if (team.permission == "Not Decided") teamlist.push(team);
+        }
+        res.json({data: teamlist});
+    });
+};
+var getStudentTeam = function(course_id, student_id, res){
+    student_belongsto_teams.findAll({where: {student_id : student_id}}).then(function(teamIDs){
+        console.log('1');
+        var cnt = 0;
+        var len = teamIDs.length;
+        for (var teamID in teamIDs){
+            team.findOne({where: {team_id : teamID}}).then(function(team){
+                if (team.course_id == course_id){
+                    team.findOne({where : {team_id : team_id}}).then(function(team){
+                        res.json({data : team});
+                    });
+                }else{
+                    cnt++;
+                    if (cnt == len) res.json({data: null});
+                }
+            });
+        }
+        if (len == 0) res.json({data: null});
+    });
+};
 module.exports = {
     getAllTeams : getAllTeams,
     getTeam: getTeam,
-    getStudentACTeam : getStudentACTeam
+    getStudentACTeam : getStudentACTeam,
+    getCourseNotDecideTeams : getCourseNotDecideTeams,
+    getStudentTeam : getStudentTeam
 };
