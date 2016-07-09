@@ -9,12 +9,12 @@ var For = function(list, func, _begin, _end, response, res){
         res.submits = items;
         response.json({data: res});
     } else {
-        func(list[_begin]).then(function(team){
+        func(list[_begin].team_id).then(function(team){
             items.push({
                 team: team,
                 submit: list[_begin]
             });
-            return For(list, func, _begin + 1, _end);
+            return For(list, func, _begin + 1, _end, response, res);
         });
     }
 };
