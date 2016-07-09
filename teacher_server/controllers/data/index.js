@@ -60,12 +60,12 @@ var data = {
         getAllAssignments(course_id).then(function(assignments){
             var assignmentlist = [];
             /*var i = 0;
-            for (var index in assignments){
-                courses.findOne({course_id: assignments[index]['course_id']}).then(function(course){
+            for (var index.js in assignments){
+                courses.findOne({course_id: assignments[index.js]['course_id']}).then(function(course){
                     var data = {
-                        'name': course['name'] + 'NO.' + assignments[index]['lesson_id'],
-                        'upload_time': assignments[index]['upload_time'],
-                        'file_path': assignments[index]['file_path']
+                        'name': course['name'] + 'NO.' + assignments[index.js]['lesson_id'],
+                        'upload_time': assignments[index.js]['upload_time'],
+                        'file_path': assignments[index.js]['file_path']
                     };
                     assignmentlist.push(data);
                     i++;
@@ -78,7 +78,7 @@ var data = {
             var len = assignments.length;
             //sconsole.log(len);
             var f = function(index){
-                //console.log(index);
+                //console.log(index.js);
                 if (index < len){
                     courses.findOne({where:{course_id: assignments[index]['course_id']}}).then(function(course){
                         //console.log(course);

@@ -6,7 +6,7 @@ extends ../layout
 block content
     h3 所有作业
     table(class="table table-hover" style="margin-top:30px;")
-        each item,index in list
+        each item,index.js in list
             tr
                 td
                     a(href="./assignment/#{item['assignment_id']}",class="link",style="color:#222;font-size:16px")

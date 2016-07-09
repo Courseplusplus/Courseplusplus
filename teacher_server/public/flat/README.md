@@ -53,7 +53,7 @@ flat-ui/
 |   |        ├── flat-ui-icons-regular.woff
 |   |        └── selection.json
 |   ├── img/
-|   └── index.html
+|   └── index.js.html
 ├── docs/
 |   ├── examples/
 |   ├── components.html
@@ -83,7 +83,7 @@ Flat UI's documentation, included in this repo in the docs directory and publicl
 
 ## SASS support
 
-If you are interested in SASS source files - you can visit this project made by @wingrunr21: 
+If you are interested in SASS source files - you can visit this project made by @wingrunr21:
 [Designmodo's Flat-UI ported to SASS with support for Flat-UI Pro](https://github.com/wingrunr21/flat-ui-sass)
 
 

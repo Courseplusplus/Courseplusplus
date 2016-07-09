@@ -5,7 +5,7 @@ module.exports = {
         Assignment.findAll({where:{course_id:course_id}}).then(function(assignments){
             res.render('course/assignments',{list:assignments,params:req.params});
         });
-        //res.json({msg:'展示课程的所有作业',router:"course/assignment.index"});
+        //res.json({msg:'展示课程的所有作业',router:"course/assignment.index.js"});
     },
     all:function(req,res){
         var assignment_id = req.params.assignment_id;
@@ -16,7 +16,7 @@ module.exports = {
                 var lesson = assignment['lesson_id']; // TODO 貌似要改数据库，这里好像也要改
                 console.log(req.params);
                 res.render('course/assignment',{list:submits,lesson:lesson,params:req.params});
-                //res.render('/course/submits',{list:submits,params:req.params});
+                //res.render('/course/submit',{list:submit,params:req.params});
             });
         });
         //var msg = '展示课程作业的所有学生提交情况';

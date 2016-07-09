@@ -6,7 +6,7 @@ module.exports = {
             res.render('course/resources',{list:resources,params:req.params});
         });
         //var msg = '展示课程的所有资源';
-        //res.json({msg:msg,router:"course/resource.index",params:req.params});
+        //res.json({msg:msg,router:"course/resource.index.js",params:req.params});
     },
     resource:function(req,res){
         var msg = '查看课程单个资源';

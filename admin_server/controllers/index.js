@@ -6,6 +6,6 @@ module.exports = {
     teachers:require('./teachers/index'),
     students:require('./students/index'),
     index: function (req, res) {
-        res.json({msg:"index of admin server", params:req.params});
+        res.json({msg:"index.js of admin server", params:req.params});
     }
 };
