@@ -6,13 +6,15 @@ var formidable = require('formidable');
 var fs = require('fs');
 var csvParser = require('csv-parse');
 var path = require('path');
+var courseProvider = require('../../../models/provider/course');
+//var teacherProvider = require('../../../models/provider/teacher');
+//var studentProvider = require('../../../models/provider/student');
 
 var host = "http://127.0.0.1:3002";
 
 exports.list = function(req,res,next){
-    var Course = global.db.models.course;
     var course_list = [];
-    Course.findAll({}).then(function(courses){
+    courseProvider.getAllCourses().then(function(courses){
         for(index in courses){
             course_list.push({course_id:courses[index].course_id,course_name:courses[index].course_name});
         }
@@ -39,8 +41,8 @@ exports.show = function(req,res,next){
                 lesson_total:course.lesson_total,
                 img_src: course.img_src
             };
-            var teacher_json=
-            var student_json=
+            //var teacher_json=
+            //var student_json=
             res.render('course/profile',{course:course_json,teacher:teacher_json,student:student_json});
         }
         else {
