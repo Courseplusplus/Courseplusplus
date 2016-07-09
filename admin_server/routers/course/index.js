@@ -12,7 +12,6 @@ router.get('/',controller.courses.list);
 router.post('/',controller.courses.import);
 
 router.get('/:course_id',controller.courses.show);
-router.post('/:course_id',controller.courses.update);
 
 
 module.exports = router;

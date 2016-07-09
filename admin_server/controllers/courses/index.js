@@ -55,7 +55,6 @@ exports.show = function(req,res,next){
 exports.import = function(req,res){
     var form = new formidable.IncomingForm();
     var file_name = 'upload';
-    var courses_list = [];
     form.uploadDir = path.join(__dirname , '../../tmp');
     form.keepExtensions = true;
     form.type = true;
@@ -71,7 +70,6 @@ exports.import = function(req,res){
                 csvParser(csvData, {delimiter: ','},
                     function(err, data) {
                         var Course = global.db.models.course;
-                        //console.log(data);
                         for(row in data){
                             Course.create({
                                 course_name:data[row][0],

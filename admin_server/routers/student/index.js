@@ -12,7 +12,6 @@ router.get('/',controller.students.list);
 router.post('/',controller.students.import);
 
 router.get('/:teacher_id',controller.teachers.show);
-router.post('/:teacher_id',controller.teachers.update);
 
 
 module.exports = router;
