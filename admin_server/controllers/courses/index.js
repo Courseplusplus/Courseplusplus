@@ -6,52 +6,32 @@ var formidable = require('formidable');
 var fs = require('fs');
 var csvParser = require('csv-parse');
 var path = require('path');
-var courseProvider = require('../../../models/provider/course');
-//var teacherProvider = require('../../../models/provider/teacher');
-//var studentProvider = require('../../../models/provider/student');
 
 var host = "http://127.0.0.1:3002";
 
 exports.list = function(req,res,next){
-    var course_list = [];
-    courseProvider.getAllCourses().then(function(courses){
-        for(index in courses){
-            course_list.push({course_id:courses[index].course_id,course_name:courses[index].course_name});
+    request(host+'/data_provider/course',function(err,response,body){
+        if (!err && response.statusCode == 200) {
+            res.render('course/index',{list:JSON.parse(body)["data"]});
         }
-        res.render('course/index',{list:course_list});
-    }).catch(function (err) {
-        next(err);
     });
-    //res.json({msg:"show list of imported courses.", params:req.params});
 };
 
 exports.show = function(req,res,next){
-    var Course = global.db.models.course;
-    var Student = global.db.models.student;
-    var Teacher = global.db.models.teacher;
     var course_id = req.params.course_id;
-    Course.findOne({where:{course_id:course_id}}).then(function (course) {
-        if(course){
-            var course_json =
-            {
-                course_id: course.course_id,
-                course_name: course.course_name,
-                introduction: course.introduction,
-                term:course.term,
-                lesson_total:course.lesson_total,
-                img_src: course.img_src
-            };
-            //var teacher_json=
-            //var student_json=
-            res.render('course/profile',{course:course_json,teacher:teacher_json,student:student_json});
-        }
-        else {
-            next(new Errors.errors_404.GroupNotFoundError("未找到课程信息"));
-        }
-    }).catch(function (err) {
-        next(err);
+    var course_json = [];
+    var student_json = [];
+    var teacher_json = [];
+    request(host + '/data_provider/course/'+course_id,function (err,response,body) {
+        course_json = JSON.parse(body)["data"];
+        request(host +'/data_provider/course/'+course_id+'/teacher',function(err,response,body){
+            student_json = JSON.parse(body)["data"];
+            request(host +'/data_provider/course/'+course_id+'/teacher',function(err,response,body){
+                teacher_json = JSON.parse(body)["data"];
+            });
+        });
+        res.render('course/profile',{course:course_json,teacher:teacher_json,student:student_json});
     });
-    //res.json({msg:"show info of one course.", params:req.params});
 };
 
 exports.import = function(req,res){

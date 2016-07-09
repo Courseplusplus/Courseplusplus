@@ -5,37 +5,18 @@ var request = require('request');
 var host = "http://127.0.0.1:3002";
 
 exports.list = function(req,res){
-    var Teacher = global.db.models.teacher;
-    var teacher_list = [];
-    Teacher.findAll({}).then(function(teachers){
-        for(index in teachers){
-            teacher_list.push({teacher_id:teachers[index].teacher_id,name:teachers[index].name});
-        }
-        res.render('teacher/index',{list:teacher_list});
-    }).catch(function (err) {
-        next(err);
+    request(host + '/data_provider/teacher',function(err,response,body){
+        res.render('teacher/index',{list:JSON.parse(body)['data']});
     });
     //res.json({msg:"show list of imported teachers.", params:req.params});
 };
 
 exports.show = function(req,res){
-    var Teacher = global.db.models.teacher;
-    var teacher_id = req.params.teahcer_id;
-    Teacher.findOne({where:{teacher_id:teacher_id}}).then(function (teacher) {
-        if(teacher){
-            var teacher_json =
-            {
-                teacher_id: teacher.teahcer_id,
-                name: teacher.name,
-                telephone: teacher.telephone
-            };
-            res.render('teacher/profile',{teacher:teacher_json,list:course_json});
-        }
-        else {
-            next(new Errors.errors_404.GroupNotFoundError("未找到教师信息"));
-        }
-    }).catch(function (err) {
-        next(err);
+    request(host + '/data_provider/teacher/'+req.teacher_id,function(err,response,body){
+        var teacher_json = JSON.parse(body)['data'];
+        request(host+'/data_provider/teacher/'+req.teacher_id+'/course',function(err,response,body){
+            res.render('teacher/profile',{teacher:teacher_json,list:JSON.parse(body)['data']});
+        });
     });
     //res.json({msg:"show info of one teacher.", params:req.params});
 };

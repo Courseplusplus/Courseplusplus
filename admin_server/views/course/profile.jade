@@ -15,17 +15,17 @@ block content
                         each item in teacher
                             tr
                                 td
-                                    a(href="/teacher/#{teacher['teacher_id']}",class="link",style="color:#222;font-size:16px")
+                                    a(href="/teacher/#{item['teacher_id']}",class="link",style="color:#222;font-size:16px")
                                         span(class="glyphicon glyphicon-folder-close")
-                                        span(style="margin-left:10px;") #{teacher["name"]}
+                                        span(style="margin-left:10px;") #{item["name"]}
                 p 学生:
                     table(class="table table-hover" style="margin-top:30px;")
                         each item in student
                             tr
                                 td
-                                    a(href="/student/#{student['student_id']}",class="link",style="color:#222;font-size:16px")
+                                    a(href="/student/#{item['student_id']}",class="link",style="color:#222;font-size:16px")
                                         span(class="glyphicon glyphicon-folder-close")
-                                        span(style="margin-left:10px;") #{student["name"]}
+                                        span(style="margin-left:10px;") #{item["name"]}
 
     script(type='text/javascript').
         $('#side-class').attr({href: "/course/#{course['course_id']}"});
