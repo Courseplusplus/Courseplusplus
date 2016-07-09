@@ -7,7 +7,6 @@ module.exports = {
     teachers:require('./teachers/index'),
     students:require('./students/index'),
     index: function (req, res) {
-        //concole.log("index index")
         res.render('index');
         //res.json({msg:"index of admin server", params:req.params});
     }

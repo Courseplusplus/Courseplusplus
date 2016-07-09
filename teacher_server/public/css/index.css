@@ -34,3 +34,12 @@ td{
 .checkbox{
     margin:0;
 }
+
+.form-line{
+    margin-bottom:5px;
+    margin-right:10px;
+}
+
+.assignment-title{
+    font-weight: bold;
+}

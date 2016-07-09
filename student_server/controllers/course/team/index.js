@@ -3,8 +3,8 @@
  */
 
 exports.index = function(req,res){
-	console.log("team index");
-	res.json({msg:"team index"});
+	console.log("team index.js");
+	res.json({msg:"team index.js"});
 };
 
 exports.create = function(req, res, next){
