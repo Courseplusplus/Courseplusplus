@@ -22,7 +22,7 @@ var getAllSubmits = function(assignment_id, response){
             submit.findAll({where : {assignment_id : assignment_id}}).then(function(submits){
                 console.log('3');
                 var len = submits.length;
-                console.log(submits[0]);
+                //console.log(submits[0]);
                 lib.For(submits, getTeam, 0, len, response, res);
                 //     console.log('4');
                 //     res.submits = items;

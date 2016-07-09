@@ -43,10 +43,10 @@ block content
                         span(style="margin-left:10px;")   Team #{index+1}
                 td
                     span 2016-07-11 14:34:40
-                td 100
-                    //span #{item['submit']['grade']?item['submit']['grade']:0}
-                td 已评分
-                    //span #{item['submit']['grade']?'已评分':'未评分'}
+                td
+                    span #{item['submit']['grade']?item['submit']['grade']:0}
+                td
+                    span #{item['submit']['grade']?'已评分':'未评分'}
                 td
                     button(class="btn btn-default" style="border-radius:2px;padding:1px 5px;font-size:12px;") 下载
                     span &nbsp;&nbsp;
