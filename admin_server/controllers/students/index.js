@@ -29,7 +29,7 @@ exports.show = function(req,res,next){
                 student_name: student.student_name,
                 telephone:student.telephone
             };
-            res.render('student/profile',{student:student_json});
+            res.render('student/profile',{student:student_json,list:course_json});
         }
         else {
             next(new Errors.errors_404.GroupNotFoundError("未找到学生信息"));

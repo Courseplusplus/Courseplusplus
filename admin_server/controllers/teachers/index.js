@@ -19,7 +19,6 @@ exports.list = function(req,res){
 };
 
 exports.show = function(req,res){
-    //TODO: show info of one teacher.
     var Teacher = global.db.models.teacher;
     var teacher_id = req.params.teahcer_id;
     Teacher.findOne({where:{teacher_id:teacher_id}}).then(function (teacher) {
@@ -30,7 +29,7 @@ exports.show = function(req,res){
                 name: teacher.name,
                 telephone: teacher.telephone
             };
-            res.render('teacher/profile',{teacher:teacher_json});
+            res.render('teacher/profile',{teacher:teacher_json,list:course_json});
         }
         else {
             next(new Errors.errors_404.GroupNotFoundError("未找到教师信息"));
