@@ -13,7 +13,7 @@ var getTeam = function(team_id){
     return team.findOne({where : {team_id : team_id}});
 };
 
-var getStudentACTeam = function(course_id, student_id, res){
+var getCourseStudentACTeam = function(course_id, student_id, res){
     student_belongsto_teams.findAll({where: {student_id : student_id}}).then(function(teamIDs){
         console.log('1');
         var cnt = 0;
@@ -43,13 +43,14 @@ var getCourseNotDecideTeams = function(course_id, res){
         res.json({data: teamlist});
     });
 };
-var getStudentTeam = function(course_id, student_id, res){
+var getCourseStudentTeam = function(course_id, student_id, res){
     student_belongsto_teams.findAll({where: {student_id : student_id}}).then(function(teamIDs){
         console.log('1');
         var cnt = 0;
         var len = teamIDs.length;
         for (var teamID in teamIDs){
-            team.findOne({where: {team_id : teamID}}).then(function(team){
+            var id = teamID.team_id;
+            team.findOne({where: {team_id : id}}).then(function(team){
                 if (team.course_id == course_id){
                     team.findOne({where : {team_id : team_id}}).then(function(team){
                         res.json({data : team});
@@ -66,7 +67,7 @@ var getStudentTeam = function(course_id, student_id, res){
 module.exports = {
     getAllTeams : getAllTeams,
     getTeam: getTeam,
-    getStudentACTeam : getStudentACTeam,
+    getCourseStudentACTeam : getCourseStudentACTeam,
     getCourseNotDecideTeams : getCourseNotDecideTeams,
-    getStudentTeam : getStudentTeam
+    getCourseStudentTeam : getCourseStudentTeam
 };
