@@ -207,8 +207,8 @@ exports.download = function (req, res) {
 	var Team = global.db.models.team;
 	var Student = global.db.models.student;
 	var ids = req.originalUrl.split("/");
-	var assignId = ids[2];
-	var courId = ids[4];
+	var courId = ids[2];
+	var assignId = ids[4];
 	var student_id = req.session.user.student_id;
 
 	Team.findAll({
