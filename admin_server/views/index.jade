@@ -2,17 +2,20 @@
     
 extends layout
 block content
-    h3 导入学生信息
+    h3 导入课程信息
     form(action="/course", method="post",enctype="multipart/form-data")
-        //div(class="form-group")
-            select(name = "resource_type")
-                option(value= "teacher") 教师
-                option(value="student") 学生
-                option(value="course") 课程
         div(class="form-group")
             p 导入一个csv文件
             input(type="file" name="upload" multiple="multiple")
         button(type="submit" value="Upload" class="btn btn-default")
             span(class="glyphicon glyphicon-upload")
             span 导入
+    form(action="/course", method="post",enctype="multipart/form-data")
+        div(class="form-group")
+            p 导入一个csv文件
+            input(type="file" name="upload" multiple="multiple")
+        button(type="submit" value="Upload" class="btn btn-default")
+            span(class="glyphicon glyphicon-upload")
+            span 导入
+
 
