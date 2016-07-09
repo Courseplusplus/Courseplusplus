@@ -90,7 +90,7 @@ $.fn.extend({
 		if ( this.length ) {
 			var elem = $( this[ 0 ] ), position, value;
 			while ( elem.length && elem[ 0 ] !== document ) {
-				// Ignore z-index if position is set to a value where z-index is ignored by the browser
+				// Ignore z-index.js if position is set to a value where z-index.js is ignored by the browser
 				// This makes behavior of this function consistent across browsers
 				// WebKit always returns auto if the element is positioned
 				position = elem.css( "position" );
@@ -98,7 +98,7 @@ $.fn.extend({
 					// IE returns 0 when zIndex is not specified
 					// other browsers return a string
 					// we ignore the case of nested elements with an explicit value of 0
-					// <div style="z-index: -10;"><div style="z-index: 0;"></div></div>
+					// <div style="z-index.js: -10;"><div style="z-index.js: 0;"></div></div>
 					value = parseInt( elem.css( "zIndex" ), 10 );
 					if ( !isNaN( value ) && value !== 0 ) {
 						return value;
@@ -2007,7 +2007,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 		this.handle = this.handles.eq( 0 );
 
 		this.handles.each(function( i ) {
-			$( this ).data( "ui-slider-handle-index", i );
+			$( this ).data( "ui-slider-handle-index.js", i );
 		});
 	},
 
@@ -2278,7 +2278,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 				uiHash.values = this.values();
 			}
 
-			//store the last changed value index for reference when handles overlap
+			//store the last changed value index.js for reference when handles overlap
 			this._lastChangedValue = index;
 
 			this._trigger( "change", event, uiHash );
@@ -2396,7 +2396,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 
 	//internal values getter
 	// _values() returns array of values trimmed by min and max, aligned by step
-	// _values( index ) returns single value trimmed by min and max, aligned by step
+	// _values( index.js ) returns single value trimmed by min and max, aligned by step
 	_values: function( index ) {
 		var val,
 			vals,
@@ -2510,7 +2510,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 	_handleEvents: {
 		keydown: function( event ) {
 			var allowed, curVal, newVal, step,
-				index = $( event.target ).data( "ui-slider-handle-index" );
+				index = $( event.target ).data( "ui-slider-handle-index.js" );
 
 			switch ( event.keyCode ) {
 				case $.ui.keyCode.HOME:
@@ -2575,7 +2575,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 			event.preventDefault();
 		},
 		keyup: function( event ) {
-			var index = $( event.target ).data( "ui-slider-handle-index" );
+			var index = $( event.target ).data( "ui-slider-handle-index.js" );
 
 			if ( this._keySliding ) {
 				this._keySliding = false;
@@ -3599,7 +3599,7 @@ $.extend( $.effects, {
 		} else {
 			$.extend( props, {
 				position: element.css( "position" ),
-				zIndex: element.css( "z-index" )
+				zIndex: element.css( "z-index.js" )
 			});
 			$.each([ "top", "left", "bottom", "right" ], function(i, pos) {
 				props[ pos ] = element.css( pos );
@@ -9132,7 +9132,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 while (
                     ++i < l
                     && (j.context = j[0] = this[i])
-                    && c.call(j[0], i, j) !== false //"this"=DOM, i=index, j=jQuery object
+                    && c.call(j[0], i, j) !== false //"this"=DOM, i=index.js, j=jQuery object
                 );
                 return this;
             }

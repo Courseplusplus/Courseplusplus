@@ -8,7 +8,7 @@ module.exports = {
                 res.render('course/assignments',{list:assignments,params:req.params,course:course});
             });
         });
-        //res.json({msg:'展示课程的所有作业',router:"course/assignment.index"});
+        //res.json({msg:'展示课程的所有作业',router:"course/assignment.index.js"});
     },
     all:function(req,res){
         var assignment_id = req.params.assignment_id;
@@ -18,7 +18,7 @@ module.exports = {
             Assignment.findOne({where:{assignment_id:assignment_id}}).then(function(assignment){
                 var lesson = assignment['lesson'];
                 res.render('course/assignment',{list:submits,lesson:lesson,params:req.params});
-                //res.render('/course/submits',{list:submits,params:req.params});
+                //res.render('/course/submit',{list:submit,params:req.params});
             });
         });
     },

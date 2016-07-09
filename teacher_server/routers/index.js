@@ -8,10 +8,12 @@ var profile_router = require('./profile');
 var course_router  = require('./course');
 
 var request_data_logger = require('../middlewares').request_data_logger;
-
+var api         = require('../../lib/lib_router');
 var router = express.Router({
     mergeParams: true
 });
+
+router.use('/api', api);
 
 router.use(request_data_logger);
 
