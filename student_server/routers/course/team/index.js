@@ -2,7 +2,7 @@
  * Created by peter on 7/8/16.
  */
 var express = require('express');
-var team_controller = require('../../../controllers/').team;
+var team_controller = require('../../../controllers').course.team;
 var authenticator = require('../../../middlewares/authentication');
 
 var router = express.Router({

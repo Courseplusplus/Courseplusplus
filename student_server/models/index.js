@@ -31,9 +31,8 @@ module.exports = function (database, username, password, config) {
     Student.hasMany(Team,{as:"leader",foreignKey:"student_id"});
     Student.hasMany(Chat,{as:"sender_student",foreignKey:"student_id"});
     Teacher.hasMany(Chat,{as:"sender_teacher",foreignKey:"teacher_id"});
-
-    Student.belongsToMany(Team,{through:Student_Team, foreignKey:"student_id"});
-    Team.belongsToMany(Student,{through:Student_Team,foreignKey:"team_id"});
+		Student.hasMany(Student_Team,{as:"link_student",foreignKey:"student_id"});
+		Team.hasMany(Student_Team,{as:"link_team",foreignKey:"team_id"});
     Student.belongsToMany(Course,{through:Student_Course,foreignKey:"student_id"});
     Course.belongsToMany(Student,{through:Student_Course,foreignKey:"course_id"});
     Teacher.belongsToMany(Course,{through:Teacher_Course,foreignKey:"teacher_id"});

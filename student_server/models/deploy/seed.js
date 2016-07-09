@@ -16,6 +16,7 @@
     var Student = models.student;
     var Assign = models.assignment;
     var Team = models.team;
+		var Student_Team = models.student_belongsto_team;
 
     var init_teachers = function (teacher_datas, callback) {
         var teacher_num = teacher_datas.length;
@@ -99,7 +100,14 @@
                     }
                 }
             ).then(function(students){
-                team.setStudents(students);
+                for (var index in students)
+                {
+	                console.log(team.team_id);
+	                Student_Team.create({
+										"team_id": team.team_id,
+		                "student_id": students[index].student_id
+	                });
+                }
             });
             //team.setStudent()
         });
@@ -107,8 +115,14 @@
             "team_name": "team2",
             "course_id": 2,
             "student_id": 13211016}).then(function(team){
-            Student.find({where: {student_id: 13211014}}).then(function(student){
-                team.setStudents([student]);
+            Student.findAll({where: {student_id: 13211014}}).then(function(students){
+	            for (var index in students)
+	            {
+		            Student_Team.create({
+			            "team_id": team.team_id,
+			            "student_id": students[index].student_id
+		            });
+	            }
             });
         });
     };
