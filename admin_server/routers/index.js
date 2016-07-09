@@ -15,5 +15,7 @@ router.get('/index',controller.index);
 router.use('/course',course_router);
 router.use('/teacher',teacher_router);
 router.use('/student',student_router);
+router.get('/set',controller.display);
+router.post('set',controller.set);
 
 module.exports = router;

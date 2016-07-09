@@ -16,6 +16,7 @@ module.exports = function (database, username, password, config) {
     var Teacher = sequelize.import(path.join(__dirname,'objects/teacher'));
     var Team = sequelize.import(path.join(__dirname,'objects/team'));
     var Chat = sequelize.import(path.join(__dirname, 'objects/chat'));
+    var Term = sequelize.import(path.join(__dirname, 'objects/term'));
 
     var Student_Team = sequelize.import(path.join(__dirname,'objects/student_belongsto_team'));
     var Student_Course= sequelize.import(path.join(__dirname,'objects/student_belongsto_course'));
@@ -31,6 +32,7 @@ module.exports = function (database, username, password, config) {
     Student.hasMany(Team,{as:"leader",foreignKey:"student_id"});
     Student.hasMany(Chat,{as:"sender_student",foreignKey:"student_id"});
     Teacher.hasMany(Chat,{as:"sender_teacher",foreignKey:"teacher_id"});
+    Term.hasMany(Course,{foreignKey:"term_id"});
 
     Student.belongsToMany(Team,{through:Student_Team, foreignKey:"student_id"});
     Team.belongsToMany(Student,{through:Student_Team,foreignKey:"team_id"});
