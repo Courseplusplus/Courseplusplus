@@ -71,7 +71,11 @@ exports.import = function(req,res){
                         //console.log(data);
                         for(row in data){
                             Course.create({
-                                course_name:data[row][0]
+                                course_name:data[row][0],
+                                introduction:data[row][1],
+                                term:data[row][2],
+                                lesson_total:data[row][3],
+                                img_src:data[row][4]
                             });
                         }
                     });
