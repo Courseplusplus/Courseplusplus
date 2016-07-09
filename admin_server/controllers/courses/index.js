@@ -6,6 +6,7 @@ var formidable = require('formidable');
 var fs = require('fs');
 var csvParser = require('csv-parse');
 var path = require('path');
+var Math = require('Math');
 
 var host = "http://127.0.0.1:3002";
 
@@ -58,7 +59,7 @@ exports.import = function(req,res){
                                 introduction:data[row][1],
                                 term:data[row][2],
                                 lesson_total:data[row][3],
-                                img_src:data[row][4]
+                                img_src:'/image/'+Math.ceil(Math.random()*5)+'.png'
                             });
                         }
                     });
@@ -77,3 +78,74 @@ exports.import = function(req,res){
             file_name = file.name;
         });
 };
+
+exports.import_student = function(req,res){
+    var form = new formidable.IncomingForm();
+    var file_name = 'upload';
+    form.uploadDir = path.join(__dirname , '../../tmp');
+    form.keepExtensions = true;
+    form.type = true;
+    form.parse(req, function(err, fields, files) {
+    });
+    form.on('end',function(){
+            fs.readFile(form.uploadDir + "/" + file_name, {
+                encoding: 'utf-8'
+            }, function(err, csvData) {
+                if (err) {
+                    console.log(err);
+                }
+                csvParser(csvData, {delimiter: ','},
+                    function(err, data) {
+                        //TODO:course_student_relation
+                    });
+            });
+            //fs.unlinkSync(form.uploadDir + file_name);
+            request(host+'/course/'+req.course_id+'/profile',function(err,response){
+                console.log(response);
+                if (err){
+                    console.log(err);
+                }
+            });
+        })
+        .on('file', function(field, file) {
+            //rename the incoming file to the file's name
+            fs.rename(file.path, form.uploadDir + "/" + file.name);
+            file_name = file.name;
+        });
+};
+
+exports.import_teacher = function(req,res){
+    var form = new formidable.IncomingForm();
+    var file_name = 'upload';
+    form.uploadDir = path.join(__dirname , '../../tmp');
+    form.keepExtensions = true;
+    form.type = true;
+    form.parse(req, function(err, fields, files) {
+    });
+    form.on('end',function(){
+            fs.readFile(form.uploadDir + "/" + file_name, {
+                encoding: 'utf-8'
+            }, function(err, csvData) {
+                if (err) {
+                    console.log(err);
+                }
+                csvParser(csvData, {delimiter: ','},
+                    function(err, data) {
+                        //TODO:course_teacher_relation
+                    });
+            });
+            //fs.unlinkSync(form.uploadDir + file_name);
+            request(host+'/course/'+req.course_id+'/profile',function(err,response){
+                console.log(response);
+                if (err){
+                    console.log(err);
+                }
+            });
+        })
+        .on('file', function(field, file) {
+            //rename the incoming file to the file's name
+            fs.rename(file.path, form.uploadDir + "/" + file.name);
+            file_name = file.name;
+        });
+};
+
