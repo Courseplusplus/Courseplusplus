@@ -29,7 +29,8 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false,
             validate: {
                 notEmpty: true
-            }
+            },
+            defaultValue:"md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
         },
         refresh_token: {
             type: DataTypes.STRING(128),

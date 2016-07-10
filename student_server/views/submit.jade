@@ -12,7 +12,7 @@ block content
    //               #{item.file_name}
 
    form(enctype="multipart/form-data" action="/course/#{course.course_id}/assignment/#{assignment.assignment_id}" method="post")
-      "Select file to upload:"
+      | Select file to upload:
       input(type="file" name="fileUpload" id="fileToUpload")
       input(type="submit" value="Upload Image" name="submit")
 

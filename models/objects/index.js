@@ -13,5 +13,6 @@ module.exports = {
     submit:require('./submit'),
     teacher:require('./teacher'),
     teacher_belongsto_course:require('./teacher_belongsto_course'),
-    team:require('./team')
+    team:require('./team'),
+    term:require('./term')
 };

@@ -32,7 +32,7 @@ module.exports = function (sequelize, DataTypes) {
         img_src:{
             type:DataTypes.STRING,
             allowNull:true,
-            defaultValue:1
+            defaultValue:"/image/4.png"
         }
     }, {
         underscored: true

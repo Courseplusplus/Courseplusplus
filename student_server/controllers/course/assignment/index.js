@@ -49,9 +49,10 @@ exports.show = function (req, res, next) {
 	var Student_belongsto_Team = global.db.models.student_belongsto_team;
 	Assignment.findById(assignment_id).then(function (assignment) {
 		Course.findById(course_id).then(function (course) {
+			console.log(student_id);
 			Student_belongsto_Team.findAll({
 				where: {
-					"student_id": student_id
+					student_id : student_id
 				}
 			}).then(function (student_bl_teams) {
 				console.log(student_bl_teams);
@@ -71,12 +72,12 @@ exports.show = function (req, res, next) {
 								});
 							}
 							else if(cnt==student_bl_teams.length) {
-								res.render('submit', {course: course, assignment: assignment, team: team, submits: {}});
+								res.render('submit', {course: course, assignment: assignment, team: team, submits: []});
 							}
 						})
 					}
 				}else{
-					res.render('submit', {course: course, assignment: assignment, team: {}, submits: {}});
+					res.render('submit', {course: course, assignment: assignment, team: {}, submits: []});
 				}
 			});
 		});
