@@ -12,7 +12,6 @@ module.exports = {
                 res.render('course/assignments',{list:assignments,params:req.params,course:course});
             });
         });
-        //res.json({msg:'展示课程的所有作业',router:"course/assignment.index.js"});
     },
     all:function(req,res){
         var request = require('request');

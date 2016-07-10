@@ -18,9 +18,9 @@ module.exports = function (sequelize, DataTypes) {
             }
         },
         permission:{
-            type:DataTypes.ENUM("Permited","Not Decided","Denied","Teaming"),
+            type:DataTypes.ENUM("Permited","Not Decided","Denied"),
             allowNull:false,
-            defaultValue:"Teaming"
+            defaultValue:"Not Decided"
         }
     }, {
         underscored: true
