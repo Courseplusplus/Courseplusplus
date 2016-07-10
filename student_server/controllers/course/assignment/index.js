@@ -46,27 +46,28 @@ exports.show = function (req, res, next) {
 	var Student = global.db.models.student;
 	var Team = global.db.models.team;
 	var Submit = global.db.models.submit;
+	var Student_belongsto_Team = global.db.models.student_belongsto_team;
 	Assignment.findById(assignment_id).then(function (assignment) {
 		Course.findById(course_id).then(function (course) {
-			Team.findAll({
-				include: [{
-					model: Student
-				}],
+			Student_belongsto_Team.findAll({
 				where: {
-					"$students.student_id$": student_id,
-					"course_id": course_id
+					"student_id": student_id
 				}
-			}).then(function (teams) {
-				assert(teams.length == 1, "teams.length!=1");
-				Submit.findAll({
-					where: {
-						team_id: teams[0].team_id,
-						assignment_id: assignment.assignment_id
-					}
-				}).then(function (submits) {
-					res.render('submit', {course: course, assignment: assignment, team: teams[0], submits: submits});
-				});
-
+			}).then(function (student_bl_teams) {
+				for (var index in student_bl_teams) {
+					Team.findById(student_bl_teams[index].team_id).then(function (team) {
+						if (team.course_id == course_id) {
+							Submit.findAll({
+								where: {
+									team_id: team.team_id,
+									assignment_id: assignment.assignment_id
+								}
+							}).then(function (submits) {
+								res.render('submit', {course: course, assignment: assignment, team: team, submits: submits});
+							});
+						}
+					})
+				}
 			});
 		});
 	});
@@ -188,14 +189,13 @@ exports.create = function (req, res, next) {
 	form.parse(req);
 };
 
-var zip_filename = function(file_path){
+var zip_filename = function (file_path) {
 	var _folder_name = path.dirname(file_path);
 	var _filename = _folder_name.split("/").join("_");
-	if(_filename[0]===".")
-	{
-		_filename=_filename.substr(1);
+	if (_filename[0] === ".") {
+		_filename = _filename.substr(1);
 	}
-	return _filename+".zip";
+	return _filename + ".zip";
 };
 
 exports.download = function (req, res) {
