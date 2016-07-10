@@ -54,19 +54,29 @@ exports.show = function (req, res, next) {
 					"student_id": student_id
 				}
 			}).then(function (student_bl_teams) {
-				for (var index in student_bl_teams) {
-					Team.findById(student_bl_teams[index].team_id).then(function (team) {
-						if (team.course_id == course_id) {
-							Submit.findAll({
-								where: {
-									team_id: team.team_id,
-									assignment_id: assignment.assignment_id
-								}
-							}).then(function (submits) {
-								res.render('submit', {course: course, assignment: assignment, team: team, submits: submits});
-							});
-						}
-					})
+				console.log(student_bl_teams);
+				if(student_bl_teams.length>0){
+					var cnt=0;
+					for (var index in student_bl_teams) {
+						Team.findById(student_bl_teams[index].team_id).then(function (team) {
+							cnt++;
+							if (team.course_id == course_id) {
+								Submit.findAll({
+									where: {
+										team_id: team.team_id,
+										assignment_id: assignment.assignment_id
+									}
+								}).then(function (submits) {
+									res.render('submit', {course: course, assignment: assignment, team: team, submits: submits});
+								});
+							}
+							else if(cnt==student_bl_teams.length) {
+								res.render('submit', {course: course, assignment: assignment, team: team, submits: {}});
+							}
+						})
+					}
+				}else{
+					res.render('submit', {course: course, assignment: assignment, team: {}, submits: {}});
 				}
 			});
 		});
