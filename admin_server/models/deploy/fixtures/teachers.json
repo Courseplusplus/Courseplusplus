@@ -2,13 +2,13 @@
   {
     "teacher_id": 123456,
     "name" : "张三",
-    "telephone" : "1234567891234",
+    "telephone" : "13070118899",
     "password" : "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
   },
   {
     "teacher_id": 123457,
     "name" : "李四",
-    "telephone" : "13070118899",
+    "telephone" : "13070118811",
     "password" : "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
   },
   {

@@ -2,48 +2,48 @@
   {
     "course_name":"Music",
     "introduction":"teaching music",
-    "term":"1",
+    "term_id":"1",
     "img_src": "/image/1.png"
   },
   {
     "course_name":"English",
     "introduction":"teaching English",
-    "term":"2",
+    "term_id":"2",
     "img_src": "/image/2.png"
   },
   {
     "course_name":"Math",
     "introduction":"teaching math",
-    "term":"3",
+    "term_id":"3",
     "img_src": "/image/3.png"
   },
   {
     "course_name":"Chinese",
     "introduction":"teaching Chinese",
-    "term":"3",
+    "term_id":"3",
     "img_src": "/image/4.png"
   },
   {
     "course_name":"Art",
     "introduction":"teaching art",
-    "term":"1",
+    "term_id":"1",
     "img_src": "/image/5.png"
   },
   {
     "course_name": "coursera",
     "introduction": "intro a",
-    "term":"2",
+    "term_id":"2",
     "img_src": "/image/2.png"
   },
   {
     "course_name": "courserb",
     "introduction": "intro b",
-    "term":"3",
+    "term_id":"3",
     "img_src": "/image/6.png"
   },
   {
     "course_name": "courserc",
     "introduction": "intro c",
-    "term":"2",
+    "term_id":"2",
     "img_src": "/image/1.png"
   }]
