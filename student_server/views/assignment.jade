@@ -1,12 +1,24 @@
 extends layout
 block content
-
-   ul(class="list-group")
-      each item in assignments
-            li(class="list-group-item list-group-item-custom" style="cursor: pointer" onclick="location.href='/course/#{course['course_id']}/assignment/#{item.assignment_id}';")
-               //span(class="label label-default label-pill pull-xs-right")
-               #{item.assignment_introduction}
-
+    h3 所有作业
+    table(class="table table-hover table-bordered" style="margin-top:30px;")
+        thead
+            td 作业
+            td 布置日期
+            td 截止日期
+            td 作业类型
+            td 操作
+        each item,index in assignments
+            tr
+                td
+                    a(href="./assignment/#{item['assignment_id']}?order=#{index+1}",class="link",style="color:#222;font-size:16px")
+                        span(class="glyphicon glyphicon-folder-close")
+                        span(style="margin-left:10px;")  第 #{index+1} 次作业
+                td #{new Date(item['created_at']).toISOString().replace(/T/, ' ').replace(/\..+/, '')}
+                td #{new Date(item['deadline']).toISOString().replace(/T/, ' ').replace(/\..+/, '')}
+                td #{item['assignment_type']=='SINGLE'?'个人':'团队'}
+                td
+                    a(class="link" href="#") 打包下载
 
    script(type='text/javascript').
 
