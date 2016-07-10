@@ -23,8 +23,10 @@ var getCourseStudent = function(course_id, res){
     student_belongsto_course.findAll({where : {course_id : course_id}}).then(function(student_IDs){
         var studentlist = [];
         var cnt = 0, len = student_IDs.length;
-        for (var student_id in student_IDs){
-            var id = student_id.student_id;
+        //console.log(student_IDs);
+        for (var index in student_IDs){
+            var id = student_IDs[index].student_id;
+            //console.log(student_id);
             student.findOne({where : {student_id : id}}).then(function(student){
                 studentlist.push(student);
                 cnt ++;

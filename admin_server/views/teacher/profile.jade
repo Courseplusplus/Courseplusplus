@@ -1,0 +1,17 @@
+//
+   Created by wangzhaoyi on 16/7/8.
+
+extends ../layout
+block content
+    div(class="col-sm-12 col-md-8" style="margin:auto")
+        div(class="thumbnail")
+            div(class="caption" style="padding-left:30px")
+                h3 #{teacher['name']}
+                p 电话: #{teacher['telephone']}
+                table(class="table table-hover" style="margin-top:30px;")
+                    each item in list
+                        tr
+                            td
+                                a(href="/course/#{item['course_id']}",class="link",style="color:#222;font-size:16px")
+                                    span(class="glyphicon glyphicon-folder-close")
+                                    span(style="margin-left:10px;") #{item["course_name"]}

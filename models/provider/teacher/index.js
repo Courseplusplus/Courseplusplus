@@ -21,8 +21,8 @@ var getTeacher = function(teacher_id){
 var getCourseTeacher = function(course_id, res){
     teacher_belongsto_course.findAll({where : {course_id : course_id}}).then(function(teacher_IDs){
         var cnt = 0, len = teacher_IDs.length;
-        for (var teacher_id in teacher_IDs){
-            var id = teacher_id.id;
+        for (var index in teacher_IDs){
+            var id = teacher_IDs[index].teacher_id;
             teacher.findOne({where : {teacher_id : id}}).then(function(teacher){
                 teacherlist.push(teacher);
                 cnt ++;

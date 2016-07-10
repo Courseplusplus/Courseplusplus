@@ -1,0 +1,58 @@
+//
+   Created by wangzhaoyi on 16/7/8.
+
+extends ../layout
+block content
+    div(class="col-sm-12 col-md-8" style="margin:auto")
+        div(class="thumbnail")
+            div(style="background: url(#{course['img_src']}) no-repeat center center;background-size:cover;;height:200px")
+            div(class="caption" style="padding-left:30px")
+                h3 #{course['course_name']}
+                p 总课时: #{course['lesson_total']}
+                p 介绍: #{course['introduction']}
+                P 授课教师:
+                    table(class="table table-hover" style="margin-top:30px;")
+                        each item in teacher
+                            tr
+                                td
+                                    a(href="/teacher/#{item['teacher_id']}",class="link",style="color:#222;font-size:16px")
+                                        span(class="glyphicon glyphicon-folder-close")
+                                        span(style="margin-left:10px;") #{item["name"]}
+                p 学生:
+                    table(class="table table-hover" style="margin-top:30px;")
+                        each item in student
+                            tr
+                                td
+                                    a(href="/student/#{item['student_id']}",class="link",style="color:#222;font-size:16px")
+                                        span(class="glyphicon glyphicon-folder-close")
+                                        span(style="margin-left:10px;") #{item["name"]}
+    div(class="col-sm-12 col-md-8" style="margin:auto")
+        div(class="thumbnail")
+            h3 导入学生信息
+            form(action="/course/#{course['course_id']}/student", method="post",enctype="multipart/form-data")
+                div(class="form-group")
+                    input(type="file" name="upload" multiple="multiple")
+                button(type="submit" value="Upload" class="btn btn-default")
+                    span(class="glyphicon glyphicon-upload" onclick="Upload()")
+                    span 导入
+        div(class="thumbnail")
+            h3 导入教师信息
+            form(action="/course/#{course['course_id']}/teacher", method="post",enctype="multipart/form-data")
+                div(class="form-group")
+                    input(type="file" name="upload" multiple="multiple")
+                button(type="submit" value="Upload" class="btn btn-default")
+                    span(class="glyphicon glyphicon-upload")
+                    span 导入
+
+    //script(type='text/javascript').
+    //    var Upload = function() {
+    //        var formData = new FormData($('#upload')[0]);
+    //        $.ajax({
+    //            url: "/course/#{course['course_id']}/student",
+    //            type: 'POST',
+    //            data: formData,
+    //            success: function (data) {
+    //                console.log(data);
+    //            }
+    //        })
+    //    };
