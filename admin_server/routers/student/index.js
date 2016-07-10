@@ -11,7 +11,7 @@ var request_data_logger = require('../../middlewares').request_data_logger;
 router.get('/',controller.students.list);
 router.post('/',controller.students.import);
 
-router.get('/:student',controller.students.show);
+router.get('/:student_id',controller.students.show);
 
 
 module.exports = router;

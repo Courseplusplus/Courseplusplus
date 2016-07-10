@@ -26,9 +26,3 @@ block content
                                     a(href="/student/#{item['student_id']}",class="link",style="color:#222;font-size:16px")
                                         span(class="glyphicon glyphicon-folder-close")
                                         span(style="margin-left:10px;") #{item["name"]}
-
-    script(type='text/javascript').
-        $('#side-class').attr({href: "/course/#{course['course_id']}"});
-        $('#side-resource').attr({href: "/course/#{course['course_id']}/resource"});
-        $('#side-assignment').attr({href: "/course/#{course['course_id']}/assignment"});
-        $('#side-team').attr({href: "/course/#{course['course_id']}/team"});

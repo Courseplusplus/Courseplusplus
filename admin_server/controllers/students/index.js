@@ -12,14 +12,15 @@ exports.list = function(req,res,next){
 };
 
 exports.show = function(req,res,next){
-    var student_json = [];
-    var course_json = [];
     request(host+'/data_provider/student/'+req.params.student_id,function(err,response,body){
-        student_json = JSON.parse(body)['data'];
+        var student_json = JSON.parse(body)['data'];
         request(host+'/data_provider/student/'+req.params.student_id+'/course',function(err,response,body){
-            course_json = JSON.parse(body)['data'];
+            var course_json = JSON.parse(body)['data'];
+            console.log(course_json);
+            console.log(student_json);
+            res.render('student/profile',{student:student_json,list:course_json});
+            //res.json({student:student_json,list:course_json});
         });
-        res.render('student/profile',{student:student_json,list:course_json});
     });
     //res.json({msg:"show info of one student.", params:req.params});
 };
