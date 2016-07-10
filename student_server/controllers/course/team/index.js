@@ -259,6 +259,10 @@ exports.check = function (req, res, next) {
 
 };
 
+exports.add = function (req, res, next) {
+
+}
+
 function assert(condition, message) {
 	if (!condition) {
 		throw message || "Assertion failed";

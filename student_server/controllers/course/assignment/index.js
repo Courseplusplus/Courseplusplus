@@ -52,31 +52,39 @@ exports.show = function (req, res, next) {
 			console.log(student_id);
 			Student_belongsto_Team.findAll({
 				where: {
-					student_id : student_id
+					student_id: student_id
 				}
 			}).then(function (student_bl_teams) {
 				console.log(student_bl_teams);
-				if(student_bl_teams.length>0){
-					var cnt=0;
+				if (student_bl_teams.length > 0) {
+					var cnt = 0;
 					for (var index in student_bl_teams) {
-						Team.findById(student_bl_teams[index].team_id).then(function (team) {
+						if (student_bl_teams[index].accepted == "Accepted") {
+							Team.findById(student_bl_teams[index].team_id).then(function (team) {
+								cnt++;
+								if (team.course_id == course_id) {
+									console.log("team_id", team.team_id);
+									Submit.findAll({
+										where: {
+											team_id: team.team_id,
+											assignment_id: assignment.assignment_id
+										}
+									}).then(function (submits) {
+										res.render('submit', {course: course, assignment: assignment, team: team, submits: submits});
+									});
+								}
+								else if (cnt == student_bl_teams.length) {
+									res.render('submit', {course: course, assignment: assignment, team: team, submits: []});
+								}
+							});
+						} else {
 							cnt++;
-							if (team.course_id == course_id) {
-								Submit.findAll({
-									where: {
-										team_id: team.team_id,
-										assignment_id: assignment.assignment_id
-									}
-								}).then(function (submits) {
-									res.render('submit', {course: course, assignment: assignment, team: team, submits: submits});
-								});
-							}
-							else if(cnt==student_bl_teams.length) {
+							if (cnt == student_bl_teams.length) {
 								res.render('submit', {course: course, assignment: assignment, team: team, submits: []});
 							}
-						})
+						}
 					}
-				}else{
+				} else {
 					res.render('submit', {course: course, assignment: assignment, team: {}, submits: []});
 				}
 			});
@@ -128,7 +136,7 @@ exports.create = function (req, res, next) {
 	console.log(assignment_id);
 	console.log(student_id);
 
-
+	var Student_belongsto_Team = global.db.models.student_belongsto_team;
 	var Assign = global.db.models.assignment;
 	var Student = global.db.models.student;
 	var Course = global.db.models.course;
@@ -137,8 +145,6 @@ exports.create = function (req, res, next) {
 	var _assignment;
 	assignId = assignment_id;
 
-	console.log("create");
-
 	var form = new formidable.IncomingForm(),
 		files = [],
 		fields = [];
@@ -146,11 +152,8 @@ exports.create = function (req, res, next) {
 	form
 		.on('field', function (field, value) {
 			//console.log(field, value);
-			fields.push([field, value]);
 		})
 		.on('file', function (field, file) {
-			console.log(field, file);
-			files.push([field, file]);
 			Assign.find({
 				where: {
 					assignment_id: assignment_id
@@ -161,41 +164,54 @@ exports.create = function (req, res, next) {
 			}).then(function (course_id) {
 				courId = course_id;
 				console.log("courId " + courId);
-				Team.findAll({
-					include: [{
-						model: Student
-					}],
+				Student_belongsto_Team.findAll({
 					where: {
-						"$students.student_id$": student_id,
-						"course_id": course_id
+						"student_id": student_id
 					}
-				}).then(function (teams) {
-					assert(teams.length == 1);
-					teamId = teams[0].team_id;
-					console.log("teamId " + teamId);
-					var team = teams[0];
-					console.log(file.path);
-					new_file_path = getFilePath(file.path);
-					Submit.create({
-						submitter_id: student_id,
-						submit_time: new Date(),
-						file_path: new_file_path,
-						file_name: file.name,
-						assignment_id: assignment_id,
-						team_id: teamId
-					}).then(function (submit) {
-						console.log("new path " + new_file_path);
-						fs.rename(file.path, new_file_path);
-					});
+				}).then(function (student_bl_teams) {
+					console.log(student_bl_teams);
+					var cnt = 0;
+					for (var idx in student_bl_teams) {
+						if (student_bl_teams[idx].accepted == "Accepted") {
+							Team.findOne({
+								where: {
+									team_id: student_bl_teams[idx].team_id
+								}
+							}).then(function (team) {
+								cnt++;
+								if (team.course_id == courId) {
+									teamId = team.team_id;
+									console.log("teamId " + teamId);
+									console.log(file.path);
+									var new_file_path = getFilePath(file.path);
+									Submit.create({
+										submitter_id: student_id,
+										submit_time: new Date(),
+										file_path: new_file_path,
+										file_name: file.name,
+										assignment_id: assignment_id,
+										team_id: teamId
+									}).then(function (submit) {
+										console.log("new path " + new_file_path);
+										fs.rename(file.path, new_file_path);
+										// 302 jump
+										res.writeHead(302, {
+											'Location': '/course/' + course_id + '/assignment/' + assignment_id
+										});
+										res.end();
+									});
+								}
+							});
+						}
+						else {
+							cnt++;
+						}
+					}
 				});
 			});
 		})
 		.on('end', function () {
-			// 302 jump
-			res.writeHead(302, {
-				'Location': '/course/' + course_id + '/assignment/' + assignment_id
-			});
-			res.end();
+
 		});
 	form.parse(req);
 };
@@ -211,45 +227,60 @@ var zip_filename = function (file_path) {
 
 exports.download = function (req, res) {
 	var archive = archiver('zip');
-
-
 	console.log("download");
 	var Submit = global.db.models.submit;
 	var Team = global.db.models.team;
 	var Student = global.db.models.student;
 	var ids = req.originalUrl.split("/");
-	var courId = ids[2];
-	var assignId = ids[4];
+	var course_id = ids[2];
+	var assignment_id = ids[4];
+	var Student_belongsto_Team = global.db.models.student_belongsto_team;
 	var student_id = req.session.user.student_id;
 
-	Team.findAll({
-		include: [{
-			model: Student
-		}],
+	Student_belongsto_Team.findAll({
 		where: {
-			"$students.student_id$": student_id,
-			"course_id": courId
+			"student_id": student_id
 		}
-	}).then(function (teams) {
-		assert(teams.length == 1, "teams.length!=1");
-		var team = teams[0];
-		Submit.findOne({
-			where: {
-				assignment_id: assignId,
-				team_id: team.team_id
+	}).then(function (student_bl_teams) {
+		if(student_bl_teams.length>0)
+		{
+			var cnt = 0;
+			for (var index in student_bl_teams) {
+				if (student_bl_teams[index].accepted == "Accepted") {
+					console.log("Accepted");
+					Team.findById(student_bl_teams[index].team_id).then(function (team) {
+						console.log(team);
+						cnt++;
+						if (team.course_id == course_id) {
+							Submit.findOne({
+								where: {
+									assignment_id: assignId,
+									team_id: team.team_id
+								}
+							}).then(function (submit) {
+								console.log(submit);
+								var _zip_filename = zip_filename(submit.file_path);
+								console.log(_zip_filename);
+								console.log(submit.file_path);
+								//set the archive name
+								res.attachment(_zip_filename);
+
+								//this is the streaming magic
+								archive.pipe(res);
+
+								archive.file(submit.file_path);
+								archive.finalize();
+							});
+						}
+					});
+				}else{
+					cnt++;
+				}
 			}
-		}).then(function (submit) {
-			var _zip_filename = zip_filename(submit.file_path);
-			console.log(_zip_filename);
-			console.log(submit.file_path);
-			//set the archive name
-			res.attachment(_zip_filename);
+		}
+		else{
+			res.json({msg:"fail"});
+		}
 
-			//this is the streaming magic
-			archive.pipe(res);
-
-			archive.file(submit.file_path);
-			archive.finalize();
-		});
 	});
 };
