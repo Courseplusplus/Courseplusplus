@@ -4,11 +4,76 @@
 extends ../layout
 
 block content
-    h3 所有作业
-    table(class="table table-hover" style="margin-top:30px;")
+    h3 #{course['course_name']} 所有作业
+    table(class="table table-hover table-bordered" style="margin-top:30px;")
+        thead
+            td 作业
+            td 布置日期
+            td 截止日期
+            td 作业类型
+            td 操作
         each item,index in list
             tr
                 td
-                    a(href="./assignment/#{item['assignment_id']}",class="link",style="color:#222;font-size:16px")
+                    a(href="./assignment/#{item['assignment_id']}?order=#{index+1}",class="link",style="color:#222;font-size:16px")
                         span(class="glyphicon glyphicon-folder-close")
                         span(style="margin-left:10px;")  第 #{index+1} 次作业
+                td #{new Date(item['created_at']).toISOString().replace(/T/, ' ').replace(/\..+/, '')}
+                td #{new Date(item['deadline']).toISOString().replace(/T/, ' ').replace(/\..+/, '')}
+                td #{item['assignment_type']=='SINGLE'?'个人':'团队'}
+                td
+                    a(class="link" href="#") 打包下载
+
+    button(class="btn btn-default" data-toggle="modal" data-target="#addAssignment")
+        span.glyphicon.glyphicon-plus
+        span(style="margin-left:5px;") 布置新作业
+
+    .modal.fade(id="addAssignment",tabindex="-1",role="dialog", aria-labelledby="myModalLabel")
+        .modal-dialog(role="document")
+            .modal-content
+                .modal-header
+                    h2 发布作业
+                .modal-body
+                    form.form-horizontal(method="post",id="form_addAssignment",)
+                        .form-group
+                            label.col-xs-2(for="assignment_type") 作业类型
+                            .col-xs-10
+                                input(type="radio",name="assignment_type",value="single")
+                                span(style="margin-left:10px;") 个人作业
+                                input(type="radio",name="assignment_type",value="team" style="margin-left:30px;")
+                                span(style="margin-left:10px") 团队作业
+                        .form-group
+                            label.col-xs-2(for="assignment_intro") 作业说明
+                            .col-xs-10
+                                textarea.form-control(rows="6" name="assignment_intro")
+                        .form-group
+                            label.col-xs-2(for="deadline") 截止日期
+                            .col-xs-10.input-append.date(id="datetimepicker",data-date-format="yyyy-mm-dd H:i:s",date="#{new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}")
+                                input.form-control(type="text",name="deadline",readonly,style="width:50%")
+                                span.add-on.sr-only
+                                    i.icon-th
+                        .form-group
+                            label.col-xs-2 添加附件
+                            .col-xs-10
+                                input(type="file",name="attachment",multiple="multiple" required)
+
+                .modal-footer(style="text-align:left")
+                    a.btn.btn-default(onclick="addAssignment()") 提交发布
+
+    script(type="text/javascript").
+        $('#datetimepicker').datetimepicker();
+        function addAssignment(){
+            $.ajax({
+                type: "POST",
+                url: "/course/#{params['course_id']}/assignment/",
+                cache: false,
+                async: false,
+                data: new FormData($('#form_addAssignment')[0]),
+                processData: false,
+                contentType: false,
+                success: function (msg) {
+                    alert(msg["msg"]);
+                    window.location.reload();
+                }
+            });
+        }

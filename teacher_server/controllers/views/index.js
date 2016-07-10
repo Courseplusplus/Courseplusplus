@@ -22,13 +22,13 @@ var index = {
             var course_id = req.params.course_id;
             Courses.findOne({course_id:course_id}).then(function(course){
                 if(course) {
-                    res.render('course/index',{intro:course.introduction,name:course.course_name,params:req.params});
+                    res.render('course/index.js',{intro:course.introduction,name:course.course_name,params:req.params});
                 }else{
-                    res.render('course/index', {intro:"非法访问！"});
+                    res.render('course/index.js', {intro:"非法访问！"});
                 }
             });
         }else {
-            res.render('course/index', {intro:"非法访问！"});
+            res.render('course/index.js', {intro:"非法访问！"});
         }
     },
     assignments: function(req,res){
@@ -45,9 +45,9 @@ var index = {
             if (!err && response.statusCode == 200) {
                 Assignments.findOne({where:{assignment_id: assignment_id}}).then(function(assignment){
                     var lesson_id = assignment['lesson_id'];
-                    res.render('course/submits',{list:JSON.parse(body)["data"],lesson_id:lesson_id,params:req.params});
+                    res.render('course/submit',{list:JSON.parse(body)["data"],lesson_id:lesson_id,params:req.params});
                 });
-                //res.render('course/submits',{list:JSON.parse(body)["data"],assignment_id:assignment_id,params:req.params});
+                //res.render('course/submit',{list:JSON.parse(body)["data"],assignment_id:assignment_id,params:req.params});
             }
         });
     },

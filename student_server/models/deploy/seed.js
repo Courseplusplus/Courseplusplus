@@ -101,13 +101,13 @@
 					}
 				}
 			).then(function (students) {
-				for (var index in students) {
-					Student_Team.create({
-						"team_id": team.team_id,
-						"student_id": students[index].student_id
-					});
-				}
-			});
+					for (var index in students) {
+						Student_Team.create({
+							"team_id": team.team_id,
+							"student_id": students[index].student_id
+						});
+					}
+				});
 			//team.setStudent()
 		});
 		Team.create({
@@ -118,7 +118,7 @@
 			Student.findAll({
 				where: {
 					student_id: 13211016,
-			}
+				}
 			}).then(function (students) {
 				for (var index in students) {
 					Student_Team.create({

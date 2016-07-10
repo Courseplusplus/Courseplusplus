@@ -54,7 +54,7 @@
         var cnt = 0;
         for(var index in datas) {
             datas[index].term=new Date();
-            //console.log(datas[index]);
+            //console.log(datas[index.js]);
             Course.create(datas[index]).then(function (item) {
 
                 if(item) {
@@ -74,7 +74,7 @@
         for(var index in datas) {
             datas[index].upload_time=new Date();
             datas[index].deadline=new Date();
-            //console.log(datas[index]);
+            //console.log(datas[index.js]);
             Assign.create(datas[index]).then(function (item) {
                 if(item) {
                     cnt++;

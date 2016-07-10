@@ -1,0 +1,36 @@
+//Created by zhangxinru on 16/7/8.
+
+extends ../layout
+
+block content
+    h3 软件工程：所有团队
+    hr
+    table.table.table-hover.table-bordered
+        thead
+            td 团队名
+            td 创建时间
+            td 创建人
+            td 当前状态
+            td 操作
+        each item in data['teams']
+            tr
+                td #{item['team_name']}
+                td #{new Date(item['created_at']).toISOString().replace(/T/, ' ').replace(/\..+/, '')}
+                td #{item['student_id']}
+                td #{item['permission']=='Teaming'?'未处理':item['permission']=='Permited'?'已通过':'已拒绝'}
+                td
+                    a.btn.btn-default(style="border-radius:2px;padding:1px 5px;font-size:12px;" onclick="operator('accept',#{item['team_id']})") 通过
+                    span &nbsp;&nbsp;
+                    a.btn.btn-default(style="border-radius:2px;padding:1px 5px;font-size:12px;" onclick="operator('reject',#{item['team_id']})") 拒绝
+    script(type="text/javascript").
+        function operator(type,team_id){
+            $.ajax({
+                type: "POST",
+                url: "/course/#{params['course_id']}/team/"+team_id,
+                data:{type:type},
+                success: function (msg) {
+                    alert(msg["msg"]);
+                    window.location.reload();
+                }
+            });
+        }
