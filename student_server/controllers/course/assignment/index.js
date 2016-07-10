@@ -47,15 +47,20 @@ exports.show = function (req, res, next) {
 	var Team = global.db.models.team;
 	var Submit = global.db.models.submit;
 	var Student_belongsto_Team = global.db.models.student_belongsto_team;
+	console.log('here0');
 	Assignment.findById(assignment_id).then(function (assignment) {
+		console.log('here1');
 		Course.findById(course_id).then(function (course) {
+			console.log(student_id);
 			Student_belongsto_Team.findAll({
 				where: {
-					"student_id": student_id
+					student_id : student_id
 				}
 			}).then(function (student_bl_teams) {
+				console.log('here2');
 				for (var index in student_bl_teams) {
 					Team.findById(student_bl_teams[index].team_id).then(function (team) {
+						console.log('here3');
 						if (team.course_id == course_id) {
 							Submit.findAll({
 								where: {

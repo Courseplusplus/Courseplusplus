@@ -33,6 +33,23 @@ module.exports = function (sequelize, DataTypes) {
                 notEmpty:true,
                 len:[1,100]
             }
+        },
+        grade:{
+            type:DataTypes.INTEGER,
+            allowNull:true,
+            validate:{
+                min:0,
+                max:100
+            }
+        },
+        comment:{
+            type:DataTypes.TEXT,
+            allowNull:true,
+            defultValue:"你好棒啊",
+            validate:{
+                notEmpty:true,
+                len:[1,3000]
+            }
         }
     }, {
         underscored: true
