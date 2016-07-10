@@ -40,9 +40,11 @@ exports.import = function(req,res){
             var rs = fs.createReadStream(form.uploadDir +'/'+ file_name);
             var parser = csvParser({columns: true}, function(err, data){
                 //console.log(data);
-                var Teacher = global.db.models.coursteachere;
+                var Teacher = global.db.models.teacher;
                 Teacher.bulkCreate(data).then(function(){
-                    request(host+'/teacher')
+                    request(host + '/data_provider/teacher',function(err,response,body){
+                        res.render('teacher/index',{list:JSON.parse(body)['data']});
+                    });
                 });
             });
             rs.pipe(parser);

@@ -46,7 +46,9 @@ exports.import = function(req,res){
                 //console.log(data);
                 var Student = global.db.models.student;
                 Student.bulkCreate(data).then(function(){
-                    request(host+'/student')
+                    request(host + '/data_provider/student',function(err,response,body){
+                        res.render('student/index',{list:JSON.parse(body)['data']});
+                    });
                 });
             });
             rs.pipe(parser);
