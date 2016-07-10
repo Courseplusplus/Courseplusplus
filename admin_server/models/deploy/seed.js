@@ -16,6 +16,7 @@
     var Student = models.student;
     var Assign = models.assignment;
     var Team = models.team;
+    var Term = models.term;
 
     var init_teachers = function (teacher_datas, callback) {
         var teacher_num = teacher_datas.length;
@@ -128,7 +129,7 @@
             });
         });
     };
-    var init_term = function (term_datas, callback){
+    var init_terms = function (term_datas, callback){
         var term_num = term_datas.length;
         var term_cnt = 0;
         for(var index in term_datas){

@@ -2,6 +2,8 @@
  * Created by wangzhaoyi on 16/7/7.
  */
 var request = require('request');
+var PasswordValidator = require('../../libs').PasswordValidator;
+var ResultConstructor = require('../../libs').ResultConstructor;
 var host = "http://127.0.0.1:3002";
 
 exports.list = function(req,res){
@@ -40,11 +42,25 @@ exports.import = function(req,res){
                     function(err, data) {
                         var Teacher = global.db.models.teacher;
                         for(row in data){
-                            Teacher.create({
-                                teacher_id:data[row][0],
+                            var userParams = {
+                                student_id:data[row][0],
                                 name:data[row][1],
                                 telephone:data[row][2],
-                                password:'000000'
+                                password: PasswordValidator.encrypt_password('000000')
+                            };
+                            Teacher.create(userParams).then(function (user) {
+                                if (user) {
+                                    res.json(ResultConstructor.success({
+                                        teacher_id: user.user_id,
+                                        name: user.name,
+                                        telephone: user.telephone
+                                    }));
+                                }
+                                else {
+                                    next(new Errors.errors_500.InternalServerError());
+                                }
+                            }).catch(function () {
+                                next(new Errors.errors_400.DataValidationFailedError());
                             });
                         }
                     });
