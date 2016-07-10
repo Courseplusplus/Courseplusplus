@@ -2,8 +2,7 @@
     "student_id": 13211014,
     "name": "HeavenDuke",
     "telephone": "18811409948",
-    "password": "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a",
-    "introduction": "Test user 1."
+    "password": "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
 }, {
     "student_id": 13211015,
     "name": "BigBird",
@@ -13,6 +12,5 @@
     "student_id": 13211016,
     "name": "AsherWang",
     "telephone": "13146021274",
-    "password": "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a",
-    "introduction": "Test user 2."
+    "password": "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
 }]
