@@ -1,7 +1,6 @@
 /**
  * Created by wangzhaoyi on 16/7/3.
  */
-
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define('course', {
         course_id: {
@@ -25,10 +24,6 @@ module.exports = function (sequelize, DataTypes) {
                 len: [1, 3000]
             }
         },
-        term:{
-            type:DataTypes.DATEONLY,
-            allowNull:false
-        },
         lesson_total:{
             type:DataTypes.INTEGER,
             allowNull:true,
@@ -37,7 +32,7 @@ module.exports = function (sequelize, DataTypes) {
         img_src:{
             type:DataTypes.STRING,
             allowNull:true,
-            defaultValue:1
+            defaultValue:"/image/4.png"
         }
     }, {
         underscored: true
