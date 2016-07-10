@@ -1,5 +1,5 @@
 (function () {
-    var config = require('../../admin_server/config.json');
+    var config = require('../../config.json');
     var libs = require('../../libs');
     var database = require('../')(
         config.mysql.database,
@@ -170,30 +170,25 @@
             console.log(teacher.dataValues);
         });
     });
-    /*init_students(require('./fixtures/students'), function (students) {
+    init_students(require('./fixtures/students'), function (students) {
         students.forEach(function (student) {
-            //console.log(student.dataValues);
+        //console.log(student.dataValues);
         });
-    });*/
-    /*init_courses(require('./fixtures/courses'), function (courses) {
-     courses.forEach(function (course) {
-     //console.log(course.dataValues);
-     });
-     });
-     /*init_assignment(require('./fixtures/assignment'), function (assignments) {
-     assignments.forEach(function (assignment) {
-     //console.log(assignment.dataValues);
-     });
-     });
-     init_teams(require('./fixtures/teams'), function (teams) {
-     teams.forEach(function (team) {
-     //console.log(team.dataValues);
-     });
-     });
-     init_terms(require('./fixtures/terms'),function(terms){
-     terms.forEach(function (term) {
-     //console.log(team.dataValues);
-     });
-     });*/
+    });
+    init_terms(require('./fixtures/terms'),function(terms){
+        terms.forEach(function (term) {
+            //console.log(team.dataValues);
+        });
+    });
+    init_courses(require('./fixtures/courses'), function (courses) {
+        courses.forEach(function (course) {
+        //console.log(course.dataValues);
+        });
+    });
+    init_assignment(require('./fixtures/assignment'), function (assignments) {
+        assignments.forEach(function (assignment) {
+        //console.log(assignment.dataValues);
+        });
+    });
 
 }());

@@ -13,7 +13,7 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING(30),
             allowNull: false,
             validate: {
-                len: [6, 30]
+                len: [0, 30]
             }
         },
         telephone: {
