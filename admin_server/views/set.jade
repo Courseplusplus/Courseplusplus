@@ -6,9 +6,17 @@ block comtent
     h3 设置学期开始结束日期 总周次
         div(class="form-group")
             p 设置学期开始日期
-
+                label 开始日期
+                input( class="form-control",type="date",name = "start_date",size = "10" maxlength="20" style="margin-left:5px")
 
             p 设置学期结束日期
-
+                label 结束日期
+                input( class="form-control",type="date",name = "end_date",size = "10" maxlength="20" style="margin-left:5px")
 
             p 设置学期总周次
+                label 总周次
+                input( class="form-control",type="text",name = "total_week",size = "10" maxlength="20" style="margin-left:5px")
+
+        button(type="submit" value="Upload" class="btn btn-default")
+            span(class="glyphicon glyphicon-upload")
+            span 导入
