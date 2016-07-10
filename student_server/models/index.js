@@ -16,6 +16,7 @@ module.exports = function (database, username, password, config) {
     var Teacher = sequelize.import(path.join(__dirname,'objects/teacher'));
     var Team = sequelize.import(path.join(__dirname,'objects/team'));
     var Chat = sequelize.import(path.join(__dirname, 'objects/chat'));
+    var Term = sequelize.import(path.join(__dirname,'objects/term'));
 
     var Student_Team = sequelize.import(path.join(__dirname,'objects/student_belongsto_team'));
     var Student_Course= sequelize.import(path.join(__dirname,'objects/student_belongsto_course'));

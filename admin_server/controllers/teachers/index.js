@@ -4,6 +4,10 @@
 var request = require('request');
 var PasswordValidator = require('../../libs').PasswordValidator;
 var ResultConstructor = require('../../libs').ResultConstructor;
+var formidable = require('formidable');
+var fs = require('fs');
+var csvParser = require('csv-parse');
+var path = require('path');
 var host = "http://127.0.0.1:3002";
 
 exports.list = function(req,res){
@@ -17,6 +21,7 @@ exports.show = function(req,res){
     request(host + '/data_provider/teacher/'+req.params.teacher_id,function(err,response,body){
         var teacher_json = JSON.parse(body)['data'];
         request(host+'/data_provider/teacher/'+req.params.teacher_id+'/course',function(err,response,body){
+            console.log(JSON.parse(body)['data']);
             res.render('teacher/profile',{teacher:teacher_json,list:JSON.parse(body)['data']});
         });
     });
@@ -25,7 +30,7 @@ exports.show = function(req,res){
 
 exports.import = function(req,res){
     var form = new formidable.IncomingForm();
-    var file_name = 'teachers';
+    var file_name = 'teachers.csv';
     form.uploadDir = path.join(__dirname , '../../tmp');
     form.keepExtensions = true;
     form.type = true;
@@ -41,32 +46,24 @@ exports.import = function(req,res){
                 csvParser(csvData, {delimiter: ','},
                     function(err, data) {
                         var Teacher = global.db.models.teacher;
+                        //console.log(data);
                         for(row in data){
-                            var userParams = {
-                                student_id:data[row][0],
-                                name:data[row][1],
-                                telephone:data[row][2],
-                                password: PasswordValidator.encrypt_password('000000')
-                            };
-                            Teacher.create(userParams).then(function (user) {
-                                if (user) {
-                                    res.json(ResultConstructor.success({
-                                        teacher_id: user.user_id,
-                                        name: user.name,
-                                        telephone: user.telephone
-                                    }));
-                                }
-                                else {
-                                    next(new Errors.errors_500.InternalServerError());
-                                }
-                            }).catch(function () {
-                                next(new Errors.errors_400.DataValidationFailedError());
-                            });
+                            if(row!=0) {
+                                //console.log(row);
+                                var userParams = {
+                                    teacher_id: data[row][0],
+                                    name: data[row][1],
+                                    telephone: data[row][2],
+                                    password: PasswordValidator.encrypt_password('000000')
+                                };
+                                //console.log(userParams);
+                                Teacher.create(userParams);
+                            }
                         }
                     });
             });
-            request(host+'/teacher/index',function(err,response){
-                console.log(response);
+            request(host+'/teacher',function(err,response){
+                //console.log(response);
                 if (err){
                     console.log(err);
                 }

@@ -26,3 +26,20 @@ block content
                                     a(href="/student/#{item['student_id']}",class="link",style="color:#222;font-size:16px")
                                         span(class="glyphicon glyphicon-folder-close")
                                         span(style="margin-left:10px;") #{item["name"]}
+    div(class="col-sm-12 col-md-8" style="margin:auto")
+        div(class="thumbnail")
+            h3 导入学生信息
+            form(action="/:course_id/student", method="post",enctype="multipart/form-data")
+                div(class="form-group")
+                    input(type="file" name="upload" multiple="multiple")
+                button(type="submit" value="Upload" class="btn btn-default")
+                    span(class="glyphicon glyphicon-upload")
+                    span 导入
+        div(class="thumbnail")
+            h3 导入教师信息
+            form(action="/:course_id/teacher", method="post",enctype="multipart/form-data")
+                div(class="form-group")
+                    input(type="file" name="upload" multiple="multiple")
+                button(type="submit" value="Upload" class="btn btn-default")
+                    span(class="glyphicon glyphicon-upload")
+                    span 导入

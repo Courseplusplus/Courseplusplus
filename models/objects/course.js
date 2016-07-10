@@ -25,10 +25,6 @@ module.exports = function (sequelize, DataTypes) {
                 len: [1, 3000]
             }
         },
-        term:{
-            type:DataTypes.DATEONLY,
-            allowNull:false
-        },
         lesson_total:{
             type:DataTypes.INTEGER,
             allowNull:true,

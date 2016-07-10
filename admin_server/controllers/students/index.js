@@ -4,6 +4,10 @@
 var request = require('request');
 var PasswordValidator = require('../../libs').PasswordValidator;
 var ResultConstructor = require('../../libs').ResultConstructor;
+var formidable = require('formidable');
+var fs = require('fs');
+var csvParser = require('csv-parse');
+var path = require('path');
 var host = "http://127.0.0.1:3002";
 
 exports.list = function(req,res,next){
@@ -69,7 +73,7 @@ exports.import = function(req,res){
                         }
                     });
             });
-            request(host+'/student/index',function(err,response){
+            request(host+'/student',function(err,response){
                 console.log(response);
                 if (err){
                     console.log(err);

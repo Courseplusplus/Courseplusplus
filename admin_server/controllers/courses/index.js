@@ -53,19 +53,20 @@ exports.import = function(req,res){
                     function(err, data) {
                         var Course = global.db.models.course;
                         for(row in data){
-                            Course.create({
-                                course_name:data[row][0],
-                                introduction:data[row][1],
-                                term:data[row][2],
-                                lesson_total:data[row][3],
-                                img_src:'/image/'+Math.ceil(Math.random()*5)+'.png'
-                            });
+                            if(row != 0) {
+                                Course.create({
+                                    course_name: data[row][0],
+                                    introduction: data[row][1],
+                                    lesson_total: data[row][2],
+                                    img_src: '/image/' + Math.ceil(Math.random() * 5) + '.png'
+                                });
+                            }
                         }
                     });
             });
             //fs.unlinkSync(form.uploadDir + file_name);
-            request(host+'/course/index',function(err,response){
-                console.log(response);
+            request(host+'/course',function(err,response){
+                //console.log(response);
                 if (err){
                     console.log(err);
                 }

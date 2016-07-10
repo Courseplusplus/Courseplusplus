@@ -16,12 +16,14 @@
 	var Assign = models.assignment;
 	var Team = models.team;
 	var Student_Team = models.student_belongsto_team;
+    var Term = models.term;
 
 	var init_teachers = function (teacher_datas, callback) {
 		var teacher_num = teacher_datas.length;
 		var teacher_cnt = 0;
 		for (var index in teacher_datas) {
 			Teacher.create(teacher_datas[index]).then(function (teacher) {
+				console.log(teacher);
 				if (teacher) {
 					teacher_cnt++;
 				}
@@ -146,7 +148,7 @@
 			});
 		});
 	};
-	var init_terms = function (term_datas, callback){
+	/*var init_terms = function (term_datas, callback){
 		var term_num = term_datas.length;
 		var term_cnt = 0;
 		for(var index in term_datas){
@@ -161,41 +163,41 @@
 				}
 			});
 		}
-	};
+	};*/
 
 	// 用户数据在./fixtures/teachers.json中，包含三个测试用的用户
 	// 三个用户的密码都是123456
 	init_teachers(require('./fixtures/teachers'), function (teachers) {
 		teachers.forEach(function (teacher) {
-			console.log(teacher.dataValues);
+			//console.log(teacher.dataValues);
 		});
 	});
 	// 用户数据在./fixtures/users.json中，包含三个测试用的用户
 	// 三个用户的密码都是123456
-	init_students(require('./fixtures/students'), function (students) {
+	/*init_students(require('./fixtures/students'), function (students) {
 		students.forEach(function (student) {
 			//console.log(student.dataValues);
 		});
-	});
-	init_courses(require('./fixtures/courses'), function (courses) {
+	});*/
+	/*init_courses(require('./fixtures/courses'), function (courses) {
 		courses.forEach(function (course) {
 			//console.log(course.dataValues);
 		});
 	});
-	init_assignment(require('./fixtures/assignment'), function (assignments) {
+	/*init_assignment(require('./fixtures/assignment'), function (assignments) {
 		assignments.forEach(function (assignment) {
 			//console.log(assignment.dataValues);
 		});
 	});
-	init_teams(require('./fixtures/teams'), function (teams) {
+	/*init_teams(require('./fixtures/teams'), function (teams) {
 		teams.forEach(function (team) {
 			//console.log(team.dataValues);
 		});
-	});
-	init_terms(require('./fixtures/terms'),function(terms){
+	});*/
+	/*init_terms(require('./fixtures/terms'),function(terms){
 		terms.forEach(function (term) {
 			//console.log(team.dataValues);
 		});
-	});
+	});*/
 
 }());

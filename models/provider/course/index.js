@@ -51,7 +51,7 @@ var getTeacherCourse = function(teacher_id, res){
                 }
             });
         }
-        if (len == 0) res.json({data : null});
+        if (len == 0) res.json({data : []});
     });
 };
 
