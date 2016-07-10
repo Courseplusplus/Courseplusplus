@@ -3,8 +3,8 @@ exports.resource = require("./resource");
 exports.team = require("./team");
 
 exports.index = function(req,res){
-  console.log("course index");
-  res.json({msg:"course index"});
+  console.log("course index.js");
+  res.json({msg:"course index.js"});
 };
 
 exports.single = function(req, res, next){

@@ -1,6 +1,7 @@
 /**
  * Created by wangzhaoyi on 16/7/3.
  */
+
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define('course', {
         course_id: {

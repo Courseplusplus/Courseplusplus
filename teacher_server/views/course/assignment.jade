@@ -3,11 +3,149 @@
 
 extends ../layout
 block content
-    h1 第#{lesson}次作业提交情况
-    table(class="table table-hover" style="margin-top:30px;")
-        each item,index in list
+    h3  #{data['course']['course_name']}：第#{order}次作业
+    hr
+    h4 作业详情
+        a(class="link",style="font-size:12px;margin-left:10px",href="#",data-toggle="modal" data-target="#addAssignment") 修改>>
+    div(class="col-lg-12",style="padding-left:0")
+        div(class="col-lg-8",style="padding-left:0")
+            table(class="table table-hover table-bordered")
+                tr
+                    td(class="assignment-title") 作业说明
+                    td #{data['assignment']['assignment_introduction']}
+                tr
+                    td(class="assignment-title") 截止时间
+                    td #{new Date(data['assignment']['deadline']).toISOString().replace(/T/, ' ').replace(/\..+/, '')}
+                tr
+                    td.assignment-type 作业类型
+                    td #{data['assignment']['assignment_type']=='SINGLE'?'个人':'团队'}
+                tr
+                    td(class="assignment-title") 当前状态
+                    td #{new Date(data['assignment']['deadline']).getTime()-Date.now()>0?'进行中':'超时'}
+
+                tr
+                    td.assignment-file 附加说明
+                    td
+                        a.link(href="#") #{data['assignment']['file_path']==""?"暂无":file_name}
+
+        div(class="col-lg-4")
+
+    .modal.fade(id="addAssignment",tabindex="-1",role="dialog", aria-labelledby="myModalLabel")
+        .modal-dialog(role="document")
+            .modal-content
+                .modal-header
+                    h2 修改信息
+                .modal-body
+                    form.form-horizontal(method="post",id="form_addAssignment",)
+                        .form-group
+                            label.col-xs-2(for="assignment_type") 作业类型
+                            .col-xs-10
+                                input(type="radio",name="assignment_type",value="single")
+                                span(style="margin-left:10px;") 个人作业
+                                input(type="radio",name="assignment_type",value="team" style="margin-left:30px;")
+                                span(style="margin-left:10px") 团队作业
+                        .form-group
+                            label.col-xs-2(for="assignment_intro") 作业说明
+                            .col-xs-10
+                                textarea.form-control(rows="6" name="assignment_intro",placeholder="#{data['assignment']['assignment_introduction']}")
+                        .form-group
+                            label.col-xs-2(for="deadline") 截止日期
+                            .col-xs-10.input-append.date(id="datetimepicker",data-date-format="yyyy-mm-dd H:i:s",date="#{new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}")
+                                input.form-control(type="text",name="deadline",readonly,style="width:50%",placeholder="#{data['assignment']['deadline']}")
+                                span.add-on.sr-only
+                                    i.icon-th
+                        .form-group
+                            label.col-xs-2 添加附件
+                            .col-xs-10
+                                input(type="file",name="attachment",multiple="multiple" required)
+
+                .modal-footer(style="text-align:left")
+                    a.btn.btn-default(onclick="addAssignment()") 提交发布
+
+    script(type="text/javascript").
+        $('#datetimepicker').datetimepicker();
+        function addAssignment(){
+            $.ajax({
+                type: "POST",
+                url: "/course/#{params['course_id']}/assignment/#{params['assignment_id']}",
+                cache: false,
+                async: false,
+                data: new FormData($('#form_addAssignment')[0]),
+                processData: false,
+                contentType: false,
+                success: function (msg) {
+                    alert(msg["msg"]);
+                    window.location.reload();
+                }
+            });
+        }
+
+    h4 学生作业提交情况
+    table(class="table table-hover table-bordered" )
+        thead
+            td 选择
+            td 名称
+            td 提交时间
+            td 分数
+            td 状态
+            td 操作
+        each item,index in data["submits"]
             tr
+                td(style="width:50px")
+                    input(type="checkbox")
                 td
-                    a(href="./#{params['assignment_id']}/team/#{item['team_id']}",class="link",style="color:#222;font-size:16px")
+                    a(href="./#{params['assignment_id']}/team/#{item['submit']['team_id']}",class="link",style="color:#222;font-size:16px")
                         span(class="glyphicon glyphicon-folder-close")
                         span(style="margin-left:10px;")   Team #{index+1}
+                td
+                    span 2016-07-11 14:34:40
+                td
+                    span #{item['submit']['grade']?item['submit']['grade']:0}
+                td
+                    span #{item['submit']['grade']?'已评分':'未评分'}
+                td
+                    button(class="btn btn-default" style="border-radius:2px;padding:1px 5px;font-size:12px;") 下载
+                    span &nbsp;&nbsp;
+                    button(class="btn btn-default" data-toggle="modal" data-target="#mark#{item['submit']['submit_id']}" style="border-radius:2px;padding:1px 5px;font-size:12px;") 写评语
+            div(class="modal fade",id="mark#{item['submit']['submit_id']}",tabindex="-1",role="dialog",aria-labelledby="markLabel" style="margin-top:100px")
+                div( class="modal-dialog" role="document" )
+                    div(class="modal-content" style="padding:20px")
+                        div(class="modal-title")
+                            h3 Team #{item['submit']['team_id']} 作业评分
+                            hr
+                        div(class="modal-body" style="min-height:300px")
+                            form(method="post" action="" class="form-horizontal" id="form#{item['submit']['submit_id']}")
+                                div(class="form-group")
+                                    label(for="score",class="col-sm-2 control-label" style="padding-left:0") 评分
+                                    div(class="col-sm-10")
+                                        input(type="number",name="score",class="form-control",style="width:20%;height:30px;")
+                                br
+                                input(class="sr-only",name="submit_id",value="#{item['submit']['submit_id']}")
+                                div(class="form-group" style="margin-top:10px;")
+                                    label(for="comment",class="col-sm-2 control-label" style="padding-left:0") 评语
+                                    div(class="col-sm-10")
+                                        textarea(type="text",name="comment",class="form-control",rows=6)
+                                div(class="form-group")
+                                    a(class="btn btn-default col-sm-4" style="margin-top:20px;" onclick="mark(#{item['submit']['submit_id']})") 评分
+                                script(type='text/javascript').
+                                    var name = mark+item['submit']['submit_id'];
+                                    function mark(submit_id) {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/course/#{params['course_id']}/assignment/#{params['assignment_id']}/team/#{item['submit']['team_id']}/mark",
+                                            data: $("#form"+submit_id).serialize(),
+                                            success: function (msg) {
+                                                alert(msg["msg"]);
+                                                window.location.reload();
+                                            }
+                                        });
+                                    }
+
+                        div(class="modal-footer")
+
+    button(class="btn btn-default") 下载选中作业
+
+    script(type='text/javascript').
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        });

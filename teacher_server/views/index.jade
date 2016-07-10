@@ -2,11 +2,12 @@
    Created by peter on 7/6/16.
     
 extends home
-block index
-    div(class="col-lg-offset-1 col-lg-offset-10")
+
+block index.js
+    div(class="col-lg-offset-2 col-lg-8" style="margin-top:50px;")
         each item in list
             //div(class="row")
-            div(class="col-lg-3")
+            div(class="col-lg-4")
                 div(class="thumbnail")
                     img(src="#{item['img_src']}" alt="...")
                     div(class="caption")
