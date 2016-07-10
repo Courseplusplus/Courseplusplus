@@ -18,7 +18,8 @@ var getCourseStudentACTeam = function(course_id, student_id, res){
         console.log('1');
         var cnt = 0;
         var len = teamIDs.length;
-        for (var teamID in teamIDs){
+        for (var index in teamIDs){
+            var teamID = teamIDs[index].team_id;
             team.findOne({where: {team_id : teamID}}).then(function(team){
                 if (team.course_id == course_id && team.permission == "Permited"){
                     team.findOne({where : {team_id : team_id}}).then(function(team){
@@ -48,13 +49,13 @@ var getCourseStudentTeam = function(course_id, student_id, res){
         console.log('1');
         var cnt = 0;
         var len = teamIDs.length;
-        for (var teamID in teamIDs){
-            var id = teamID.team_id;
-            team.findOne({where: {team_id : id}}).then(function(team){
-                if (team.course_id == course_id){
-                    team.findOne({where : {team_id : team_id}}).then(function(team){
-                        res.json({data : team});
-                    });
+        for (var index in teamIDs){
+            var id = teamIDs[index].team_id;
+            team.findOne({where: {team_id : id}}).then(function(_team){
+                if (_team.course_id == course_id){
+                    //team.findOne({where : {team_id : _team.team_id}}).then(function(_team){
+                        res.json({data : _team});
+                    //});
                 }else{
                     cnt++;
                     if (cnt == len) res.json({data: null});

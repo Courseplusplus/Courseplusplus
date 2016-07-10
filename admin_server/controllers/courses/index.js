@@ -20,18 +20,15 @@ exports.list = function(req,res,next){
 
 exports.show = function(req,res,next){
     var course_id = req.params.course_id;
-    var course_json = [];
-    var student_json = [];
-    var teacher_json = [];
     request(host + '/data_provider/course/'+course_id,function (err,response,body) {
-        course_json = JSON.parse(body)["data"];
-        request(host +'/data_provider/course/'+course_id+'/teacher',function(err,response,body){
-            student_json = JSON.parse(body)["data"];
+        var course_json = JSON.parse(body)["data"];
+        request(host +'/data_provider/course/'+course_id+'/student',function(err,response,body){
+            var student_json = JSON.parse(body)["data"];
             request(host +'/data_provider/course/'+course_id+'/teacher',function(err,response,body){
-                teacher_json = JSON.parse(body)["data"];
+                var teacher_json = JSON.parse(body)["data"];
+                res.render('course/profile',{course:course_json,teacher:teacher_json,student:student_json});
             });
         });
-        res.render('course/profile',{course:course_json,teacher:teacher_json,student:student_json});
     });
 };
 
@@ -66,30 +63,49 @@ exports.import = function(req,res){
 
 exports.import_student = function(req,res){
     var form = new formidable.IncomingForm();
-    var file_name = 'upload';
+    var file_name = req.params.course_id+'.csv';
     var Course = global.db.models.course;
     var Student = global.db.models.student;
     form.uploadDir = path.join(__dirname , '../../tmp');
-    form.keepExtensions = false;
+    form.keepExtensions = true;
     form.type = true;
     form.parse(req, function(err, fields, files) {
     });
     form.on('end',function(){
             var rs = fs.createReadStream(form.uploadDir +'/'+ file_name);
             var parser = csvParser({columns: true}, function(err, data){
-                //console.log(data);
-                Course.find({where:{course_id:req.params.course_id}}).then(function(){
+                //console.log(req.params.course_id);
+                Course.findOne({where:{course_id:req.params.course_id}}).then(function(course){
+                    //console.log(course);
                     for(index in data){
-                        data[index]['student_id']
+                        Student.findOne({where:{student_id:data[index]['student_id']}}).then(function(student){
+                            if(student) {
+                                course.addStudent(student);
+                                //console.log(course);
+                                var course_id = req.params.course_id;
+                                var course_json = [];
+                                var student_json = [];
+                                var teacher_json = [];
+                                request(host + '/data_provider/course/'+course_id,function (err,response,body) {
+                                    course_json = JSON.parse(body)["data"];
+                                    request(host +'/data_provider/course/'+course_id+'/teacher',function(err,response,body){
+                                        student_json = JSON.parse(body)["data"];
+                                        request(host +'/data_provider/course/'+course_id+'/teacher',function(err,response,body){
+                                            teacher_json = JSON.parse(body)["data"];
+                                        });
+                                    });
+                                    res.render('course/profile',{course:course_json,teacher:teacher_json,student:student_json});
+                                });
+                            }
+                        })
                     }
-                })
+                });
             });
             rs.pipe(parser);
         })
         .on('file', function(field, file) {
             //rename the incoming file to the file's name
-            fs.rename(file.path, form.uploadDir + "/" + file.name);
-            file_name = file.name;
+            fs.rename(file.path, form.uploadDir + "/" + file_name);
         });
 };
 
