@@ -29,7 +29,7 @@ var getCourseTeacher = function(course_id, res){
                 if (cnt == len) res.json({data : teacherlist});
             });
         }
-        if (len == 0) res.json({data : null});
+        if (len == 0) res.json({data : []});
     });
 };
 

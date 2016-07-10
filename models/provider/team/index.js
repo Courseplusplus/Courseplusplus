@@ -26,11 +26,11 @@ var getCourseStudentACTeam = function(course_id, student_id, res){
                     });
                 }else{
                     cnt++;
-                    if (cnt == len) res.json({data: null});
+                    if (cnt == len) res.json({data: {}});
                 }
             });
         }
-        if (len == 0) res.json({data: null});
+        if (len == 0) res.json({data: {}});
     });
 };
 var getCourseNotDecideTeams = function(course_id, res){
@@ -57,11 +57,11 @@ var getCourseStudentTeam = function(course_id, student_id, res){
                     });
                 }else{
                     cnt++;
-                    if (cnt == len) res.json({data: null});
+                    if (cnt == len) res.json({data: {}});
                 }
             });
         }
-        if (len == 0) res.json({data: null});
+        if (len == 0) res.json({data: {}});
     });
 };
 module.exports = {

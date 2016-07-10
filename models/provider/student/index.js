@@ -31,7 +31,7 @@ var getCourseStudent = function(course_id, res){
                 if (cnt == len) res.json({data : studentlist});
             });
         }
-        if (len == 0) res.json({data : null});
+        if (len == 0) res.json({data : []});
     });
 };
 
