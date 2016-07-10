@@ -23,23 +23,15 @@ module.exports = {
         });
     },
     upload:function(req,res){
-        var formidable = require("formidable");
-        var form = new formidable.IncomingForm(),
-            files = [],
-            fields = [];
-
-        form.uploadDir = "../../../../resource/tmp/";
-
-        form
-            .on('field', function(field, value) {
-                console.log(field, value);
-                fields.push([field, value]);
-            })
-            .on('file', function(field, file) {
-                console.log(field, file);
-                files.push([field, file]);
-                fs.rename(file.path,"../../../../resource/"+file.name);
-            });
+        //var fs        = require('fs');
+        //var path      = require('path');
+        //
+        //var filename  = req.files.files.name;
+        //var course_id = req.params.course_id;
+        //
+        //var targetPath = path.join(__dirname , '../../../../resources/resources/'+course_id+'/', filename);
+        targetPath = 'hello';
+        console.log(targetPath);
         var msg='上传课程资源';
         //res.json({msg:msg,router:"course/resource.upload",params:req.params,post_body:req.body});
     }

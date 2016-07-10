@@ -5,7 +5,7 @@ extends ../layout
 block content
     h3 上传资源
     hr
-    form(class="form-inline" action="",enctype="multipart/form-data" id="resource_upload")
+    form(class="form-inline",enctype="multipart/form-data" id="resource_upload")
         div(class="form-group form-line")
             label 类型
             select(class="form-control",name="resource_type" style="margin-left:5px")
@@ -26,7 +26,11 @@ block content
                 $.ajax({
                     type: "POST",
                     url: "/course/#{params['course_id']}/resource/",
-                    data: $("#resource_upload").serialize(),
+                    cache: false,
+                    async: false,
+                    data: new FormData($('#resource_upload')[0]),
+                    processData: false,
+                    contentType: false,
                     success: function (msg) {
                         alert(msg["msg"]);
                         window.location.reload();

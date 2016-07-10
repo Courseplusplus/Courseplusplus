@@ -11,16 +11,25 @@ module.exports = {
         //res.json({msg:'展示课程的所有作业',router:"course/assignment.index.js"});
     },
     all:function(req,res){
+        var request = require('request');
         var assignment_id = req.params.assignment_id;
         var Submit     = global.db.models.submit;
         var Assignment = global.db.models.assignment;
-        Submit.findAll({where:{assignment_id:assignment_id}}).then(function(submits){
-            Assignment.findOne({where:{assignment_id:assignment_id}}).then(function(assignment){
-                var lesson = assignment['lesson'];
-                res.render('course/assignment',{list:submits,lesson:lesson,params:req.params});
-                //res.render('/course/submit',{list:submit,params:req.params});
-            });
+        var url = "http://localhost:3001/api/course/"+req.params.course_id+"/assignment/1/submit";
+        request(url,function(err,response,body){
+            if (!err && response.statusCode == 200) {
+                var data = JSON.parse(body)["data"];
+                console.log(data);
+                res.render('course/assignment',{data:data,params:req.params});
+            }
         });
+        //Submit.findAll({where:{assignment_id:assignment_id}}).then(function(submits){
+        //    Assignment.findOne({where:{assignment_id:assignment_id}}).then(function(assignment){
+        //        var lesson = assignment['lesson'];
+        //        res.render('course/assignment',{list:submits,lesson:lesson,params:req.params});
+        //        //res.render('/course/submit',{list:submit,params:req.params});
+        //    });
+        //});
     },
     update:function(req,res){
         var msg = '修改课程作业的相关信息';
