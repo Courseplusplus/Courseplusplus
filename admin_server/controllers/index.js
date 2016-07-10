@@ -21,7 +21,6 @@ module.exports = {
             total_week : req.body.total_week
         };
         Term.create(termparam);
-        
     }
     
 };

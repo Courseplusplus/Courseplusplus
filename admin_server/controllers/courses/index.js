@@ -6,7 +6,6 @@ var formidable = require('formidable');
 var fs = require('fs');
 var csvParser = require('csv-parse');
 var path = require('path');
-var Math = require('Math');
 
 var host = "http://127.0.0.1:3002";
 
@@ -82,6 +81,8 @@ exports.import = function(req,res){
 exports.import_student = function(req,res){
     var form = new formidable.IncomingForm();
     var file_name = 'upload';
+    var Course = global.db.models.course;
+    var Student = global.db.models.student;
     form.uploadDir = path.join(__dirname , '../../tmp');
     form.keepExtensions = true;
     form.type = true;
@@ -96,7 +97,13 @@ exports.import_student = function(req,res){
                 }
                 csvParser(csvData, {delimiter: ','},
                     function(err, data) {
-                        //TODO:course_student_relation
+                        for(row in data){
+                            var student = Student.build({
+                                student_id:data[row][0],
+                                name:data[row][0]
+                            });
+                            Course.addStudent(student);
+                        }
                     });
             });
             //fs.unlinkSync(form.uploadDir + file_name);
@@ -117,6 +124,8 @@ exports.import_student = function(req,res){
 exports.import_teacher = function(req,res){
     var form = new formidable.IncomingForm();
     var file_name = 'upload';
+    var Course = global.db.models.course;
+    var Teacher = global.db.models.teacher;
     form.uploadDir = path.join(__dirname , '../../tmp');
     form.keepExtensions = true;
     form.type = true;
@@ -131,7 +140,13 @@ exports.import_teacher = function(req,res){
                 }
                 csvParser(csvData, {delimiter: ','},
                     function(err, data) {
-                        //TODO:course_teacher_relation
+                        for(row in data){
+                            var teacher = Teacher.build({
+                                teacher_id:data[row][0],
+                                name:data[row][0]
+                            });
+                            Course.addTeacher(teacher);
+                        }
                     });
             });
             //fs.unlinkSync(form.uploadDir + file_name);

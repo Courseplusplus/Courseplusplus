@@ -17,7 +17,7 @@ router.use('/course',course_router);
 router.use('/teacher',teacher_router);
 router.use('/student',student_router);
 router.use('/data_provider',api_router);
-router.get('/set',controller.display);
+//router.get('/set',controller.display);
 router.post('set',controller.set);
 
 module.exports = router;

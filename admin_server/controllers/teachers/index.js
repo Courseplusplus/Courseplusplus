@@ -12,9 +12,9 @@ exports.list = function(req,res){
 };
 
 exports.show = function(req,res){
-    request(host + '/data_provider/teacher/'+req.teacher_id,function(err,response,body){
+    request(host + '/data_provider/teacher/'+req.params.teacher_id,function(err,response,body){
         var teacher_json = JSON.parse(body)['data'];
-        request(host+'/data_provider/teacher/'+req.teacher_id+'/course',function(err,response,body){
+        request(host+'/data_provider/teacher/'+req.params.teacher_id+'/course',function(err,response,body){
             res.render('teacher/profile',{teacher:teacher_json,list:JSON.parse(body)['data']});
         });
     });
