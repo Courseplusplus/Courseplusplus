@@ -254,7 +254,7 @@ exports.download = function (req, res) {
 						if (team.course_id == course_id) {
 							Submit.findOne({
 								where: {
-									assignment_id: assignId,
+									assignment_id: assignment_id,
 									team_id: team.team_id
 								}
 							}).then(function (submit) {
