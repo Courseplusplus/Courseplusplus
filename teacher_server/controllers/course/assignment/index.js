@@ -1,3 +1,7 @@
+var fs        = require('fs');
+var path      = require('path');
+var archiver  = require('archiver');
+
 module.exports = {
     index:function(req,res){
         var Assignment = global.db.models.assignment;
@@ -92,6 +96,13 @@ module.exports = {
         //res.json({msg:msg,router:"course/assignment.makr",params:req.params,post_body:req.body});
     },
     download:function(req,res){
+        var archive       = archiver('zip');
+        var course_id     = req.params.course_id;
+        var assignment_id = req.params.assignment_id;
+        var team_id       = req.params.team_id;
+        var Submit        = global.db.models.submit;
+        var submit_path   = path.join(__dirname,"../../../../resources/assignments/"+course_id+"/"+assignment_id+"/"+team_id);
+        console.log(submit_path);
         var msg = '下载学生作业';
         res.json({msg:msg,router:"course/assignment.download",params:req.params});
     },
@@ -102,8 +113,6 @@ module.exports = {
     upload:function(req,res){
         var course_id     = req.params.course_id;
         var assignment_id = req.params.assignment_id;
-        var fs            = require('fs');
-        var path          = require('path');
         var file_size     = req.files.attachment.size;
 
         if( file_size > 0 ){
