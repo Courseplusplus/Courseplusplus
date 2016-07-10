@@ -37,37 +37,15 @@ exports.import = function(req,res){
     form.parse(req, function(err, fields, files) {
     });
     form.on('end',function(){
-            fs.readFile(form.uploadDir + "/" + file_name, {
-                encoding: 'utf-8'
-            }, function(err, csvData) {
-                if (err) {
-                    console.log(err);
-                }
-                csvParser(csvData, {delimiter: ','},
-                    function(err, data) {
-                        var Teacher = global.db.models.teacher;
-                        //console.log(data);
-                        for(row in data){
-                            if(row!=0) {
-                                //console.log(row);
-                                var userParams = {
-                                    teacher_id: data[row][0],
-                                    name: data[row][1],
-                                    telephone: data[row][2],
-                                    password: PasswordValidator.encrypt_password('000000')
-                                };
-                                //console.log(userParams);
-                                Teacher.create(userParams);
-                            }
-                        }
-                    });
+            var rs = fs.createReadStream(form.uploadDir +'/'+ file_name);
+            var parser = csvParser({columns: true}, function(err, data){
+                //console.log(data);
+                var Teacher = global.db.models.coursteachere;
+                Teacher.bulkCreate(data).then(function(){
+                    request(host+'/teacher')
+                });
             });
-            request(host+'/teacher',function(err,response){
-                //console.log(response);
-                if (err){
-                    console.log(err);
-                }
-            });
+            rs.pipe(parser);
         })
         .on('file', function(field, file) {
             //rename the incoming file to the file's name

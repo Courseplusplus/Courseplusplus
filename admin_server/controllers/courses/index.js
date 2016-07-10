@@ -2,11 +2,12 @@
  * Created by wangzhaoyi on 16/7/8.
  */
 var request = require('request');
+var PasswordValidator = require('../../libs').PasswordValidator;
+var ResultConstructor = require('../../libs').ResultConstructor;
 var formidable = require('formidable');
 var fs = require('fs');
 var csvParser = require('csv-parse');
 var path = require('path');
-
 var host = "http://127.0.0.1:3002";
 
 exports.list = function(req,res,next){
@@ -36,46 +37,26 @@ exports.show = function(req,res,next){
 
 exports.import = function(req,res){
     var form = new formidable.IncomingForm();
-    var file_name = 'upload';
+    var file_name = 'course.csv';
     form.uploadDir = path.join(__dirname , '../../tmp');
     form.keepExtensions = true;
     form.type = true;
     form.parse(req, function(err, fields, files) {
     });
     form.on('end',function(){
-            fs.readFile(form.uploadDir + "/" + file_name, {
-                encoding: 'utf-8'
-            }, function(err, csvData) {
-                if (err) {
-                    console.log(err);
-                }
-                csvParser(csvData, {delimiter: ','},
-                    function(err, data) {
-                        var Course = global.db.models.course;
-                        for(row in data){
-                            if(row != 0) {
-                                Course.create({
-                                    course_name: data[row][0],
-                                    introduction: data[row][1],
-                                    lesson_total: data[row][2],
-                                    img_src: '/image/' + Math.ceil(Math.random() * 5) + '.png'
-                                });
-                            }
-                        }
-                    });
+            var rs = fs.createReadStream(form.uploadDir +'/'+ file_name);
+            var parser = csvParser({columns: true}, function(err, data){
+                //console.log(data);
+                var Course = global.db.models.course;
+                Course.bulkCreate(data).then(function(){
+                    request(host+'/course')
+                });
             });
-            //fs.unlinkSync(form.uploadDir + file_name);
-            request(host+'/course',function(err,response){
-                //console.log(response);
-                if (err){
-                    console.log(err);
-                }
-            });
+            rs.pipe(parser);
         })
         .on('file', function(field, file) {
             //rename the incoming file to the file's name
-            fs.rename(file.path, form.uploadDir + "/" + file.name);
-            file_name = file.name;
+            fs.rename(file.path, form.uploadDir + "/" + file_name);
         });
 };
 

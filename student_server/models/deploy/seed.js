@@ -18,22 +18,22 @@
 	var Student_Team = models.student_belongsto_team;
     var Term = models.term;
 
-	var init_teachers = function (teacher_datas, callback) {
-		var teacher_num = teacher_datas.length;
-		var teacher_cnt = 0;
-		for (var index in teacher_datas) {
-			Teacher.create(teacher_datas[index]).then(function (teacher) {
-				console.log(teacher);
-				if (teacher) {
-					teacher_cnt++;
-				}
-				if (teacher_cnt >= teacher_num) {
-					teacher.findAll({}).then(function (teachers) {
-						callback(teachers);
-					});
-				}
-			});
-		}
+	var init_teachers = function (datas, callback) {
+        var num = datas.length;
+        var cnt = 0;
+        for (var index in datas) {
+            //console.log(datas[index]);
+            Teacher.create(datas[index]).then(function (item) {
+                if (item) {
+                    cnt++;
+                }
+                if (cnt >= num) {
+                    Teacher.findAll({}).then(function (items) {
+                        callback(items);
+                    });
+                }
+            });
+        }
 	};
 	var init_students = function (student_datas, callback) {
 		var student_num = student_datas.length;
@@ -55,7 +55,6 @@
 		var num = datas.length;
 		var cnt = 0;
 		for (var index in datas) {
-			datas[index].term = new Date();
 			//console.log(datas[index]);
 			Course.create(datas[index]).then(function (item) {
 
@@ -148,7 +147,7 @@
 			});
 		});
 	};
-	/*var init_terms = function (term_datas, callback){
+	var init_terms = function (term_datas, callback){
 		var term_num = term_datas.length;
 		var term_cnt = 0;
 		for(var index in term_datas){
@@ -163,22 +162,19 @@
 				}
 			});
 		}
-	};*/
+	};
 
-	// 用户数据在./fixtures/teachers.json中，包含三个测试用的用户
-	// 三个用户的密码都是123456
-	init_teachers(require('./fixtures/teachers'), function (teachers) {
-		teachers.forEach(function (teacher) {
-			//console.log(teacher.dataValues);
-		});
-	});
-	// 用户数据在./fixtures/users.json中，包含三个测试用的用户
-	// 三个用户的密码都是123456
-	/*init_students(require('./fixtures/students'), function (students) {
+
+    init_teachers(require('./fixtures/teachers'), function (teachers) {
+        teachers.forEach(function (teacher) {
+            console.log(teacher.dataValues);
+        });
+    });
+	init_students(require('./fixtures/students'), function (students) {
 		students.forEach(function (student) {
 			//console.log(student.dataValues);
 		});
-	});*/
+	});
 	/*init_courses(require('./fixtures/courses'), function (courses) {
 		courses.forEach(function (course) {
 			//console.log(course.dataValues);
@@ -189,12 +185,12 @@
 			//console.log(assignment.dataValues);
 		});
 	});
-	/*init_teams(require('./fixtures/teams'), function (teams) {
+	init_teams(require('./fixtures/teams'), function (teams) {
 		teams.forEach(function (team) {
 			//console.log(team.dataValues);
 		});
-	});*/
-	/*init_terms(require('./fixtures/terms'),function(terms){
+	});
+	init_terms(require('./fixtures/terms'),function(terms){
 		terms.forEach(function (term) {
 			//console.log(team.dataValues);
 		});

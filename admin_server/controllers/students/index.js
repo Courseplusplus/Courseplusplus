@@ -33,52 +33,23 @@ exports.show = function(req,res,next){
 
 exports.import = function(req,res){
     var form = new formidable.IncomingForm();
-    var file_name = 'student';
+    var file_name = 'student.csv';
     form.uploadDir = path.join(__dirname , '../../tmp');
     form.keepExtensions = true;
     form.type = true;
     form.parse(req, function(err, fields, files) {
     });
     form.on('end',function(){
-            fs.readFile(form.uploadDir + "/" + file_name, {
-                encoding: 'utf-8'
-            }, function(err, csvData) {
-                if (err) {
-                    console.log(err);
-                }
-                csvParser(csvData, {delimiter: ','},
-                    function(err, data) {
-                        var Student = global.db.models.teacher;
-                        for(row in data){
-                            var userParams = {
-                                student_id:data[row][0],
-                                name:data[row][1],
-                                telephone:data[row][2],
-                                password: PasswordValidator.encrypt_password('000000')
-                            };
-                            Student.create(userParams).then(function (user) {
-                                if (user) {
-                                    res.json(ResultConstructor.success({
-                                        teacher_id: user.user_id,
-                                        name: user.name,
-                                        telephone: user.telephone
-                                    }));
-                                }
-                                else {
-                                    next(new Errors.errors_500.InternalServerError());
-                                }
-                            }).catch(function () {
-                                next(new Errors.errors_400.DataValidationFailedError());
-                            });
-                        }
-                    });
+            var rs = fs.createReadStream(form.uploadDir +'/student.csv');
+            var parser = csvParser({columns: true}, function(err, data){
+                //console.log(data);
+                //console.log(data);
+                var Student = global.db.models.student;
+                Student.bulkCreate(data).then(function(){
+                    request(host+'/student')
+                });
             });
-            request(host+'/student',function(err,response){
-                console.log(response);
-                if (err){
-                    console.log(err);
-                }
-            });
+            rs.pipe(parser);
         })
         .on('file', function(field, file) {
             //rename the incoming file to the file's name

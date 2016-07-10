@@ -28,6 +28,7 @@ module.exports = function (database, username, password, config) {
     Course.hasMany(Team,{foreignKey:"course_id"});
     Course.hasMany(Chat,{foreignKey:"course_id"});
     Team.hasMany(Submit,{foreignKey:"team_id"});
+    Term.hasMany(Course,{foreignKey:"term_id"});
     Assignment.hasMany(Submit,{foreignKey:"assignment_id"});
     Student.hasMany(Team,{as:"leader",foreignKey:"student_id"});
     Student.hasMany(Chat,{as:"sender_student",foreignKey:"student_id"});
