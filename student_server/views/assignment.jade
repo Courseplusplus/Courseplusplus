@@ -18,7 +18,7 @@ block content
                 td #{new Date(item['deadline']).toISOString().replace(/T/, ' ').replace(/\..+/, '')}
                 td #{item['assignment_type']=='SINGLE'?'个人':'团队'}
                 td
-                    a(class="link" href="#") 打包下载
+                    a(class="link" href="./assignment/#{item['assignment_id']}?order=#{index+1}") 查看详情
 
    script(type='text/javascript').
 

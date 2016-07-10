@@ -94,16 +94,41 @@ module.exports = {
 
         //res.json({msg:msg,router:"course/assignment.makr",params:req.params,post_body:req.body});
     },
+    download_all:function(req,res){
+        var archive       = archiver('zip');
+        var course_id     = req.params.course_id;
+        var assignment_id = req.params.assignment_id;
+        var team_id       = req.params.team_id;
+        var submit_path   = path.join(__dirname,"../../../../resources/assignments/submits/"+course_id+"/"+assignment_id);
+        if(fs.existsSync(submit_path)){
+            var file_name = "Assignment.zip";
+            res.attachment(file_name);
+            archive.directory(submit_path,'/Assignment');
+            archive.pipe(res);
+            archive.finalize();
+        }else{
+            var msg = '批量下载学生作业';
+            console.log(submit_path);
+            res.json({msg:msg,router:"course/assignment.download",params:req.params});
+        }
+    },
     download:function(req,res){
         var archive       = archiver('zip');
         var course_id     = req.params.course_id;
         var assignment_id = req.params.assignment_id;
         var team_id       = req.params.team_id;
-        var Submit        = global.db.models.submit;
-        var submit_path   = path.join(__dirname,"../../../../resources/assignments/"+course_id+"/"+assignment_id+"/"+team_id);
-        console.log(submit_path);
-        var msg = '下载学生作业';
-        res.json({msg:msg,router:"course/assignment.download",params:req.params});
+        var submit_path   = path.join(__dirname,"../../../../resources/assignments/submits/"+course_id+"/"+assignment_id+"/"+team_id);
+        if(fs.existsSync(submit_path)){
+            var file_name = 'Team'+team_id+".zip";
+            res.attachment(file_name);
+            archive.directory(submit_path,'/Team'+team_id);
+            archive.pipe(res);
+            archive.finalize();
+        }else{
+            var msg = '下载学生作业';
+            console.log(submit_path);
+            res.json({msg:msg,router:"course/assignment.download",params:req.params});
+        }
     },
     download_intro:function(req,res){
         var msg = "下载附加说明";
@@ -111,7 +136,6 @@ module.exports = {
     },
     upload:function(req,res){
         var course_id     = req.params.course_id;
-        var assignment_id = req.params.assignment_id;
         var file_size     = req.files.attachment.size;
 
         if( file_size > 0 ){

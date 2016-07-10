@@ -104,7 +104,7 @@ block content
                 td
                     span #{item['submit']['grade']?'已评分':'未评分'}
                 td
-                    button(class="btn btn-default" style="border-radius:2px;padding:1px 5px;font-size:12px;") 下载
+                    a(class="btn btn-default" style="border-radius:2px;padding:1px 5px;font-size:12px;" href="./#{item['submit']['assignment_id']}/team/#{item['submit']['team_id']}/download") 下载
                     span &nbsp;&nbsp;
                     button(class="btn btn-default" data-toggle="modal" data-target="#mark#{item['submit']['submit_id']}" style="border-radius:2px;padding:1px 5px;font-size:12px;") 写评语
             div(class="modal fade",id="mark#{item['submit']['submit_id']}",tabindex="-1",role="dialog",aria-labelledby="markLabel" style="margin-top:100px")

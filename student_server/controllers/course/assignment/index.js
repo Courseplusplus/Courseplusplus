@@ -17,15 +17,15 @@ exports.index = function (req, res, next) {
 	var Course = global.db.models.course;
 	Course.findById(course_id).then(function (course) {
 		_course = course;
-	});
-	Assignment.findAll({
-		where: {
-			course_id: course_id
-		}
-	}).then(function (assignments) {
-		console.log(assignments);
-		console.log(_course);
-		res.render('assignment', {assignments: assignments, course: _course});
+		Assignment.findAll({
+			where: {
+				course_id: course_id
+			}
+		}).then(function (assignments) {
+			console.log(assignments);
+			console.log(_course);
+			res.render('assignment', {assignments: assignments, course: _course});
+		});
 	});
 };
 
