@@ -7,10 +7,10 @@ var Errors = require('../../../libs').Errors;
 var request = require('request');
 
 exports.index = function(req,res){
-    var course_id = req.params.course_id;
-    console.log("http://127.0.0.1:3000/data/allresources/"+course_id);
+    var course_id = req.params.id;
+    console.log("http://127.0.0.1:3001/api/course/"+course_id+"/resource");
     console.log(request);
-    request("http://127.0.0.1:3000/data/allresources/"+course_id,function(err,response,body){
+    request("http://127.0.0.1:3001/api/course/"+course_id+"/resource",function(err,response,body){
         if (!err && response.statusCode == 200) {
             res.render("resources",{msg:"success",list:JSON.parse(body)["data"],params:req.params});
             //console.log('here');
