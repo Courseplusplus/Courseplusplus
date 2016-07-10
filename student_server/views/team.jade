@@ -6,14 +6,16 @@ block content
     div(class="panel panel-default")
         div(div class="panel-heading")
             | 队伍详情
-            .cus-add(data-toggle='modal', data-target='#myModal')
-                i(class="icon-plus" data-toggle="tooltip" data-placement="top" title="新建队伍" )
         .panel-body
             | 队名: #{team.team_name}
         .panel-body
             | 所属课程: #{course.course_name}
         .panel-body
             | 队长: #{leader.name}
+
+    div(class="panel panel-default")
+        div(div class="panel-heading")
+            | 申请列表
         ul(class="list-group")
             each member in team_members
                 li(class="list-group-item")

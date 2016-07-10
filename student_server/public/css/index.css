@@ -1,9 +1,16 @@
 html,body { height: 100%;}
 #full { height: 100% }
 
-.he{
-    color:red;
+.link:hover{
+    text-decoration: none;
 }
+td{
+    padding:0 8px;
+}
+.link:focus{
+    text-decoration: none;
+}
+
 #nav_menu:hover,#nav_menu:focus{
     color:#777;
     text-decoration: none;
