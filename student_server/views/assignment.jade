@@ -3,14 +3,11 @@ block content
 
    ul(class="list-group")
       each item in assignments
-            li(class="list-group-item" style="cursor: pointer" onclick="location.href='/course/#{course['course_id']}/assignment/#{item.assignment_id}';")
+            li(class="list-group-item list-group-item-custom" style="cursor: pointer" onclick="location.href='/course/#{course['course_id']}/assignment/#{item.assignment_id}';")
                //span(class="label label-default label-pill pull-xs-right")
                #{item.assignment_introduction}
 
 
    script(type='text/javascript').
-      $('#side-class').attr({href: "/course/#{course['course_id']}"});
-      $('#side-resource').attr({href: "/course/#{course['course_id']}/resource"});
-      $('#side-assignment').attr({href: "/course/#{course['course_id']}/assignment"});
-      $('#side-team').attr({href: "/course/#{course['course_id']}/team"});
+
 

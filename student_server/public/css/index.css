@@ -36,6 +36,50 @@ html,body { height: 100%;}
     text-align: center;
 }
 
-.list-group-item:hover{
+.list-group-item.list-group-item-custom:hover{
     background-color: #f5f5f5;
+}
+.pull-xs-right{
+    float:right!important
+}
+.label-pill{
+    padding-right:.6em;
+    padding-left:.6em;
+    border-radius:10rem;
+}
+
+.cus-btn{
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #1569c1;
+    margin-right: 20px;
+}
+.cus-btn:hover{
+    background-color: #1581db;
+    cursor: pointer;
+}
+
+.cus-btn-agree{
+    background-color: #2db22d;
+}
+.cus-btn-disagree{
+    background-color: #cd171d;
+}
+.cus-btn-agree:hover{
+    background-color: #70da68;
+}
+.cus-btn-disagree:hover{
+    background-color: #f6433d;
+}
+.cus-add{
+    color: #2db22d;
+    float:right!important;
+    line-height: 1.42857143!important;
+}
+.cus-add:hover{
+    cursor: pointer;
+}
+.modal-dialog{
+    top:150px;
+    width: 350px;
 }

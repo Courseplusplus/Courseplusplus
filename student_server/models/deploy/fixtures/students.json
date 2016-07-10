@@ -15,4 +15,16 @@
     "telephone": "13146021274",
     "password": "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a",
     "introduction": "Test user 2."
+}, {
+  "student_id": 13211017,
+  "name": "AsherWang1",
+  "telephone": "13146021271",
+  "password": "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a",
+  "introduction": "Test user 0."
+}, {
+  "student_id": 13211018,
+  "name": "AsherWang2",
+  "telephone": "13146021270",
+  "password": "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a",
+  "introduction": "Test user 21."
 }]

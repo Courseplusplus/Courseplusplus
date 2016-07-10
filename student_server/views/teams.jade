@@ -1,0 +1,79 @@
+//
+   Created by peter on 7/9/16.
+
+extends layout
+block content
+    div(class="panel panel-default")
+        div(class="panel-heading")
+            | 团队列表
+            .cus-add(data-toggle='modal', data-target='#myModal')
+                i(class="icon-plus" data-toggle="tooltip" data-placement="top" title="新建队伍" )
+        ul(class="list-group")
+            each team in teams
+                li(class="list-group-item list-group-item-custom" style="cursor: pointer")
+                    if team.accept_status == "Not Decided"
+                        span(class="label label-default label-pill pull-xs-right") 审核中
+                    else if team.accept_status == "Accepted"
+                        span(class="label label-default label-pill pull-xs-right" style="background-color:green") 通过
+                    else if team.accept_status == 'Denied'
+                        span(class="label label-default label-pill pull-xs-right" style="background-color:red") 拒绝
+                    else if team.accept_status == 'Not Apply'
+                        span(class="label pull-xs-right cus-btn" onclick="Apply(#{team.team_id})") 申请
+                    div(onclick="location.href='/course/#{course['course_id']}/team/#{team.team_id}';") #{team.team_name}
+
+    // Modal
+    #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                    h4#myModalLabel.modal-title 请输入队名
+                .modal-body
+                    input(type="" id="team_name" class="form-control" placeholder="Team Name" style="margin-bottom: 10px;" required autofocus)
+                .modal-footer
+                    button.btn.btn-default(type='button', data-dismiss='modal') 关闭
+                    button.btn.btn-primary(type='button' onclick="New()") 创建队伍
+
+    #Apply.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-body
+                    | 申请成功
+                .modal-footer
+                    button.btn.btn-default(type='button', onclick='ClocseAndReload()') 关闭
+
+
+
+
+    script(type='text/javascript').
+        var ClocseAndReload = function () {
+            $('#Apply').modal('hide');
+            location.reload();
+        };
+        var Apply = function(team_id){
+            //alert(team_id);
+            $.post("/course/#{course['course_id']}/team/"+team_id, function (data) {
+                if(data.msg=="success"){
+                    $('#Apply').modal('show');
+                }
+            });
+        };
+        var New = function(){
+            console.log("New()");
+            $('#myModal').modal('hide');
+            $.post("/course/#{course['course_id']}/team/",{
+                team_name: $("#team_name").val()
+            }, function (data) {
+                if(data.msg=="success"){
+                    location.reload();
+                }
+                else{
+                    alert(data.msg);
+                }
+            });
+        };
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
