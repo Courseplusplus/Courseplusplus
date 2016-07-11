@@ -5,8 +5,8 @@ extends ../layout
 block content
     h3 上传资源
     hr
-    form(class="form-inline",enctype="multipart/form-data" id="resource_upload")
-        div(class="form-group form-line")
+    form.form-inline(enctype="multipart/form-data" id="resource_upload")
+        div.form-group.form-line
             label 类型
             select(class="form-control",name="resource_type" style="margin-left:5px" required)
                 option(value= "PPT") PPT

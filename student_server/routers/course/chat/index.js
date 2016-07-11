@@ -9,6 +9,6 @@ var router = express.Router({
 	mergeParams: true
 });
 
-//router.get('/', chat_controller.index);
+router.get('/', chat_controller.index);
 
 module.exports = router;
