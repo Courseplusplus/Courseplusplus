@@ -33,6 +33,11 @@ module.exports = function (sequelize, DataTypes) {
             type:DataTypes.STRING,
             allowNull:true,
             defaultValue:"/image/4.png"
+        },
+        is_closed:{
+            type:DataTypes.BOOLEAN,
+            allowNull:false,
+            defaultValue:false
         }
     }, {
         underscored: true

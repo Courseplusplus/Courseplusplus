@@ -1,6 +1,7 @@
 exports.assignment = require("./assignment");
 exports.resource = require("./resource");
 exports.team = require("./team");
+exports.chat = require("./chat");
 
 exports.index = function(req,res){
   console.log("course index.js");
