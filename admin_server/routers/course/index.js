@@ -13,6 +13,8 @@ router.post('/',controller.courses.import);
 
 router.get('/:course_id',controller.courses.show);
 
+router.get('/:course_id/close',controller.courses.close);
+
 router.post('/:course_id/teacher',controller.courses.import_teacher);
 router.post('/:course_id/student',controller.courses.import_student);
 

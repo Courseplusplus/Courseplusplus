@@ -11,3 +11,10 @@ block content
                     a(href="./course/#{item['course_id']}",class="link",style="color:#222;font-size:16px")
                         span(class="glyphicon glyphicon-folder-close")
                         span(style="margin-left:10px;") #{item["course_name"]}
+                td
+                    if item['is_closed'] == false
+                        a(href="./course/#{item['course_id']}/close" value="close_course" )
+                            button(class="btn btn-default")
+                                span 关闭
+                    else
+                        span 已关闭
