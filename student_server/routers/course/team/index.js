@@ -16,7 +16,7 @@ router.get('/', team_controller.index);
 // 创建队伍
 router.post('/', team_controller.create);
 
-router.post('/:id/add', team_controller.add);
+router.post('/:id/team_apply', team_controller.team_apply);
 
 // 查看id的队伍
 router.get('/:id', team_controller.show);

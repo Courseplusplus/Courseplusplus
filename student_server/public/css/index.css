@@ -53,6 +53,7 @@ td{
     padding-right:.6em;
     padding-left:.6em;
     border-radius:10rem;
+    padding-top: 2px;
 }
 
 .cus-btn{
@@ -89,4 +90,16 @@ td{
 .modal-dialog{
     top:150px;
     width: 350px;
+}
+.label-wrapper{
+    padding-top: 1px;
+}
+.d-l{
+    display: inline-block;
+}
+.f-r{
+    float: right;
+}
+.label-line-center{
+    margin-top:2px
 }

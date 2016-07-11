@@ -11,15 +11,17 @@ block content
         ul(class="list-group")
             each team in teams
                 li(class="list-group-item list-group-item-custom" style="cursor: pointer")
+                    div(onclick="location.href='/course/#{course['course_id']}/team/#{team.team_id}';" style="float:left") #{team.team_name}
+                    span(class="label label-default label-pill" style="margin-left:10px") 队伍审核中
                     if team.accept_status == "Not Decided"
-                        span(class="label label-default label-pill pull-xs-right") 审核中
+                        span(class="label label-default label-pill pull-xs-right label-line-center") 审核中
                     else if team.accept_status == "Accepted"
-                        span(class="label label-default label-pill pull-xs-right" style="background-color:green") 通过
+                        span(class="label label-default label-pill pull-xs-right label-line-center" style="background-color:green") 通过
                     else if team.accept_status == 'Denied'
-                        span(class="label label-default label-pill pull-xs-right" style="background-color:red") 拒绝
+                        span(class="label label-default label-pill pull-xs-right label-line-center" style="background-color:red") 拒绝
                     else if team.accept_status == 'Not Apply'
                         span(class="label pull-xs-right cus-btn" onclick="Apply(#{team.team_id})") 申请
-                    div(onclick="location.href='/course/#{course['course_id']}/team/#{team.team_id}';") #{team.team_name}
+
 
     // Modal
     #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')

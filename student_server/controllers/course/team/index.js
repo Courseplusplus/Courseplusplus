@@ -259,8 +259,13 @@ exports.check = function (req, res, next) {
 
 };
 
-exports.add = function (req, res, next) {
-
+exports.team_apply = function (req, res, next) {
+	var Team = global.db.models.team;
+	var ids = req.originalUrl.split("/");
+	var course_id = ids[2];
+	var team_id = ids[4];
+	var student_id = ids[6];
+	res.json({msg:"team apply"});
 }
 
 function assert(condition, message) {
