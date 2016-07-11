@@ -3,3 +3,20 @@
 extends ../layout
 
 block content
+   div(class="panel panel-default")
+      div(div class="panel-heading")
+         | 队伍详情
+      .panel-body
+         | 队名: #{team.team_name}
+      .panel-body
+         | 所属课程: #{course.course_name}
+      .panel-body
+         | 队长: #{leader.name}
+
+   div(class="panel panel-default")
+      div(div class="panel-heading")
+         | 成员列表
+      ul(class="list-group")
+         each member in studentlist
+            li(class="list-group-item")
+               div(onclick="location.href='#'") #{member.name}

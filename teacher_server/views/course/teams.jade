@@ -14,7 +14,8 @@ block content
             td 操作
         each item in data['teams']
             tr
-                td #{item['team_name']}
+                td
+                    a.link(href="/course/#{params['course_id']}/team/#{item['team_id']}") #{item['team_name']}
                 td #{new Date(item['created_at']).toISOString().replace(/T/, ' ').replace(/\..+/, '')}
                 td #{item['student_id']}
                 td #{item['permission']=='Not Decided'?'未处理':item['permission']=='Permited'?'已通过':item['permission']=='Denied'?'已拒绝':'组队中'}

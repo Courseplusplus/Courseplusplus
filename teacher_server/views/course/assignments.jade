@@ -22,7 +22,7 @@ block content
                 td #{new Date(item['deadline']).toISOString().replace(/T/, ' ').replace(/\..+/, '')}
                 td #{item['assignment_type']=='SINGLE'?'个人':'团队'}
                 td
-                    a(class="link" href="./assignment/#{item['assignment_id']}/download") 打包下载
+                    a.link(href="#{item['hasSubmits']?'./assignment/'+item['assignment_id']+'/download':'#'}") #{item['hasSubmits']?'打包下载':'暂无提交'}
     button(class="btn btn-default" data-toggle="modal" data-target="#addAssignment")
         span.glyphicon.glyphicon-plus
         span(style="margin-left:5px;") 布置新作业

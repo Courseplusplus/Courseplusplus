@@ -51,7 +51,7 @@ block content
                         .form-group
                             label.col-xs-2(for="deadline") 截止日期
                             .col-xs-10.input-append.date(id="datetimepicker",data-date-format="yyyy-mm-dd H:i:s",date="#{new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}")
-                                input.form-control(type="text",name="deadline",readonly,style="width:50%",placeholder="#{data['assignment']['deadline']}")
+                                input.form-control(type="text",name="deadline",readonly,style="width:50%",placeholder="#{new Date(data['assignment']['deadline']).toISOString().replace(/T/, ' ').replace(/\..+/, '')}")
                                 span.add-on.sr-only
                                     i.icon-th
                         .form-group
@@ -83,7 +83,6 @@ block content
     h4 学生作业提交情况
     table(class="table table-hover table-bordered" )
         thead
-            td 选择
             td 名称
             td 提交时间
             td 分数
@@ -91,8 +90,6 @@ block content
             td 操作
         each item,index in data["submits"]
             tr
-                td(style="width:50px")
-                    input(type="checkbox")
                 td
                     a(href="./#{params['assignment_id']}/team/#{item['submit']['team_id']}",class="link",style="color:#222;font-size:16px")
                         span(class="glyphicon glyphicon-folder-close")
@@ -143,7 +140,6 @@ block content
 
                         div(class="modal-footer")
 
-    button(class="btn btn-default") 下载选中作业
 
     script(type='text/javascript').
         $('#myModal').on('shown.bs.modal', function () {

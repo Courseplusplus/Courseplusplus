@@ -2,14 +2,22 @@ var fs        = require('fs');
 var path      = require('path');
 var archiver  = require('archiver');
 
+function hasSubmits(course_id,assignment_id) {
+    var submit_path = path.join(__dirname, "../../../../resources/assignments/submits/" + course_id + "/" + assignment_id );
+    return fs.existsSync(submit_path);
+}
+
 module.exports = {
     index:function(req,res){
         var Assignment = global.db.models.assignment;
         var Course     = global.db.models.course;
         var course_id  = req.params.course_id;
         Assignment.findAll({where:{course_id:course_id}}).then(function(assignments){
+            for(var index in assignments){
+                assignments[index]['hasSubmits'] = hasSubmits(course_id,assignments[index]['assignment_id']);
+            }
             Course.findOne({where:{course_id:course_id}}).then(function(course){
-                res.render('course/assignments',{list:assignments,params:req.params,course:course});
+                res.render('course/assignments',{list:assignments,course:course,params:req.params,session:req.session});
             });
         });
     },
@@ -22,7 +30,7 @@ module.exports = {
                 var data = JSON.parse(body)["data"];
                 var file_name = path.basename(data['assignment']['file_path']);
                 var order   = req.query.order?req.query.order:data['assignment']['lesson'];
-                res.render('course/assignment',{data:data,order:order,file_name:file_name,params:req.params});
+                res.render('course/assignment',{data:data,order:order,file_name:file_name,params:req.params,session:req.session});
             }
         });
     },
