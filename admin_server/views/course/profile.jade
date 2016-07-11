@@ -28,7 +28,7 @@ block content
                                         span(style="margin-left:10px;") #{item["name"]}
     div(class="col-sm-12 col-md-8" style="margin:auto")
         div(class="thumbnail")
-            h3 导入学生信息
+            h3 导入参与本课程学生
             form(action="/course/#{course['course_id']}/student", method="post",enctype="multipart/form-data")
                 div(class="form-group")
                     input(type="file" name="upload" multiple="multiple")
@@ -36,7 +36,7 @@ block content
                     span(class="glyphicon glyphicon-upload" onclick="Upload()")
                     span 导入
         div(class="thumbnail")
-            h3 导入教师信息
+            h3 导入本课程任课教师
             form(action="/course/#{course['course_id']}/teacher", method="post",enctype="multipart/form-data")
                 div(class="form-group")
                     input(type="file" name="upload" multiple="multiple")

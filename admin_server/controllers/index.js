@@ -7,7 +7,9 @@ module.exports = {
     teachers:require('./teachers/index'),
     students:require('./students/index'),
     index: function (req, res) {
-        res.render('index');
+        request('http://127.0.0.1:3002/data_provider/current_week',function(err,response,body){
+            res.render('index',{week:JSON.parse(body)['data']});
+        });
         //res.json({msg:"index of admin server", params:req.params});
     },
     term:function (req,res) {
@@ -17,7 +19,9 @@ module.exports = {
             start_date:req.body.start_date,
             end_date:req.body.end_date
         }).then(function(term){
-            res.render('index');
+            request('http://127.0.0.1:3002/data_provider/current_week',function(err,response,body){
+                res.render('index',{week:JSON.parse(body)['data']});
+            });
         })
     },
     displayterm:function(req,res){
