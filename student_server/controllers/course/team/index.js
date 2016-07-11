@@ -214,6 +214,7 @@ exports.check = function (req, res, next) {
 	var team_id = ids[4];
 	var student_id = ids[6];
 	console.log(student_id);
+	var leader_id =  req.session.user.student_id;
 	var Student_belongsto_Team = global.db.models.student_belongsto_team;
 
 	Team.findAll({
@@ -233,6 +234,9 @@ exports.check = function (req, res, next) {
 			}).then(function (student_bl_team) {
 				if (student_bl_team &&  student_bl_team.dataValues.accepted == "ACCEPTED") {
 					res.json({msg: "has team"});
+				}
+				else if(student_id==leader_id) {
+					res.json({msg: "Can't reject yourself!"});
 				}
 				else {
 					f(idx + 1, SetAccepted);
