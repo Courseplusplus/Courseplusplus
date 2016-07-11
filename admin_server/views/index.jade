@@ -32,22 +32,19 @@ block content
                     span 导入
     div(class="col-sm-12 col-md-8" style="margin:auto")
         div(class="thumbnail")
-            h3 设置学期开始结束日期 总周次
+            h3 设置学期
             div(class="form-group")
-                form(action="/course", method="post",enctype="multipart/form-data")
-                    p 设置学期开始日期
+                form(action="/term", method="post",enctype="multipart/form-data")
+                    lable 学期名称
+                    input(class="form-control", type ="text", name = "term_id",size = "10", maxlength= "20", style = "margin-left:5px")
+
                     label 开始日期
-                    input( class="form-control",type="datetime-local",name = "start_date",size = "10" maxlength="20" style="margin-left:5px")
+                    input( class="form-control",type="date",name = "start_date",size = "10" maxlength="20" style="margin-left:5px")
 
-                    p 设置学期结束日期
                     label 结束日期
-                    input( class="form-control",type="datetime-local",name = "end_date",size = "10" maxlength="20" style="margin-left:5px")
+                    input( class="form-control",type="date",name = "end_date",size = "10" maxlength="20" style="margin-left:5px")
 
-                    p 设置学期总周次
-                    label 总周次
-                    input( class="form-control",type="text",name = "total_week",size = "10" maxlength="20" style="margin-left:5px")
-
-                button(type="submit" value="Upload" class="btn btn-default")
-                    span(class="glyphicon glyphicon-upload")
-                    span 确认
+                    button(type="submit" value="Upload" class="btn btn-default")
+                        span(class="glyphicon glyphicon-upload")
+                        span 确认
 

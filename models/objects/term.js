@@ -4,10 +4,13 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define('term', {
         term_id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
+            type: DataTypes.STRING,
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            validate:{
+                notEmpty:true,
+                is:/^\d{4}年(春|夏|秋|冬)季学期 $/i
+            }
         },
         start_date:{
             type: DataTypes.DATE,

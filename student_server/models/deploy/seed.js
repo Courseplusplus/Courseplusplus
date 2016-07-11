@@ -175,12 +175,17 @@
 			//console.log(student.dataValues);
 		});
 	});
-	/*init_courses(require('./fixtures/courses'), function (courses) {
+	init_terms(require('./fixtures/terms'),function(terms){
+		terms.forEach(function (term) {
+			//console.log(team.dataValues);
+		});
+	});
+	init_courses(require('./fixtures/courses'), function (courses) {
 		courses.forEach(function (course) {
 			//console.log(course.dataValues);
 		});
 	});
-	/*init_assignment(require('./fixtures/assignment'), function (assignments) {
+	init_assignment(require('./fixtures/assignment'), function (assignments) {
 		assignments.forEach(function (assignment) {
 			//console.log(assignment.dataValues);
 		});
@@ -190,10 +195,4 @@
 			//console.log(team.dataValues);
 		});
 	});
-	init_terms(require('./fixtures/terms'),function(terms){
-		terms.forEach(function (term) {
-			//console.log(team.dataValues);
-		});
-	});*/
-
 }());
