@@ -35,7 +35,7 @@ block content
         div(div class="panel-heading")
             | 申请列表
             .d-l.f-r
-                span(class="label pull-xs-right cus-btn" onClick="ChangeLeader()") 更换队长
+                span(class="label pull-xs-right cus-btn" data-toggle='modal', data-target='#myModal') 更换队长
         ul(class="list-group")
             each member in team_members
                 li(class="list-group-item")
@@ -55,6 +55,29 @@ block content
                             span(class="label label-default label-pill pull-xs-right cus-btn cus-btn-agree" onClick="Check(#{member.student_id},'ACCEPTED')") 通过
 
                     div(onclick="location.href='#'") #{member.name}
+
+    #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                    h4#myModalLabel.modal-title 请选择队长
+                .modal-body
+                    form
+                        for member in team_members
+                            if member.accepted=="Accepted"
+                                tr
+                                    td(style="width:50px")
+                                        input(type="radio" name="leader" value="#{member.student_id}")
+                                    td
+                                        a( class="link",style="color:#222;font-size:16px")
+                                            span(style="margin-left:10px;")   #{member.name}
+                                    br
+                .modal-footer
+                    button.btn.btn-default(type='button', data-dismiss='modal') 关闭
+                    button.btn.btn-primary(type='button' onclick="ChangeLeader()") 更换
+
     script(type='text/javascript').
         var TeamApply = function (action) {
             $.post("/course/#{course.course_id}/team/#{team.team_id}/team_apply/", {
@@ -82,4 +105,18 @@ block content
                     alert(data.msg);
                 }
             })
+        };
+        var ChangeLeader = function () {
+            $.post("/course/#{course.course_id}/team/#{team.team_id}/leader",{
+                leader_id: $( "input:checked" ).val()
+            }, function (data) {
+                if (data.msg == "success") {
+                    console.log("success");
+                    location.reload();
+                }
+                else {
+                    alert(data.msg);
+                    location.reload();
+                }
+            });
         };

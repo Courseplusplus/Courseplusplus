@@ -290,6 +290,19 @@ exports.team_apply = function (req, res, next) {
 
 };
 
+exports.leader = function (req, res, next) {
+	var team_id = req.params.team_id;
+	console.log(team_id);
+	var Team = global.db.models.team;
+	Team.findById(team_id).then(function (team) {
+		team.update({
+			student_id: req.body.leader_id
+		}).then(function () {
+			res.json({msg:"更换成功"});
+		});
+	});
+};
+
 function assert(condition, message) {
 	if (!condition) {
 		throw message || "Assertion failed";
