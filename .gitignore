@@ -4,7 +4,9 @@ SubmitFolder/
 # Logs
 logs
 *.log
-resources/
+resources/assignments/intro/*
+resources/assignments/submits/*
+resources/resources/*
 npm-debug.log*
 
 # Runtime data

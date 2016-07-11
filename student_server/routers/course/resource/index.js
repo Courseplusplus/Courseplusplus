@@ -11,7 +11,7 @@ var router = express.Router({
 
 router.get('/', resource_controller.index);
 
-router.get('/:id', resource_controller.show);
+router.get('/:resource_id', resource_controller.show);
 
 
 module.exports = router;

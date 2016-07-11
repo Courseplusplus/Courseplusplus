@@ -7,7 +7,7 @@ var Errors = require('../../../libs').Errors;
 var request = require('request');
 
 exports.index = function(req,res){
-    var course_id = req.params.id;
+    var course_id = req.params.course_id;
     console.log("http://127.0.0.1:3001/api/course/"+course_id+"/resource");
     console.log(request);
     request("http://127.0.0.1:3001/api/course/"+course_id+"/resource",function(err,response,body){

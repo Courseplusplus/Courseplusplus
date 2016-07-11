@@ -17,7 +17,7 @@ block content
                 td #{item['team_name']}
                 td #{new Date(item['created_at']).toISOString().replace(/T/, ' ').replace(/\..+/, '')}
                 td #{item['student_id']}
-                td #{item['permission']=='Teaming'?'未处理':item['permission']=='Permited'?'已通过':'已拒绝'}
+                td #{item['permission']=='Teaming'?'未处理':item['permission']=='Permitted'?'已通过':'已拒绝'}
                 td
                     a.btn.btn-default(style="border-radius:2px;padding:1px 5px;font-size:12px;" onclick="operator('accept',#{item['team_id']})") 通过
                     span &nbsp;&nbsp;

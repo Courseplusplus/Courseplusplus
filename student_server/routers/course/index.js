@@ -12,10 +12,10 @@ var router = express.Router({
 
 
 router.get('/',course_controller.index);
-router.get('/:id/',course_controller.single);
-router.use('/:id/assignment', assignment_router);
-router.use('/:id/team',team_router);
-router.use('/:id/resource', resource_router);
-router.use('/:id/chat', chat_router);
+router.get('/:course_id/',course_controller.single);
+router.use('/:course_id/assignment', assignment_router);
+router.use('/:course_id/team',team_router);
+router.use('/:course_id/resource', resource_router);
+router.use('/:course_id/chat', chat_router);
 
 module.exports = router;
