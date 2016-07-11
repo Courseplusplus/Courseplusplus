@@ -20,11 +20,6 @@ module.exports = function (sequelize, DataTypes) {
         end_date:{
             type: DataTypes.DATE,
             allowNull: false
-        },
-        total_week:{
-            type:DataTypes.INTEGER,
-            allowNull:false,
-            defaultValue: 17
         }
     }, {
         underscored: true
