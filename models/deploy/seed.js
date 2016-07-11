@@ -1,6 +1,6 @@
 (function () {
     var config = require('../../admin_server/config.json');
-    var libs = require('../../libs');
+    //var libs = require('../../lib/');
     var database = require('../')(
         config.mysql.database,
         config.mysql.username,
