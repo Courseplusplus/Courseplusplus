@@ -18,6 +18,6 @@ router.use('/teacher',teacher_router);
 router.use('/student',student_router);
 router.use('/data_provider',api_router);
 //router.get('/set',controller.display);
-router.post('set',controller.set);
+router.post('/term',controller.term);
 
 module.exports = router;

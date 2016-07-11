@@ -1,5 +1,5 @@
 (function () {
-    var config = require('../../config.json');
+    var config = require('../../admin_server/config.json');
     var libs = require('../../libs');
     var database = require('../')(
         config.mysql.database,
