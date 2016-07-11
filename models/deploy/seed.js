@@ -143,7 +143,8 @@
                 for (var index in students) {
                     Student_Team.create({
                         "team_id": team.team_id,
-                        "student_id": students[index].student_id
+                        "student_id": students[index].student_id,
+	                    "accepted":"ACCEPTED"
                     });
                 }
             });
