@@ -4,10 +4,9 @@ extends layout
 block content
     div(class="col-sm-12 col-md-8" style="margin:auto")
         div(class="thumbnail")
-
-    div(class="col-sm-12 col-md-8" style="margin:auto")
+            p 当前是第#{week["current_week"]}周
         div(class="thumbnail")
-            h3 导入课程信息
+            h3 导入新课程
             form(action="/course", method="post",enctype="multipart/form-data")
                 div(class="form-group")
                     p 导入一个csv文件
@@ -16,7 +15,7 @@ block content
                     span(class="glyphicon glyphicon-upload")
                     span 导入
         div(class="thumbnail")
-            h3 导入教师信息
+            h3 导入新教师
             form(action="/teacher", method="post",enctype="multipart/form-data")
                 div(class="form-group")
                     p 导入一个csv文件
@@ -25,7 +24,7 @@ block content
                     span(class="glyphicon glyphicon-upload")
                     span 导入
         div(class="thumbnail")
-            h3 导入学生信息
+            h3 导入新学生
             form(action="/student", method="post",enctype="multipart/form-data")
                 div(class="form-group")
                     p 导入一个csv文件
