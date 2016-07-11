@@ -32,6 +32,21 @@ exports.show = function(req,res,next){
     });
 };
 
+exports.close = function (req,res,next) {
+    var course_id = req.params.course_id;
+    var Course = global.db.models.course;
+    Course.find({where:{course_id:course_id}}).then(function(course){
+        course.update({is_closed:true})
+    }).then(function(){
+        request(host+'/data_provider/course',function(err,response,body){
+            if (!err && response.statusCode == 200) {
+                res.render('course/index',{list:JSON.parse(body)["data"]});
+            }
+        });
+    })
+    //res.json({msg:"success", params:req.params});
+};
+
 exports.import = function(req,res){
     var form = new formidable.IncomingForm();
     var file_name = 'course.csv';
