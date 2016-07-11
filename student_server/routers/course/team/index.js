@@ -27,4 +27,6 @@ router.post('/:team_id', team_controller.apply);
 // 队长审核组队请求
 router.post('/:team_id/student/:student_id', team_controller.check);
 
+router.post('/:team_id/leader', team_controller.leader);
+
 module.exports = router;
