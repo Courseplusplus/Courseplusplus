@@ -1,6 +1,6 @@
 (function () {
     var config = require('../../admin_server/config.json');
-    var libs = require('../../lib');
+    //var libs = require('../../lib/');
     var database = require('../')(
         config.mysql.database,
         config.mysql.username,
@@ -104,7 +104,8 @@
                 for (var index in students) {
                     Student_Team.create({
                         "team_id": team.team_id,
-                        "student_id": students[index].student_id
+                        "student_id": students[index].student_id,
+	                      "accepted": "ACCEPTED"
                     });
                 }
             });
@@ -123,7 +124,8 @@
                 for (var index in students) {
                     Student_Team.create({
                         "team_id": team.team_id,
-                        "student_id": students[index].student_id
+                        "student_id": students[index].student_id,
+	                      "accepted": "ACCEPTED"
                     });
                 }
             });
@@ -181,14 +183,13 @@
         });
     });
     init_courses(require('./fixtures/courses'), function (courses) {
-        courses.forEach(function (course) {
-        //console.log(course.dataValues);
-        });
+	    init_teams();
     });
     init_assignment(require('./fixtures/assignment'), function (assignments) {
         assignments.forEach(function (assignment) {
         //console.log(assignment.dataValues);
         });
     });
+
 
 }());

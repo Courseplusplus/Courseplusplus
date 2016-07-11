@@ -9,7 +9,7 @@ var path = require('path');
 
 exports.index = function (req, res, next) {
 	console.log("assignment index");
-	course_id = req.params.id;
+	course_id = req.params.course_id;
 	console.log(course_id);
 	student_id = req.session.user.student_id;
 	var _course;
@@ -37,7 +37,7 @@ function assert(condition, message) {
 
 exports.show = function (req, res, next) {
 	var student_id = req.session.user.student_id;
-	var assignment_id = req.params.id;
+	var assignment_id = req.params.assignment_id;
 	var course_id = req.originalUrl.match(/\d+/g)[0];
 	console.log(assignment_id);
 	console.log(course_id);
@@ -98,7 +98,8 @@ var getFilePath = function (originPath) {
 	console.log(assignId);
 	console.log(teamId);
 
-	var _path = "./SubmitFolder/";
+	var _path = path.join(__dirname,"../../../../resources/assignments/submits/");
+	console.log(_path);
 	_path = _path + courId + '/';
 	try {
 		stats = fs.lstatSync(_path);
@@ -258,18 +259,19 @@ exports.download = function (req, res) {
 									team_id: team.team_id
 								}
 							}).then(function (submit) {
-								console.log(submit);
-								var _zip_filename = zip_filename(submit.file_path);
-								console.log(_zip_filename);
-								console.log(submit.file_path);
-								//set the archive name
-								res.attachment(_zip_filename);
-
-								//this is the streaming magic
-								archive.pipe(res);
-
-								archive.file(submit.file_path);
-								archive.finalize();
+								//console.log(submit);
+								//var _zip_filename = zip_filename(submit.file_path);
+								//console.log(_zip_filename);
+								//console.log(submit.file_path);
+								////set the archive name
+								//res.attachment(_zip_filename);
+								//
+								////this is the streaming magic
+								//archive.pipe(res);
+								//
+								//archive.file(submit.file_path);
+								//archive.finalize();
+								res.download(submit.file_path,submit.file_name);
 							});
 						}
 					});

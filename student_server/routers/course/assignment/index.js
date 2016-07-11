@@ -8,10 +8,10 @@ var router = express.Router({
 
 router.get('/', assignment_controller.index);
 
-router.get('/:id', assignment_controller.show);
+router.get('/:assignment_id', assignment_controller.show);
 
-router.get('/:id/download', assignment_controller.download);
+router.get('/:assignment_id/download', assignment_controller.download);
 
-router.post('/:id', assignment_controller.create);
+router.post('/:assignment_id', assignment_controller.create);
 
 module.exports = router;

@@ -21,10 +21,10 @@ module.exports = function (sequelize, DataTypes) {
             allowNull:false
         },
         file_path:{
-            type:DataTypes.STRING(100),
+            type:DataTypes.STRING(200),
             validate:{
                 notEmpty:true,
-                len:[1,100]
+                len:[1,200]
             }
         },
         file_name: {

@@ -12,12 +12,12 @@ var request_data_logger = require('../middlewares').request_data_logger;
 
 
 router.use(request_data_logger);
-router.get('/index',controller.index);
+router.get('/',controller.index);
 router.use('/course',course_router);
 router.use('/teacher',teacher_router);
 router.use('/student',student_router);
 router.use('/data_provider',api_router);
-//router.get('/set',controller.display);
 router.post('/term',controller.term);
+router.get('/term',controller.displayterm);
 
 module.exports = router;

@@ -66,7 +66,7 @@ module.exports = {
             var update_fields = [];
             if(req.body.hasOwnProperty('type')){
                 if(req.body.type == 'accept'){
-                    team['permission'] = 'Permited';
+                    team['permission'] = 'Permitted';
                 }else if(req.body.type == 'reject'){
                     team['permission'] = 'Denied';
                 }
