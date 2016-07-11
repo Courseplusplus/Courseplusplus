@@ -12,7 +12,20 @@ block content
             each team in teams
                 li(class="list-group-item list-group-item-custom" style="cursor: pointer")
                     div(onclick="location.href='/course/#{course['course_id']}/team/#{team.team_id}';" style="float:left") #{team.team_name}
-                    span(class="label label-default label-pill" style="margin-left:10px") 队伍审核中
+                    //span(class="label label-default label-pill" style="margin-left:10px") 队伍审核中
+                    if team.permission == "Teaming"
+                        .d-l.m-l-1
+                            span(class="label label-default label-pill label-line-center" style="background-color:blue") 队伍组队中
+                    else if team.permission == "Not Decided"
+                        .d-l.m-l-1
+                            span(class="label label-default label-pill label-line-center") 队伍待审核
+                    else if team.permission == "Permitted"
+                        .d-l.m-l-1
+                            span(class="label label-default label-pill label-line-center" style="background-color:green") 队伍已通过
+                    else if team.permission == "Denied"
+                        .d-l.m-l-1
+                            span(class="label label-default label-pill label-line-center" style="background-color:red") 队伍被拒绝
+
                     if team.accept_status == "Not Decided"
                         span(class="label label-default label-pill pull-xs-right label-line-center") 审核中
                     else if team.accept_status == "Accepted"

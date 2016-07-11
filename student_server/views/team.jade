@@ -6,12 +6,24 @@ block content
     div(class="panel panel-default")
         div(div class="panel-heading")
             | 队伍详情
-            if team.permission=="Not Decided"
+            if team.permission == "Teaming"
+                .d-l.f-r
+                    span(class="label label-default label-pill pull-xs-right label-line-center" style="background-color:blue") 队伍组队中
+                .d-l.f-r
+                    span(class="label pull-xs-right cus-btn" onClick="TeamApply('apply')") 申请
+            else if team.permission=="Not Decided"
                 .d-l.f-r
                     span(class="label label-default label-pill pull-xs-right label-line-center") 队伍待审核
                 .d-l.f-r
                     span(class="label label-default label-pill pull-xs-right cus-btn cus-btn-disagree" onClick="TeamApply('cancel')") 取消申请
             else if team.permission=="Permitted"
+                .d-l.f-r
+                    span(class="label label-default label-pill pull-xs-right label-line-center" style="background-color:green") 队伍已通过
+            else if team.permission=="Denied"
+                .d-l.f-r
+                    span(class="label label-default label-pill pull-xs-right label-line-center" style="background-color:red") 队伍被拒绝
+                .d-l.f-r
+                    span(class="label pull-xs-right cus-btn" onClick="TeamApply('apply')") 申请
         .panel-body
             | 队名: #{team.team_name}
         .panel-body
@@ -39,8 +51,19 @@ block content
                     div(onclick="location.href='#'") #{member.name}
     script(type='text/javascript').
         var TeamApply = function (action) {
-
-        }
+            $.post("/course/#{course.course_id}/team/#{team.team_id}/team_apply/", {
+                action: action
+            }, function (data) {
+                if (data.msg == "success") {
+                    console.log("success");
+                    location.reload();
+                }
+                else {
+                    alert(data.msg);
+                    location.reload();
+                }
+            })
+        };
         var Check = function (student_id, accepted) {
             $.post("/course/#{course.course_id}/team/#{team.team_id}/student/"+student_id,{
                 accepted: accepted

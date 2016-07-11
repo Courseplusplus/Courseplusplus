@@ -173,12 +173,14 @@ exports.show = function (req, res, next) {
 
 exports.apply = function (req, res, next) {
 	var Team = global.db.models.team;
-	var team_id = req.params.id;
-	console.log(team_id);
-	var ids = req.originalUrl.split("/");
-	var course_id = ids[2];
-	var student_id = req.session.user.student_id;
 	var Student_belongsto_Team = global.db.models.student_belongsto_team;
+	var team_id = req.params.team_id;
+	var course_id = req.params.course_id;
+	var student_id = req.session.user.student_id;
+	console.log("team_id",team_id);
+	console.log("course_id",course_id);
+	console.log("student_id",student_id);
+
 	//var Student = global.db.models.student;
 	//先判断学生是否在这门课里面已经加入团队;
 	Team.findAll({
@@ -202,7 +204,7 @@ exports.apply = function (req, res, next) {
 		}
 		else {
 			assert(teams.length == 1);
-			res.json({msg: "fail"});
+			res.json({msg: "已经加入队伍的同学不能再申请别的队"});
 		}
 	});
 };
@@ -260,13 +262,29 @@ exports.check = function (req, res, next) {
 };
 
 exports.team_apply = function (req, res, next) {
+	var status;
+	if(req.body.action == "apply")
+		status="Not Decided";
+	else if (req.body.action=="cancel")
+		status="Teaming";
+	console.log(req.body.action);
 	var Team = global.db.models.team;
-	var ids = req.originalUrl.split("/");
-	var course_id = ids[2];
-	var team_id = ids[4];
-	var student_id = ids[6];
-	res.json({msg:"team apply"});
-}
+	var Student_belongsto_Team = global.db.models.student_belongsto_team;
+	var team_id = req.params.team_id;
+	var course_id = req.params.course_id;
+	var student_id = req.session.user.student_id;
+	console.log("team_id",team_id);
+	console.log("course_id",course_id);
+	console.log("student_id",student_id);
+	Team.findById(team_id).then(function (team) {
+		team.update({
+			permission: status
+		}).then(function () {
+			res.json({msg:"申请成功"});
+		});
+	});
+
+};
 
 function assert(condition, message) {
 	if (!condition) {

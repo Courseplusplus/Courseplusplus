@@ -16,13 +16,13 @@ router.get('/', team_controller.index);
 // 创建队伍
 router.post('/', team_controller.create);
 
-router.post('/:id/team_apply', team_controller.team_apply);
+router.post('/:team_id/team_apply', team_controller.team_apply);
 
 // 查看id的队伍
-router.get('/:id', team_controller.show);
+router.get('/:team_id', team_controller.show);
 
 // 申请加入队伍
-router.post('/:id', team_controller.apply);
+router.post('/:team_id', team_controller.apply);
 
 // 队长审核组队请求
 router.post('/:team_id/student/:student_id', team_controller.check);
