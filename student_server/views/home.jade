@@ -1,6 +1,5 @@
 //
    Created by zhangxinru on 16/7/5.
-
 doctype html
 html
     head
@@ -9,12 +8,8 @@ html
         link(rel='stylesheet', href='/css/index.css')
         link(rel='stylesheet', href='/css/style.css')
         link(rel='stylesheet', href='/iconfont/css/font-awesome.min.css')
-        link(rel="stylesheet", href="/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css")
-        //link(rel='stylesheet', href='/flat/dist/css/flat-ui.css')
         script(src="/js/jquery.min.js")
         script(src="/bootstrap/js/bootstrap.min.js")
-        script(src="/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js")
-        script(src="/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js")
     body
         nav(class="navbar navbar-default" style="margin-bottom:0px; padding:0 15px;padding-left:50px")
             div(class="container-fluid")
@@ -23,28 +18,14 @@ html
                 div(class="collapse navbar-collapse" id="bs-example-navbar-collapse-1")
                     ul(class="nav navbar-nav navbar-right" style="margin:12px;")
                         a(href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="nav_menu")
-                            span(style="text-decoration:none") #{!session.hasOwnProperty('user') || session.user.length == 0 ? '请登录' : session["user"]['teacher_name']}
+                            span(style="text-decoration:none") Dropdown
                             span(class="caret")
                         ul(class="dropdown-menu" style="margin-right:12px;")
                             li
                                 a(href="#") 用户
-                                a(href="#" onclick="operate('#{!session.hasOwnProperty('user') || session.user.length == 0 ? 'login' : 'logout'}')") #{!session.hasOwnProperty('user') || session.user.length == 0 ? '登录' : '退出登录'}
-        script(type="text/javascript").
-            function operate(type) {
-                if (type == 'login') {
-                    window.location = '/user/login';
-                } else {
-                    $.ajax({
-                        type: "GET",
-                        url: '/user/login/logout',
-                        success: function (msg) {
-                            window.location.reload();
-                        }
-                    });
-                }
-            }
+                                a(href="/user/login") 登录
         block side
-        block index
+        //block content
         div.footer.col-lg-12(style="background-color:#fff;margin-top:50px;height:50px; border-top:1px solid #ccc;")
             .container
                 .footer-top(style="padding:1em;")
@@ -57,3 +38,20 @@ html
                             i.icon-envelope(stype="margin-left:10px;")
                         .col-lg-2
                             i.icon-twitter(stype="margin-left:10px;")
+script(type='text/javascript').
+    var FindCourseId = function () {
+        var href_array = window.location.href.split("/");
+        for (var idx = 0; idx < href_array.length; idx++) {
+            console.log(idx);
+            if (href_array[idx] == "course") {
+                return href_array[idx + 1];
+            }
+        }
+        return 1;
+    };
+    var course_id = FindCourseId();
+    $('#side-class').attr({href: "/course/" + course_id});
+    $('#side-resource').attr({href: "/course/" + course_id + "/resource"});
+    $('#side-assignment').attr({href: "/course/" + course_id + "/assignment"});
+    $('#side-team').attr({href: "/course/" + course_id + "/team"});
+    $('#side-chat').attr({href: "/course/" + course_id + "/chat"});
