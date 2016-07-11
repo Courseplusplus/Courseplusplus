@@ -2,14 +2,22 @@ var fs        = require('fs');
 var path      = require('path');
 var archiver  = require('archiver');
 
+function hasSubmits(course_id,assignment_id) {
+    var submit_path = path.join(__dirname, "../../../../resources/assignments/submits/" + course_id + "/" + assignment_id );
+    return fs.existsSync(submit_path);
+}
+
 module.exports = {
     index:function(req,res){
         var Assignment = global.db.models.assignment;
         var Course     = global.db.models.course;
         var course_id  = req.params.course_id;
         Assignment.findAll({where:{course_id:course_id}}).then(function(assignments){
+            for(var index in assignments){
+                assignments[index]['hasSubmits'] = hasSubmits(course_id,assignments[index]['assignment_id']);
+            }
             Course.findOne({where:{course_id:course_id}}).then(function(course){
-                res.render('course/assignments',{list:assignments,params:req.params,course:course});
+                res.render('course/assignments',{list:assignments,course:course,params:req.params,session:req.session});
             });
         });
     },
@@ -22,7 +30,7 @@ module.exports = {
                 var data = JSON.parse(body)["data"];
                 var file_name = path.basename(data['assignment']['file_path']);
                 var order   = req.query.order?req.query.order:data['assignment']['lesson'];
-                res.render('course/assignment',{data:data,order:order,file_name:file_name,params:req.params});
+                res.render('course/assignment',{data:data,order:order,file_name:file_name,params:req.params,session:req.session});
             }
         });
     },
@@ -94,16 +102,41 @@ module.exports = {
 
         //res.json({msg:msg,router:"course/assignment.makr",params:req.params,post_body:req.body});
     },
+    download_all:function(req,res){
+        var archive       = archiver('zip');
+        var course_id     = req.params.course_id;
+        var assignment_id = req.params.assignment_id;
+        var team_id       = req.params.team_id;
+        var submit_path   = path.join(__dirname,"../../../../resources/assignments/submits/"+course_id+"/"+assignment_id);
+        if(fs.existsSync(submit_path)){
+            var file_name = "Assignment.zip";
+            res.attachment(file_name);
+            archive.directory(submit_path,'/Assignment');
+            archive.pipe(res);
+            archive.finalize();
+        }else{
+            var msg = '批量下载学生作业';
+            console.log(submit_path);
+            res.json({msg:msg,router:"course/assignment.download",params:req.params});
+        }
+    },
     download:function(req,res){
         var archive       = archiver('zip');
         var course_id     = req.params.course_id;
         var assignment_id = req.params.assignment_id;
         var team_id       = req.params.team_id;
-        var Submit        = global.db.models.submit;
-        var submit_path   = path.join(__dirname,"../../../../resources/assignments/"+course_id+"/"+assignment_id+"/"+team_id);
-        console.log(submit_path);
-        var msg = '下载学生作业';
-        res.json({msg:msg,router:"course/assignment.download",params:req.params});
+        var submit_path   = path.join(__dirname,"../../../../resources/assignments/submits/"+course_id+"/"+assignment_id+"/"+team_id);
+        if(fs.existsSync(submit_path)){
+            var file_name = 'Team'+team_id+".zip";
+            res.attachment(file_name);
+            archive.directory(submit_path,'/Team'+team_id);
+            archive.pipe(res);
+            archive.finalize();
+        }else{
+            var msg = '下载学生作业';
+            console.log(submit_path);
+            res.json({msg:msg,router:"course/assignment.download",params:req.params});
+        }
     },
     download_intro:function(req,res){
         var msg = "下载附加说明";
@@ -111,7 +144,6 @@ module.exports = {
     },
     upload:function(req,res){
         var course_id     = req.params.course_id;
-        var assignment_id = req.params.assignment_id;
         var file_size     = req.files.attachment.size;
 
         if( file_size > 0 ){

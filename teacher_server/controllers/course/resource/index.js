@@ -3,7 +3,7 @@ module.exports = {
         var Resource   = global.db.models.resource;
         var course_id  = req.params.course_id;
         Resource.findAll({where:{course_id:course_id}}).then(function(resources){
-            res.render('course/resources',{list:resources,params:req.params});
+            res.render('course/resources',{list:resources,params:req.params,session:req.session});
         });
         //var msg = '展示课程的所有资源';
         //res.json({msg:msg,router:"course/resource.index.js",params:req.params});

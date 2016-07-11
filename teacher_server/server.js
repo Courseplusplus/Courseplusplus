@@ -36,7 +36,6 @@ app.use(session({
     }),
     cookie: {maxAge: 1000 * 60 * 60 * 48} //null to create a browser-session
 }));
-
 app.use(routes);
 
 app.use(errors_handler);
