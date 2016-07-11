@@ -30,21 +30,3 @@ block content
                 button(type="submit" value="Upload" class="btn btn-default")
                     span(class="glyphicon glyphicon-upload")
                     span 导入
-    div(class="col-sm-12 col-md-8" style="margin:auto")
-        div(class="thumbnail")
-            h3 设置学期
-            div(class="form-group")
-                form(action="/term", method="post",enctype="multipart/form-data")
-                    lable 学期名称
-                    input(class="form-control", type ="text", name = "term_id",size = "10", maxlength= "20", style = "margin-left:5px")
-
-                    label 开始日期
-                    input( class="form-control",type="date",name = "start_date",size = "10" maxlength="20" style="margin-left:5px")
-
-                    label 结束日期
-                    input( class="form-control",type="date",name = "end_date",size = "10" maxlength="20" style="margin-left:5px")
-
-                    button(type="submit" value="Upload" class="btn btn-default")
-                        span(class="glyphicon glyphicon-upload")
-                        span 确认
-
