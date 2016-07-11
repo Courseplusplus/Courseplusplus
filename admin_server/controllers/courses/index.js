@@ -82,23 +82,21 @@ exports.import_student = function(req,res){
                             if(student) {
                                 course.addStudent(student);
                                 //console.log(course);
-                                var course_id = req.params.course_id;
-                                var course_json = [];
-                                var student_json = [];
-                                var teacher_json = [];
-                                request(host + '/data_provider/course/'+course_id,function (err,response,body) {
-                                    course_json = JSON.parse(body)["data"];
-                                    request(host +'/data_provider/course/'+course_id+'/student',function(err,response,body){
-                                        student_json = JSON.parse(body)["data"];
-                                        request(host +'/data_provider/course/'+course_id+'/teacher',function(err,response,body){
-                                            teacher_json = JSON.parse(body)["data"];
-                                        });
-                                    });
-                                    res.render('course/profile',{course:course_json,teacher:teacher_json,student:student_json});
-                                });
                             }
                         })
                     }
+                }).then(function(){
+                    var course_id = req.params.course_id;
+                    request(host + '/data_provider/course/'+course_id,function (err,response,body) {
+                        var course_json = JSON.parse(body)["data"];
+                        request(host +'/data_provider/course/'+course_id+'/student',function(err,response,body){
+                            var student_json = JSON.parse(body)["data"];
+                            request(host +'/data_provider/course/'+course_id+'/teacher',function(err,response,body){
+                                var teacher_json = JSON.parse(body)["data"];
+                                res.render('course/profile',{course:course_json,teacher:teacher_json,student:student_json});
+                            });
+                        });
+                    });
                 });
             });
             rs.pipe(parser);
@@ -130,23 +128,21 @@ exports.import_teacher = function(req,res){
                             if(teacher) {
                                 course.addTeacher(teacher);
                                 //console.log(course);
-                                var course_id = req.params.course_id;
-                                var course_json = [];
-                                var student_json = [];
-                                var teacher_json = [];
-                                request(host + '/data_provider/course/'+course_id,function (err,response,body) {
-                                    course_json = JSON.parse(body)["data"];
-                                    request(host +'/data_provider/course/'+course_id+'/student',function(err,response,body){
-                                        student_json = JSON.parse(body)["data"];
-                                        request(host +'/data_provider/course/'+course_id+'/teacher',function(err,response,body){
-                                            teacher_json = JSON.parse(body)["data"];
-                                        });
-                                    });
-                                    res.render('course/profile',{course:course_json,teacher:teacher_json,student:student_json});
-                                });
                             }
                         })
                     }
+                }).then(function(){
+                    var course_id = req.params.course_id;
+                    request(host + '/data_provider/course/'+course_id,function (err,response,body) {
+                        var course_json = JSON.parse(body)["data"];
+                        request(host +'/data_provider/course/'+course_id+'/student',function(err,response,body){
+                            var student_json = JSON.parse(body)["data"];
+                            request(host +'/data_provider/course/'+course_id+'/teacher',function(err,response,body){
+                                var teacher_json = JSON.parse(body)["data"];
+                                res.render('course/profile',{course:course_json,teacher:teacher_json,student:student_json});
+                            });
+                        });
+                    });
                 });
             });
             rs.pipe(parser);
