@@ -27,4 +27,4 @@ module.exports = {
     displayterm:function(req,res){
         res.render('set')
     }
-};
+}
