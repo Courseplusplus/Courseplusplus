@@ -57,7 +57,7 @@ if (app.get('env') === 'development') {
 }
 
 app.set_globals = function () {
-    global.db = require('./models')(
+    global.db = require('../models')(
         global.config.mysql.database,
         global.config.mysql.username,
         global.config.mysql.password,
