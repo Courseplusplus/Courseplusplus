@@ -9,7 +9,7 @@ module.exports = function (sequelize, DataTypes) {
             primaryKey: true,
             validate:{
                 notEmpty:true,
-                is:/^\d{4}年(春|夏|秋|冬)季学期 $/i
+                is:/^\d{4}年(春|夏|秋|冬)季学期$/i
             }
         },
         start_date:{
