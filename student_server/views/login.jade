@@ -3,34 +3,50 @@
 
 doctype html
 html
-   head
-      title= title
-      link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
-      link(rel='stylesheet', href='/css/index.js.css')
-      link(rel='stylesheet', href='/iconfont/css/font-awesome.min.css')
-      script(src="/js/jquery.min.js")
-      script(src="/bootstrap/js/bootstrap.min.js")
-   body
-      nav(class="navbar navbar-default" style="margin-bottom:0px; padding:0 15px;padding-left:50px")
-         div(class="container-fluid")
-            div(class="navbar-header")
-               a(class='navbar-brand' style="font-size:16px") Course++
-            div(class="collapse navbar-collapse" id="bs-example-navbar-collapse-1")
-               ul(class="nav navbar-nav navbar-right" style="margin:12px;")
-                  a(href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="nav_menu")
-                     span(style="text-decoration:none") Dropdown
-                     span(class="caret")
-                  ul(class="dropdown-menu" style="margin-right:12px;")
-                     li
-                        a(href="#") 用户
-                        a(href="/user/login") 登录
+    head
+        title= title
+        link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/css/index.css')
+        link(rel='stylesheet', href='/iconfont/css/font-awesome.min.css')
+        script(src="/js/jquery.min.js")
+        script(src="/bootstrap/js/bootstrap.min.js")
+    body
+        nav(class="navbar navbar-default" style="margin-bottom:0px; padding:0 15px;padding-left:50px")
+            div(class="container-fluid")
+                div(class="navbar-header")
+                    a(class='navbar-brand' style="font-size:16px") Course++
+                div(class="collapse navbar-collapse" id="bs-example-navbar-collapse-1")
+                    ul(class="nav navbar-nav navbar-right" style="margin:12px;")
+                        a(href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="nav_menu")
+                            span(style="text-decoration:none") Dropdown
+                            span(class="caret")
+                        ul(class="dropdown-menu" style="margin-right:12px;")
+                            li
+                                a(href="/user/login" ) 退出登录
 
 
-   div(id="full" class="container" style="margin:0px;padding:0px;width:100%;background-color:#ddd")
-      div(class="card card-container" style="width: 350px;padding: 40px 40px;margin: 100px auto;border-radius: 2px;box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);background-color:#fff")
-         img(id="profile-img" class="profile-img-card" src="/image/avatar_2x.png" style="width: 96px;height: 96px;margin: auto;display:block;border-radius: 50%;margin-bottom:15px")
-         form(class="form-signin" action="/user/login" method="post")
-            span(id="reauth-email" class="reauth-email")
-            input(type="" name="student_id" id="inputEmail" class="form-control" placeholder="User Name" style="margin-bottom: 10px;" required autofocus)
-            input(type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" style="margin-bottom: 10px;" required)
-            button(class="btn btn-lg btn-primary btn-block btn-signin" type="submit") 登录
+    div(id="full" class="container" style="margin:0px;padding:0px;width:100%;background-color:#ddd")
+        div(class="card card-container" style="width: 350px;padding: 40px 40px;margin: 100px auto;border-radius: 2px;box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);background-color:#fff")
+            img(id="profile-img" class="profile-img-card" src="/image/avatar_2x.png" style="width: 96px;height: 96px;margin: auto;display:block;border-radius: 50%;margin-bottom:15px")
+            form(class="form-signin" action="/user/login" method="post" id="login")
+                span(id="reauth-email" class="reauth-email")
+                input(type="" name="student_id" id="inputEmail" class="form-control" placeholder="User Name" style="margin-bottom: 10px;" required autofocus)
+                input(type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" style="margin-bottom: 10px;" required)
+                a(class="btn btn-lg btn-primary btn-block btn-signin" onclick="login()") 登录
+
+    script(type="text/javascript").
+        function login() {
+            $.ajax({
+                type: "POST",
+                url: "/user/login",
+                data: $("#login").serialize(),
+                success: function (data) {
+                    if (data['status'] == 1) {
+                        window.location = "/";
+                    } else {
+                        alert(data['message']);
+                        window.location.reload();
+                    }
+                }
+            });
+        }

@@ -12,6 +12,6 @@ exports.single = function(req, res, next){
   var Course = global.db.models.course;
   Course.findById(req.params.course_id).then(function(course) {
     console.log(course);
-      res.render('course',{course: course});
+      res.render('course',{course: course, session:req.session});
   });
 };

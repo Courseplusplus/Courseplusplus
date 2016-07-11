@@ -24,7 +24,7 @@ exports.index = function (req, res, next) {
 		}).then(function (assignments) {
 			console.log(assignments);
 			console.log(_course);
-			res.render('assignment', {assignments: assignments, course: _course});
+			res.render('assignment', {assignments: assignments, course: _course,session:req.session});
 		});
 	});
 };
@@ -70,22 +70,22 @@ exports.show = function (req, res, next) {
 											assignment_id: assignment.assignment_id
 										}
 									}).then(function (submits) {
-										res.render('submit', {course: course, assignment: assignment, team: team, submits: submits});
+										res.render('submit', {course: course, assignment: assignment, team: team, submits: submits, session:req.session});
 									});
 								}
 								else if (cnt == student_bl_teams.length) {
-									res.render('submit', {course: course, assignment: assignment, team: team, submits: []});
+									res.render('submit', {course: course, assignment: assignment, team: team, submits: [], session:req.session});
 								}
 							});
 						} else {
 							cnt++;
 							if (cnt == student_bl_teams.length) {
-								res.render('submit', {course: course, assignment: assignment, team: team, submits: []});
+								res.render('submit', {course: course, assignment: assignment, team: team, submits: [], session:req.session});
 							}
 						}
 					}
 				} else {
-					res.render('submit', {course: course, assignment: assignment, team: {}, submits: []});
+					res.render('submit', {course: course, assignment: assignment, team: {}, submits: [], session:req.session});
 				}
 			});
 		});
@@ -185,6 +185,7 @@ exports.create = function (req, res, next) {
 									console.log("teamId " + teamId);
 									console.log(file.path);
 									var new_file_path = getFilePath(file.path);
+									new_file_path = path.dirname(new_file_path)+'/'+file.name;
 									Submit.create({
 										submitter_id: student_id,
 										submit_time: new Date(),
@@ -193,9 +194,7 @@ exports.create = function (req, res, next) {
 										assignment_id: assignment_id,
 										team_id: teamId
 									}).then(function (submit) {
-										console.log("new path " + new_file_path);
 										fs.rename(file.path, new_file_path);
-										// 302 jump
 										res.writeHead(302, {
 											'Location': '/course/' + course_id + '/assignment/' + assignment_id
 										});
@@ -271,7 +270,8 @@ exports.download = function (req, res) {
 								//
 								//archive.file(submit.file_path);
 								//archive.finalize();
-								res.download(submit.file_path,submit.file_name);
+								console.log(submit);
+								res.download(submit.file_path);
 							});
 						}
 					});
@@ -284,5 +284,21 @@ exports.download = function (req, res) {
 			res.json({msg:"fail"});
 		}
 
+	});
+};
+
+exports.download_intro = function(req,res,next){
+	var ids = req.originalUrl.split("/");
+	var assignment_id = ids[4];
+	var Assignment    = global.db.models.assignment;
+	Assignment.findOne({where:{assignment_id:assignment_id}}).then(function(assignment){
+		var file_path = assignment['file_path'];
+		console.log(file_path);
+		fs.exists(file_path,function(exists){
+			if(exists)
+				res.download(file_path);
+			else
+				res.json({msg:'failed'});
+		});
 	});
 };

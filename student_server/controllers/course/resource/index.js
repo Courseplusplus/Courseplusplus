@@ -12,10 +12,10 @@ exports.index = function(req,res){
     console.log(request);
     request("http://127.0.0.1:3001/api/course/"+course_id+"/resource",function(err,response,body){
         if (!err && response.statusCode == 200) {
-            res.render("resources",{msg:"success",list:JSON.parse(body)["data"],params:req.params});
+            res.render("resources",{msg:"success",list:JSON.parse(body)["data"],params:req.params, session:req.session});
             //console.log('here');
         }else{
-            res.render("resources",{msg:"failed, data api response faild"});
+            res.render("resources",{msg:"failed, data api response faild", session:req.session});
         }
     });
 };

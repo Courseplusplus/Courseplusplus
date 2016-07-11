@@ -8,7 +8,7 @@ module.exports = {
 	index: function (req, res) {
 		var Course = global.db.models.course;
 		Course.findAll().then(function (courses) {
-			res.render('index', {list: courses});
+			res.render('index', {list: courses, session:req.session});
 		});
 	}
 };

@@ -65,8 +65,8 @@ module.exports = {
                 update_field.push('deadline');
             }
             if(req.body.assignment_intro!=""){
-                assignment['assignment_intro'] = req.body.assignment_intro;
-                update_field.push('assignment_intro');
+                assignment['assignment_introduction'] = req.body.assignment_intro;
+                update_field.push('assignment_introduction');
             }
             if(targetPath!="") {
                 assignment['file_path'] = targetPath;
@@ -121,17 +121,33 @@ module.exports = {
         }
     },
     download:function(req,res){
+        var Assignment    = global.db.models.assignment;
         var archive       = archiver('zip');
         var course_id     = req.params.course_id;
         var assignment_id = req.params.assignment_id;
         var team_id       = req.params.team_id;
+        var submitter_id  = req.query.submitter_id;
         var submit_path   = path.join(__dirname,"../../../../resources/assignments/submits/"+course_id+"/"+assignment_id+"/"+team_id);
         if(fs.existsSync(submit_path)){
-            var file_name = 'Team'+team_id+".zip";
-            res.attachment(file_name);
-            archive.directory(submit_path,'/Team'+team_id);
-            archive.pipe(res);
-            archive.finalize();
+            var file_name = "";
+            Assignment.findOne({where:{assignment_id:assignment_id}}).then(function(assignment){
+                var type = assignment['assignment_type'];
+                switch(type){
+                    case "TEAM":
+                        file_name = 'Team'+team_id;
+                        break;
+                    case "SINGLE":
+                        file_name = submitter_id;
+                        break;
+                    default:
+                        file_name = "download";
+                        break;
+                }
+                res.attachment(file_name+".zip");
+                archive.directory(submit_path,file_name);
+                archive.pipe(res);
+                archive.finalize();
+            });
         }else{
             var msg = '下载学生作业';
             console.log(submit_path);

@@ -1,30 +1,71 @@
 extends layout
 block content
 
-   //div(class="card")
-   //   div(class="card-header")
-   //      #{assignment.assignment_introduction}
-   //   div(class="card-block")
-   //      ul(class="list-group")
-   //         each item in submits
-   //            li(class="list-group-item" style="cursor: pointer" onclick="location.href='/course/#{course['course_id']}/assignment/#{item.assignment_id}';")
-   //               span(class="label label-default label-pill pull-xs-right") 14
-   //               #{item.file_name}
+    //div(class="card")
+    //   div(class="card-header")
+    //      #{assignment.assignment_introduction}
+    //   div(class="card-block")
+    //      ul(class="list-group")
+    //         each item in submits
+    //            li(class="list-group-item" style="cursor: pointer" onclick="location.href='/course/#{course['course_id']}/assignment/#{item.assignment_id}';")
+    //               span(class="label label-default label-pill pull-xs-right") 14
+    //               #{item.file_name}
 
-   form(enctype="multipart/form-data" action="/course/#{course.course_id}/assignment/#{assignment.assignment_id}" method="post")
-      | Select file to upload:
-      input(type="file" name="fileUpload" id="fileToUpload")
-      input(type="submit" value="Upload Image" name="submit")
+    h1 #{course['course_name']}
 
-   h3 所有提交
-      table(class="table table-hover" style="margin-top:30px;")
-         each item in submits
-            tr
-               td
-                  div(class="col-lg-12")
-                     a(href="#",class="link col-lg-9",style="color:#222;font-size:14px")
-                        span #{item["file_name"]}
-                     a(class="link col-lg-3",href="/course/#{course['course_id']}/assignment/#{assignment['assignment_id']}/download" style="font-size:15px" download) 点击下载
+    div.panel.panel-default
+        div.panel-heading
+            h4 作业信息
+        div.panel-body
+            div.col-xs-12
+                div.col-xs-2
+                    h5 作业说明 ：
+                div.col-xs-10
+                    h5(style="font-weight:100") #{assignment['assignment_introduction']}
+            div.col-xs-12
+                div.col-xs-2
+                    h5 截止时间 ：
+                div.col-xs-10
+                    h5(style="font-weight:100") #{new Date(assignment['deadline']).toISOString().replace(/T/, ' ').replace(/\..+/, '')}
+            div.col-xs-12
+                div.col-xs-2
+                    h5 作业类型 ：
+                div.col-xs-10
+                    h5(style="font-weight:100") #{assignment['assignment_type']=='SINGLE'?'个人':'团队'}
+            div.col-xs-12
+                div.col-xs-2
+                    h5 当前状态 ：
+                div.col-xs-10
+                    h5(style="font-weight:100") #{new Date(assignment['deadline']).getTime()-Date.now()>0?'进行中':'超时'}
+            div.col-xs-12
+                div.col-xs-2
+                    h5 当前状态 ：
+                div.col-xs-10
+                    h5(style="font-weight:100")
+                        a.link(href="#{assignment['file_path']=='/'?'#':'./'+assignment['assignment_id']+'/download_intro'}") #{assignment['file_path']=="/"?"暂无":'点击下载'}
+    div.panel.panel-default
+        div.panel-heading
+            h4 提交作业
+        div.panel-body(style="padding-left:50px;")
+            form.form-horizontal(enctype="multipart/form-data" action="/course/#{course.course_id}/assignment/#{assignment.assignment_id}" method="post")
+                div.form-group
+                    input(type="file" name="fileUpload" id="fileToUpload")
+                div.form-group
+                    button.btn.btn-default(type="submit"  name="submit")
+                        span(class="glyphicon glyphicon-upload" style="margin-right:5px")
+                        span 提交作业
+
+    div.panel.panel-default
+        div.panel-heading
+            h4 历史提交
+        table(class="table table-hover")
+            each item in submits
+                tr
+                    td
+                        div(class="col-lg-12")
+                            a(href="#",class="link col-lg-9",style="color:#222;font-size:14px")
+                                span #{item["file_name"]}
+                            a(class="link col-lg-3",href="/course/#{course['course_id']}/assignment/#{assignment['assignment_id']}/download" style="font-size:15px" download) 点击下载
 
 
-   script(type='text/javascript').
+    script(type='text/javascript').

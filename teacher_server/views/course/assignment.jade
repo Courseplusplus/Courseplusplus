@@ -26,7 +26,7 @@ block content
                 tr
                     td.assignment-file 附加说明
                     td
-                        a.link(href="#") #{data['assignment']['file_path']==""?"暂无":file_name}
+                        a.link(href="#") #{data['assignment']['file_path']=="/"?"暂无":file_name}
 
         div(class="col-lg-4")
 
@@ -83,7 +83,7 @@ block content
     h4 学生作业提交情况
     table(class="table table-hover table-bordered" )
         thead
-            td 名称
+            td 提交者
             td 提交时间
             td 分数
             td 状态
@@ -92,8 +92,7 @@ block content
             tr
                 td
                     a(href="#",class="link",style="color:#222;font-size:16px")
-                        span(class="glyphicon glyphicon-folder-close")
-                        span(style="margin-left:10px;")   Team #{index+1}
+                        span   #{data['assignment']['assignment_type']=='TEAM'?"Team "+item['submit']['team_id']:item['submit']['submitter_id']}
                 td
                     span 2016-07-11 14:34:40
                 td
@@ -101,7 +100,7 @@ block content
                 td
                     span #{item['submit']['grade']?'已评分':'未评分'}
                 td
-                    a(class="btn btn-default" style="border-radius:2px;padding:1px 5px;font-size:12px;" href="./#{item['submit']['assignment_id']}/team/#{item['submit']['team_id']}/download") 下载
+                    a(class="btn btn-default" style="border-radius:2px;padding:1px 5px;font-size:12px;" href="./#{item['submit']['assignment_id']}/team/#{item['submit']['team_id']}/download?submitter_id=#{item['submit']['submitter_id']}") 下载
                     span &nbsp;&nbsp;
                     button(class="btn btn-default" data-toggle="modal" data-target="#mark#{item['submit']['submit_id']}" style="border-radius:2px;padding:1px 5px;font-size:12px;") 写评语
             div(class="modal fade",id="mark#{item['submit']['submit_id']}",tabindex="-1",role="dialog",aria-labelledby="markLabel" style="margin-top:100px")

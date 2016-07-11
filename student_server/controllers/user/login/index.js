@@ -7,8 +7,8 @@ var ResultConstructor = require('../../../libs').ResultConstructor; // 用于封
 var TokenValidator = require('../../../libs').TokenValidator;  // 用于校验访问授权码
 var Errors = require('../../../libs').Errors; // 封装了各种各样的错误
 
-exports.index = function(req,res){
-    res.render('login');
+exports.index = function (req, res) {
+    res.render('login', {session: req.session});
 };
 
 // 用户登录接口：
@@ -45,12 +45,12 @@ exports.create = function (req, res, next) {
             }
             else {
                 // 用户密码不匹配，抛出错误给下一层中间件，这里的InvalidLoginError对应非法登录
-                throw new Errors.errors_401.InvalidLoginError();
+                res.json({status: 0, message: '用户名或密码错误'});
             }
         }
         else {
             // 没有找到用户，抛出错误给下一层中间件，这里的InvalidLoginError对应非法登录
-            throw new Errors.errors_401.InvalidLoginError();
+            res.json({status: 0, message: '用户名或密码错误'});
         }
     }).then(function (new_user) {
         // 这里封装一下返回结果，可以看到json的结构与api文档是一致的
@@ -61,10 +61,7 @@ exports.create = function (req, res, next) {
             expires_at: req.session.user.expires_at
         };
         // 302 jump
-        res.writeHead(302, {
-            'Location': '/'
-        });
-        res.end();
+        res.json({status: 1, message: 'success'});
     }).catch(function (err) {
         // 若出现任何其他错误，则抛出错误给下一层中间件，这里的catch函数用来接收在数据库操作中出现的错误
         // err变量为异常对象，传递给下一层中间件去做错误处理

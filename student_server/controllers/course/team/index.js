@@ -31,7 +31,7 @@ exports.index = function (req, res) {
 						});
 					}
 					console.log(teams1);
-					res.render("teams", {teams: teams1, course: course});
+					res.render("teams", {teams: teams1, course: course, session:req.session});
 					//res.json({teams:teams1});
 					return;
 				}
@@ -159,7 +159,8 @@ exports.show = function (req, res, next) {
 										course: course,
 										student: student,
 										leader: leader,
-										team_members: team_members
+										team_members: team_members,
+										session:req.session
 									});
 								}
 							})
