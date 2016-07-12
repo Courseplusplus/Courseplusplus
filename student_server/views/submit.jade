@@ -51,9 +51,10 @@ block content
                 div.form-group
                     input(type="file" name="fileUpload" id="fileToUpload")
                 div.form-group
-                    button.btn.btn-default(type="submit"  name="submit")
+                    button.btn.btn-default(type="submit"  name="submit" class="#{new Date(assignment['deadline']).getTime()-Date.now()>0?'':'sr-only'}")
                         span(class="glyphicon glyphicon-upload" style="margin-right:5px")
                         span 提交作业
+                    p(style="color:red" class="#{new Date(assignment['deadline']).getTime()-Date.now()>0?'sr-only':''}") 已超时，无法提交
 
     div.panel.panel-default
         div.panel-heading

@@ -1,16 +1,16 @@
 [{
     "student_id": 13211014,
-    "name": "HeavenDuke",
+    "name": "朱峰达",
     "telephone": "18811409948",
     "password": "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
 }, {
     "student_id": 13211015,
-    "name": "BigBird",
+    "name": "李晨豪",
     "telephone": "13141474298",
     "password": "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
 }, {
     "student_id": 13211016,
-    "name": "AsherWang",
+    "name": "张馨如",
     "telephone": "13146021274",
     "password": "md5$11188111$5f5b3be22cd087acccdd9d2a081e2f1a"
 }]

@@ -13,5 +13,6 @@ router.get('/', resource_controller.index);
 
 router.get('/:resource_id', resource_controller.show);
 
+router.get('/:resource_id/download',resource_controller.download);
 
 module.exports = router;

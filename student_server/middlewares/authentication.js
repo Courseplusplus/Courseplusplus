@@ -36,10 +36,20 @@ module.exports = function (req, res, next) {
         }
         return null;
     };
-    if (validate_access_token(get_session_token(), get_created_at(), get_expires_at(), req.header("Authorization"))) {
-        next();
-    }
+    //if (validate_access_token(get_session_token(), get_created_at(), get_expires_at(), req.header("Authorization"))) {
+    //    next();
+    //}
+	if(req.session.user.student_id)
+	{
+		next();
+	}
     else {
-        throw new Errors.errors_401.InvalidAccessError();
+	    console.log(req.session);
+        //throw new Errors.errors_401.InvalidAccessError();
+	    // 302 jump
+	    res.writeHead(302, {
+		    'Location': '/user/login'
+	    });
+	    res.end();
     }
 };
