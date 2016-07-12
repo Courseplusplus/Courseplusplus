@@ -106,3 +106,9 @@ td{
 .m-l-1{
     margin-left: 10px;
 }
+.my-chat{
+    margin-top:15px;
+    background-color: #1ccf55;
+    border-radius: 5px;
+    vertical-align: middle;
+}
