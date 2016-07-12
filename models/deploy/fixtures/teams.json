@@ -1,14 +1,14 @@
 [
   {
-    "team_name":"teamA",
+    "team_name":"Course++",
     "permission":"Permited"
   },
   {
-    "team_name":"teamB",
+    "team_name":"Fly",
     "permission":"Not Decided"
   },
   {
-    "team_name":"teamC",
+    "team_name":"IEEE相声社",
     "permission":"Denied"
   }
 ]

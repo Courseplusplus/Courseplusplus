@@ -15,7 +15,7 @@ exports.index = function(req,res){
             res.render("resources",{msg:"success",list:JSON.parse(body)["data"],params:req.params, session:req.session});
             //console.log('here');
         }else{
-            res.render("resources",{msg:"failed, data api response faild", session:req.session});
+            res.render("resources",{msg:"failed, data api response faild", session:req.session,params:req.params});
         }
     });
 };
@@ -23,4 +23,12 @@ exports.index = function(req,res){
 exports.show = function(req,res,next){
 	console.log("resource show");
 	res.json({msg:"resource show"});
+};
+
+exports.download = function(req,res){
+    var resource_id = req.params.resource_id;
+    var Resource   = global.db.models.resource;
+    Resource.findOne({where:{resource_id:resource_id}}).then(function(resource){
+        res.download(resource.file_path);
+    });
 };

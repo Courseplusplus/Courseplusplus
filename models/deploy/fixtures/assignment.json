@@ -1,22 +1,8 @@
 [{
-  "assignment_type": "SINGLE",
-  "assignment_introduction": "软工作业",
+  "assignment_type": "TEAM",
+  "assignment_introduction": "第一次作业，大家尽快组队，上交组队表",
   "course_id": 1,
   "lesson":1,
   "deadline":"2016-08-03",
   "file_path":"/"
-}, {
-  "assignment_type": "SINGLE",
-  "assignment_introduction": "高数第五章",
-  "course_id": 2,
-  "lesson":2,
-  "deadline":"2016-08-03",
-  "file_path": "/"
-}, {
-  "assignment_type": "TEAM",
-  "assignment_introduction": "物理实验报告",
-  "course_id": 1,
-  "lesson":2,
-  "deadline":"2016-08-03",
-  "file_path": "/"
 }]
